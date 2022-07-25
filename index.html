@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front-end -- Challenge</title>
+    <link rel = "stylesheet" type = "text/css" href = "/node_modules/bootstrap/dist/css/bootstrap.css" />
+    <link rel = "stylesheet" type = "text/css" href = "/app.css" />
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/index.html">Home</a></li>
+					<li><a href="#" id="buy-items-navigation-option" data-toggle="modal" data-target="#exampleModalCenter">Buy</a></li>
+				</ul>
+				<span class="navbar-right navbar-text"><span id="gold-balance"></span> gold</span>
+			</div>
+		</div>
+	</div>
+	<div class="container body-content">
+		<h2>Hello, <span id="user-name"></span></h2>
+        <p>
+            Have a nice day
+		</p>
+		<h2>Current stocks</h2>
+		<div id="stock"></div>
+
+		<hr />
+		<footer>
+			<p>&copy; 2019 - New Day at Work</p>
+		</footer>
+	</div>
+
+
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered market" role="document">
+			<section class="market-header">
+				<h3 class="market-title">Order</h3>
+				<button class="close-market" data-dismiss="modal" aria-label="Close"><img src="icons/cross.png"></button>
+			</section>
+			<section class="market-products">
+				<ul class="products-list">
+					<li class="products-item">
+						<div class="item-container">
+							<img src="images/battle_axe.png" class="item-image">
+							<h4 class="item-name"></h4>
+							<span class="item-cost"> gold</span>
+							<div class="item-actions">
+								<button class="item-decrease"><img src="icons/minus.png"></button>
+								<input type="" name="item-quantity">
+								<button class="item-increase"><img src="icons/plus.png"></button>	
+							</div>			
+						</div>
+					</li>
+					<li class="products-item">
+						<div class="item-container">
+							<img src="images/wooden_shield.png" class="item-image">
+							<h4 class="item-name"></h4>
+							<span class="item-cost"> gold</span>	
+							<div class="item-actions">
+								<button class="item-decrease"><img src="icons/minus.png"></button>
+								<input type="" name="item-quantity">
+								<button class="item-increase"><img src="icons/plus.png"></button>
+							</div>		
+						</div>
+					</li>
+					<li class="products-item">
+						<div class="item-container">
+							<img src="images/bronze_sword.png" class="item-image">
+							<h4 class="item-name"></h4>
+							<span class="item-cost"> gold</span>
+							<div class="item-actions">
+								<button class="item-decrease"><img src="icons/minus.png"></button>
+								<input type="" name="item-quantity">
+								<button class="item-increase"><img src="icons/plus.png"></button>
+							</div>				
+						</div>
+					</li>
+					<li class="products-item">
+						<div class="item-container">
+							<img src="images/longsword.png" class="item-image">
+							<h4 class="item-name"></h4>
+							<span class="item-cost"> gold</span>	
+							<div class="item-actions">
+								<button class="item-decrease"><img src="icons/minus.png"></button>
+								<input type="" name="item-quantity">
+								<button class="item-increase"><img src="icons/plus.png"></button>
+							</div>	
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="products-total">
+				<span class="total-text">Total</span>
+				<span class="total-value"> gold</span>
+			</section>
+			<section class="market-actions">
+				<button class="btn btn-primary action-buy">Buy</button>
+				<button class="btn btn-secondary action-cancel" data-dismiss="modal" aria-label="Close">Cancel</button>
+			</section>
+		</div>
+	</div>
+
+
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/service.js"></script>
+    <script type="text/javascript" src="/app.js"></script>
+</body>
+</html>
