@@ -23,7 +23,4 @@ $(function() {
         args.preventDefault();
         $('.market').hide();
     });
-
-
-
 });
