@@ -1,11 +1,11 @@
-var service = (function() {
-    var user = {
+const service = (function() {
+    let user = {
         id : 1,
         login : "user1@example.com",
         balance : 120
     };
 
-    var items = [
+    let items = [
         {
             id : 1,
             name : "Bronze sword: low quality, low price",
@@ -32,39 +32,39 @@ var service = (function() {
         }
     ];
 
-    function simulateSuccessfulRequest(result) {
-        var deferred = $.Deferred();
+    // function simulateSuccessfulRequest(result) {
+    //     var deferred = $.Deferred();
 
-        setTimeout(
-            function() {
-                deferred.resolve(result);
-            }, 
-            Math.random() * 100
-        );
+    //     setTimeout(
+    //         function() {
+    //             deferred.resolve(result);
+    //         }, 
+    //         Math.random() * 100
+    //     );
 
-        return deferred.promise();
-    }
+    //     return deferred.promise();
+    // }
 
-    function simulateFailureRequest() {
-        var deferred = $.Deferred();
+    // function simulateFailureRequest() {
+    //     var deferred = $.Deferred();
 
-        setTimeout(
-            function() {
-                deferred.reject();
-            }, 
-            Math.random() * 100
-        );
+    //     setTimeout(
+    //         function() {
+    //             deferred.reject();
+    //         }, 
+    //         Math.random() * 100
+    //     );
 
-        return deferred.promise();
-    }
+    //     return deferred.promise();
+    // }
 
-    return {
-        getUser: function() {
-            return simulateSuccessfulRequest(user);
-        },
-        list: function() {
-            return simulateSuccessfulRequest(items);
-        }
-    };
+    // return {
+    //     getUser: function() {
+    //         return simulateSuccessfulRequest(user);
+    //     },
+    //     list: function() {
+    //         return simulateSuccessfulRequest(items);
+    //     }
+    // };
 
 })();

@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "sass": "^1.54.0"
+  },
+  "name": "failed-interview-two",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass:build": "sass --watch --update --style=compressed --no-source-map scss:css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ndemia/failed-interview-two.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ndemia/failed-interview-two/issues"
+  },
+  "homepage": "https://github.com/ndemia/failed-interview-two#readme"
+}

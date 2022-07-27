@@ -1,0 +1,38 @@
+// CSS reset
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    outline: none;
+}
+
+html, body {
+    height: 100%;
+}
+
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+body {
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  border: 0;
+}
+
+
+// Main styles
+.modal {
+    display: none;
+}
