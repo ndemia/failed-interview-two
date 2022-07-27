@@ -14,6 +14,7 @@
 // });
 
 document.getElementById('gold-balance').innerText = `${service.user.balance}`
+document.getElementById('user-name').innerText = `${service.user.login}`
 
 
 document.querySelector('#buy').addEventListener('click', function() {
