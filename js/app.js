@@ -13,8 +13,16 @@
 //         });
 // });
 
-document.getElementById('gold-balance').innerText = `${service.user.balance}`
-document.getElementById('user-name').innerText = `${service.user.login}`
+document.getElementById('gold-balance').innerText = `${service.user.balance}`;
+document.getElementById('user-name').innerText = `${service.user.login}`;
+
+let container = document.getElementById('stock');
+let currentStock = service.items;
+currentStock.forEach(item => {
+
+    container.append(item.name + ": " + item.quantity);
+
+});
 
 
 document.querySelector('#buy').addEventListener('click', function() {
