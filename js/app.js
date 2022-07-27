@@ -20,7 +20,7 @@ let container = document.getElementById('stock');
 let currentStock = service.items;
 currentStock.forEach(item => {
 
-    container.append(item.name + ": " + item.quantity);
+    container.insertAdjacentHTML('afterend', `<div>${item.name}: ${item.quantity}</div>`)
 
 });
 
