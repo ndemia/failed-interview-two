@@ -13,6 +13,9 @@
 //         });
 // });
 
+document.getElementById('gold-balance').innerText = `${service.user.balance}`
+
+
 document.querySelector('#buy').addEventListener('click', function() {
 
     document.querySelector('.market').style.display = 'block';
