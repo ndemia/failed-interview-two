@@ -13,7 +13,7 @@
 //         });
 // });
 
-document.getElementById('gold-balance').innerText = `${service.user.balance}`;
+document.getElementById('gold-balance').innerText = `${service.user.balance} gold`;
 document.getElementById('user-name').innerText = `${service.user.login}`;
 
 let container = document.getElementById('stock');

@@ -34,10 +34,6 @@ class Service {
             }
         ];
     }
-
-    showBalance() {
-        console.log(this.user.balance)
-    }
 }
 
 const service = new Service();

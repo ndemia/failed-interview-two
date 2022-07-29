@@ -9,9 +9,12 @@
 
 <body>
 
+	<!-- Top bar -->
 	<nav class="navbar">
-		<button id="buy">Buy</button>
-		<span class="navbar-right navbar-text"><span id="gold-balance"></span> gold</span>
+		<span class="navbar__text">Balance: 
+			<span id="gold-balance" class="navbar__text--gold"></span>
+		</span>
+		<button id="buy" class="navbar__btn btn">Buy</button>
 	</nav>
 
 	<div class="container body-content">
@@ -21,14 +24,9 @@
 		</p>
 		<h2>Current stocks</h2>
 		<div id="stock"></div>
-
-		<hr />
-		<footer>
-			<p>&copy; 2019</p>
-		</footer>
 	</div>
 
-
+	<!-- Modal / Marketplace -->
 	<div class="modal market" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<section class="market-header">

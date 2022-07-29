@@ -31,8 +31,47 @@ select {
   border: 0;
 }
 
+button {
+    background-color: unset;
+    border: unset;
+    cursor: pointer;
+}
+
 
 // Main styles
 .modal {
     display: none;
+}
+
+body {
+    background-color: #e1c38c;
+}
+
+.navbar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: linear-gradient(0deg, hsl(20, 45%, 29%) 0%, hsl(23, 48%, 56%) 100%); 
+    border-bottom: 1px solid hsl(20, 45%, 20%);
+    //box-shadow: 0 3px 6px hsla(0, 0%, 0%, 0.15), 0 2px 4px hsla(0, 0%, 0%, 0.12);
+    box-shadow: 0 10px 20px hsla(0, 0%, 0%, 0.15), 0 3px 6px hsla(0, 0%, 0%, 0.10);
+
+    &__text {
+        color: hsl(0, 0%, 100%);
+
+        &--gold {
+            color: gold;
+        }
+    }
+
+    &__btn {
+        padding: 0.35rem 1rem;
+        background: linear-gradient(0deg, hsl(10, 95%, 14%) 0%, hsl(10, 45%, 38%) 100%);
+        color:hsl(0, 0%, 100%);
+        text-transform: uppercase;
+        border: 1px solid #e6c798;
+    }
 }
