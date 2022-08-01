@@ -1,3 +1,11 @@
+@font-face {
+    font-family: EBGaramond;
+    src: url(../fonts/EBGaramond-Regular.ttf) format("truetype"),
+         url(../fonts/EBGaramond-Italic.ttf) format("truetype"),
+         url(../fonts/EBGaramond-Bold.ttf) format("truetype"),
+         url(../fonts/EBGaramond-BoldItalic.ttf) format("truetype");
+}
+
 // CSS reset
 *,
 *::before,
@@ -44,6 +52,7 @@ button {
 }
 
 body {
+    font-family: 'EBGaramond', serif;
     background-color: #e1c38c;
 }
 
