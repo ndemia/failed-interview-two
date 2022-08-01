@@ -3,7 +3,7 @@ class Service {
 
         this.user = {
             id : 1,
-            login : "user1@example.com",
+            login : "User1",
             balance : 120
         }
 
@@ -28,7 +28,7 @@ class Service {
             },
             {
                 id : 4,
-                name : "Longsword, carefully crafted to slay your enemies",
+                name : "Longsword: carefully crafted to slay your enemies",
                 price : 31,
                 quantity : 1
             }
