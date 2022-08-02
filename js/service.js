@@ -12,25 +12,29 @@ class Service {
                 id : 1,
                 name : "Bronze sword",
                 price : 8,
-                quantity : 10
+                quantity : 10,
+                filename: "bronze_sword"
             },
             {
                 id : 2,
                 name : "Wooden shield",
                 price : 15,
-                quantity : 5
+                quantity : 5,
+                filename: "wooden_shield"
             },
             {
                 id : 3,
                 name : "Battle axe",
                 price : 12,
-                quantity : 2
+                quantity : 2,
+                filename: "battle_axe"
             },
             {
                 id : 4,
                 name : "Longsword",
                 price : 31,
-                quantity : 1
+                quantity : 1,
+                filename: "longsword"
             }
         ];
     }

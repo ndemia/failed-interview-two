@@ -15,6 +15,7 @@
 
 * {
     margin: 0;
+    padding: 0;
     outline: none;
 }
 
@@ -49,7 +50,7 @@ button {
 // Main styles
 body {
     font-family: 'EBGaramond', serif;
-    background-color: #e1c38c;
+    background-color: hsl(36, 61%, 75%);
     font-size: 1.5rem;
 }
 
@@ -62,7 +63,6 @@ body {
     padding: 1rem;
     background: linear-gradient(0deg, hsl(20, 45%, 29%) 0%, hsl(23, 48%, 56%) 100%); 
     border-bottom: 1px solid hsl(20, 45%, 20%);
-    //box-shadow: 0 3px 6px hsla(0, 0%, 0%, 0.15), 0 2px 4px hsla(0, 0%, 0%, 0.12);
     box-shadow: 0 10px 20px hsla(0, 0%, 0%, 0.15), 0 3px 6px hsla(0, 0%, 0%, 0.10);
 
     &__text {
@@ -79,10 +79,15 @@ body {
         color:hsl(0, 0%, 100%);
         font-weight: 700;
         text-transform: uppercase;
-        border: 1px solid #e6c798;
+        border: 1px solid hsl(36, 61%, 75%);
+        transition: all 200ms ease;
 
         &:hover, &:focus {
             background: linear-gradient(0deg, hsl(10, 95%, 14%) 0%, hsl(10, 45%, 50%) 100%);
+        }
+
+        &:focus {
+            box-shadow: 0 0 3px 3px hsl(10, 95%, 14%);
         }
 
         &:active {
@@ -93,22 +98,52 @@ body {
 
 .main {
     display: flex;
-    flex-direction: column;
-    justify-content: top;
-    align-items: center;
-    padding: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2rem;
 
     .dashboard {
+
+        &__title {
+
+        }
+
+        &__subtitle {
+            font-weight: 400;
+        }
         
         &__stock {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid hsl(10, 95%, 14%);
+            margin-top: 2rem;
         }
 
         &__item {
+            display: flex;
+            align-items: start;
             line-height: 1.25;
             margin-bottom: 1rem;
+            list-style-type: none;
+            background-color: hsl(20, 30%, 33%);
+            border: 1px solid hsl(10, 95%, 14%);
+            padding: 0.5rem;
+            color:hsl(36, 61%, 75%);
+        }
+
+        .item__photo {
+            border: 1px solid hsl(36, 61%, 75%);
+        }
+        
+        .item__info {
+            margin: 0 1rem;
+            line-height: 1.2;
+        }
+
+        .item__name {
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .item__quantity {
+            font-size: 1.3rem;
         }
     }
 }

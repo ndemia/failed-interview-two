@@ -13,14 +13,24 @@
 //         });
 // });
 
+
+///// Show name, gold balance and current stock in the UI
 document.getElementById('gold-balance').innerText = `${service.user.balance} gold`;
 document.getElementById('user-name').innerText = `${service.user.login}`;
 
-let container = document.getElementById('stock');
-let currentStock = service.items;
+const container = document.getElementById('stock');
+const currentStock = service.items;
+
 currentStock.forEach(item => {
 
-    container.insertAdjacentHTML('afterend', `<p class="dashboard__item">${item.name}: ${item.quantity}</p>`)
+    container.insertAdjacentHTML('beforeend', 
+    `<li class="dashboard__item">
+        <img src="images/${item.filename}.png" class="item__photo" alt="A ${item.name}"/>
+        <div class="item__info">
+            <p class="item__name">${item.name}</p>
+            <p class="item__quantity">Quantity: ${item.quantity}</p>
+        </div>
+    </li>`);
 
 });
 
