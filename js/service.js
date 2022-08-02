@@ -10,7 +10,7 @@ class Service {
         this.items = [
             {
                 id : 1,
-                name : "Bronze sword: low quality, low price",
+                name : "Bronze sword",
                 price : 8,
                 quantity : 10
             },
@@ -28,7 +28,7 @@ class Service {
             },
             {
                 id : 4,
-                name : "Longsword: carefully crafted to slay your enemies",
+                name : "Longsword",
                 price : 31,
                 quantity : 1
             }

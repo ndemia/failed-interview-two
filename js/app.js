@@ -25,53 +25,40 @@ currentStock.forEach(item => {
 });
 
 
-// document.querySelector('#buy').addEventListener('click', function() {
-
-//     document.querySelector('.market').style.display = 'block';
-
-// });
-
-// document.querySelector('.action-cancel').addEventListener('click', function() {
-
-//     document.querySelector('.market').style.display = 'none';
-
-// });
-
-// document.querySelector('.close-market').addEventListener('click', function() {
-
-//     document.querySelector('.market').style.display = 'none';
-
-// });
-
+///// Modal functionality
+// UI variables
 const openModalButtons = document.querySelectorAll('[data-modal-target]');
 const closeModalButtons = document.querySelectorAll('[data-close-button]');
 const overlay = document.querySelector('.overlay');
 
+// Functions made with the idea of more modals being present
+const openModal = function(modal) {
 
-function openModal(modal) {
     if (modal == null) {
         return;
     } else {
         modal.classList.add('active');
-        overlay.classList.add('active')
+        overlay.classList.add('active');
     }
-}
+};
 
-function closeModal(modal) {
+const closeModal = function(modal) {
     if (modal == null) {
         return;
     } else {
         modal.classList.remove('active');
-        overlay.classList.remove('active')
+        overlay.classList.remove('active');
     }
-}
+};
 
-
+// Event listeners for opening and closing the modal
 openModalButtons.forEach(button => {
 
     button.addEventListener('click', () => {
-        const modal = document.querySelector(button.dataset.modalTarget)
-        openModal(modal)
+
+        // Detect, from the clicked button, which modal will be opened
+        const modal = document.querySelector(button.dataset.modalTarget);
+        openModal(modal);
     })
 
 });
@@ -79,7 +66,18 @@ openModalButtons.forEach(button => {
 closeModalButtons.forEach(button => {
 
     button.addEventListener('click', () => {
+
+        // Detect, from the clicked button, which modal will be closed 
         const modal = button.closest('.modal');
-        closeModal(modal)
+        closeModal(modal);
     })
 });
+
+overlay.addEventListener('click', () => {
+
+    // Detect the active modal
+    const modals = document.querySelectorAll('.modal.active');
+    modals.forEach(modal => {
+        closeModal(modal);
+    })
+})
