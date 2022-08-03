@@ -17,10 +17,10 @@ class Service {
             },
             {
                 id : 2,
-                name : "Wooden shield",
-                price : 15,
-                quantity : 5,
-                filename: "wooden_shield"
+                name : "Longsword",
+                price : 31,
+                quantity : 1,
+                filename: "longsword"
             },
             {
                 id : 3,
@@ -31,10 +31,10 @@ class Service {
             },
             {
                 id : 4,
-                name : "Longsword",
-                price : 31,
-                quantity : 1,
-                filename: "longsword"
+                name : "Wooden shield",
+                price : 15,
+                quantity : 5,
+                filename: "wooden_shield"
             }
         ];
     }

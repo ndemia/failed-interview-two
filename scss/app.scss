@@ -72,29 +72,8 @@ body {
             color: gold;
         }
     }
-
-    &__btn {
-        padding: 0.35rem 1rem;
-        background: linear-gradient(0deg, hsl(10, 95%, 14%) 0%, hsl(10, 45%, 38%) 100%);
-        color:hsl(0, 0%, 100%);
-        font-weight: 700;
-        text-transform: uppercase;
-        border: 1px solid hsl(36, 61%, 75%);
-        transition: all 200ms ease;
-
-        &:hover, &:focus {
-            background: linear-gradient(0deg, hsl(10, 95%, 14%) 0%, hsl(10, 45%, 50%) 100%);
-        }
-
-        &:focus {
-            box-shadow: 0 0 3px 3px hsl(10, 95%, 14%);
-        }
-
-        &:active {
-            background: linear-gradient(0deg, hsl(10, 95%, 5%) 0%, hsl(10, 65%, 25%) 100%);
-        }
-    }
 }
+
 
 .main {
     display: flex;
@@ -103,10 +82,6 @@ body {
     margin-top: 2rem;
 
     .dashboard {
-
-        &__title {
-
-        }
 
         &__subtitle {
             font-weight: 400;
@@ -128,7 +103,7 @@ body {
             color:hsl(36, 61%, 75%);
         }
 
-        .item__photo {
+        .item__image {
             border: 1px solid hsl(36, 61%, 75%);
         }
         
@@ -148,26 +123,141 @@ body {
     }
 }
 
+
 .market {
+    min-width: 320px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     z-index: 10;
-    background-color: white;
     transition: all 200ms ease-in-out;
+    padding: 1rem;
+    border: 6px solid hsl(20, 30%, 33%);
+    background-color: hsl(20, 45%, 20%);
+    box-shadow: 0 15px 25px hsla(0, 0%, 0%, 0.15), 0 5px 10px hsla(0, 0%, 0%, 0.5);
+    color: hsl(36, 61%, 75%);
+    box-shadow: 
+        inset 0 -2px 0 hsla(0, 0%, 100%, 0.3), 
+        inset 0 6px 10px hsla(0, 0%, 0%, 0.2),
+        0 15px 25px hsla(0, 0%, 0%, 0.15), 
+        0 5px 10px hsla(0, 0%, 0%, 0.5);
+
+    @media (min-width: 480px) {
+        padding: 2rem;
+    }
+
+    &.active {
+        transform: translate(-50%, -50%) scale(1);
+    }
 
     &__header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid hsl(23, 48%, 56%);
+
+        @media (min-width: 480px) {
+            margin-bottom: 2rem;
+        }
     }
 
-    &.active {
-        transform: translate(-50%, -50%) scale(1);
+    &__products {
+
+    }
+
+    .products__list {
+
+    }
+
+    .products__item {
+        list-style-type: none;
+        margin-bottom: 1rem;
+    }
+
+    .item__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .item__image {
+        border: 1px solid hsl(36, 61%, 75%);
+        display: none;
+
+        @media (min-width: 480px) {
+            display: inline-block;
+        }
+    }
+
+    .item__name {
+        font-size: 1.2rem;
+        font-weight: 400;
+        line-height: 1.2;
+
+        @media (min-width: 480px) {
+            margin-left: 1rem;
+        }
+    }
+
+    .item__actions {
+        display: inline-flex;
+
+        .item__increase, .item__decrease {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+        }
+
+        .item__decrease {
+            margin-left: 1rem;
+        }
+
+        .item__increase {
+            margin-right: 1rem;
+        }
+
+        .item__quantity {
+            width: 40px;
+            height: 30px;
+            margin: 0 0.5rem;
+        }
+    }
+
+    .item__cost {
+        font-size: 1.2rem;
+    }
+
+    .products__total {
+        display: flex;
+        justify-content: space-between;
+        margin: 1.5rem 0 2rem 0;
+        border-top: 1px solid hsl(23, 48%, 56%);
+        padding-top: 0.5rem;
+
+        .total__text, .total__value {
+            font-weight: 700;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: end;
+
+        .action__buy, .action__cancel {
+            color: hsl(36, 61%, 75%);
+            font-size: 1.2rem;
+        }
+
+        .action__cancel {
+            margin-left: 1rem;
+        }
     }
 }
+
 
 .overlay {
     position: fixed;
@@ -175,7 +265,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: hsla(0, 0%, 0%, 0.50);
+    background-color: hsla(0, 0%, 0%, 0.70);
     pointer-events: none;
     opacity: 0;
     transition: all 200ms ease-in-out;
@@ -186,3 +276,36 @@ body {
     }
 }
 
+
+.btn {
+    padding: 0.35rem 1rem;
+    background: linear-gradient(0deg, hsl(10, 95%, 14%) 0%, hsl(10, 45%, 38%) 100%);
+    color:hsl(36, 61%, 75%);
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 1px solid hsl(36, 61%, 75%);
+    transition: all 200ms ease;
+
+    &:hover, &:focus {
+        background: linear-gradient(0deg, hsl(10, 95%, 14%) 0%, hsl(10, 45%, 50%) 100%);
+    }
+
+    &:focus {
+        box-shadow: 0 0 3px 3px hsl(10, 95%, 14%);
+    }
+
+    &:active {
+        background: linear-gradient(0deg, hsl(10, 95%, 5%) 0%, hsl(10, 65%, 25%) 100%);
+    }
+}
+
+
+// Remove input spinner from appearing in Firefox
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+}
+input[type="number"] {
+   -moz-appearance: textfield;
+}

@@ -25,7 +25,7 @@ currentStock.forEach(item => {
 
     container.insertAdjacentHTML('beforeend', 
     `<li class="dashboard__item">
-        <img src="images/${item.filename}.png" class="item__photo" alt="A ${item.name}"/>
+        <img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
         <div class="item__info">
             <p class="item__name">${item.name}</p>
             <p class="item__quantity">Quantity: ${item.quantity}</p>
@@ -83,9 +83,10 @@ closeModalButtons.forEach(button => {
     })
 });
 
+// Close the modal by clicking the overlay
 overlay.addEventListener('click', () => {
 
-    // Detect the active modal
+    // Detect the active modal to close it
     const modals = document.querySelectorAll('.modal.active');
     modals.forEach(modal => {
         closeModal(modal);
