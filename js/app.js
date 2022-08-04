@@ -14,15 +14,17 @@
 // });
 
 
-///// Show name, gold balance and current stock in the UI
+// Show name and gold balance
 document.getElementById('gold-balance').innerText = `${service.user.balance} gold`;
 document.getElementById('user-name').innerText = `${service.user.login}`;
 
+
+// UI variables
 const container = document.getElementById('stock');
+const productsList = document.querySelector('.products__list');
 const currentStock = service.items;
 
 currentStock.forEach(item => {
-
     container.insertAdjacentHTML('beforeend', 
     `<li class="dashboard__item">
         <img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
@@ -31,7 +33,21 @@ currentStock.forEach(item => {
             <p class="item__quantity">Quantity: ${item.quantity}</p>
         </div>
     </li>`);
-
+    
+    //Load the market as if it was not defined in the HTML
+    // productsList.insertAdjacentHTML('afterbegin',
+    // `<li class="products__item">
+    //     <div class="item__container">
+    //         <img src="images/${item.filename}.png" class="item__image">
+    //         <h4 class="item__name">${item.name}</h4>
+    //         <div class="item__actions">
+    //             <button class="item__decrease"><img src="icons/minus.png"></button>
+    //             <input type="number" name="item__quantity" class="item__quantity">
+    //             <button class="item__increase"><img src="icons/plus.png"></button>	
+    //             <span class="item__cost">${item.price} gold</span>
+    //         </div>
+    //     </div>
+    // </li>`);
 });
 
 
@@ -61,7 +77,6 @@ const closeModal = function(modal) {
     }
 };
 
-// Event listeners for opening and closing the modal
 openModalButtons.forEach(button => {
 
     button.addEventListener('click', () => {
@@ -91,4 +106,32 @@ overlay.addEventListener('click', () => {
     modals.forEach(modal => {
         closeModal(modal);
     })
+})
+
+
+///// Market operations
+// UI Variables
+const quantityIncreaseButtons = document.querySelectorAll('.item__increase');
+const quantityDecreaseButtons = document.querySelectorAll('.item__decrease');
+
+quantityIncreaseButtons.forEach(button => {
+
+    button.addEventListener('click', () => {
+
+        button.previousElementSibling.value++;
+    })
+
+})
+
+quantityDecreaseButtons.forEach(button => {
+
+    button.addEventListener('click', () => {
+
+        if (button.nextElementSibling.value <= 0) {
+            return;
+        } else {
+            button.nextElementSibling.value--;
+        }
+    })
+
 })
