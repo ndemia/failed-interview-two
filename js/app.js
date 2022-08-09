@@ -38,14 +38,16 @@ currentStock.forEach(item => {
     productsList.insertAdjacentHTML('beforeend',
     `<li class="products__item">
         <div class="item__container">
-            <img src="images/${item.filename}.png" class="item__image">
-            <h4 class="item__name">${item.name}</h4>
+            <div class="item__info">
+                <img src="images/${item.filename}.png" class="item__image">
+                <h4 class="item__name">${item.name}</h4>
+            </div>
             <div data-item-id="${item.id}" class="item__actions">
                 <button class="item__decrease">-</button>
                 <input type="number" name="item__quantity" class="item__quantity">
                 <button class="item__increase">+</button>	
-                <span class="item__cost">0 gold</span>
             </div>
+            <span class="item__cost">0 gold</span>
         </div>
     </li>`);
 });
@@ -158,7 +160,7 @@ quantityIncreaseButtons.forEach(button => {
 
         let totalItemCost = updateItemCost(itemQuantity, itemId);
 
-        pressedButton.nextElementSibling.innerText = `${totalItemCost} gold`;
+        pressedButton.parentElement.nextElementSibling.innerText = `${totalItemCost} gold`;
 
         updateTotalCost();
 
@@ -187,7 +189,7 @@ quantityDecreaseButtons.forEach(button => {
 
         let totalItemCost = updateItemCost(itemQuantity, itemId);
 
-        pressedButton.nextElementSibling.nextElementSibling.nextElementSibling.innerText = `${totalItemCost} gold`;
+        pressedButton.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.innerText = `${totalItemCost} gold`;
 
         updateTotalCost();
     });
