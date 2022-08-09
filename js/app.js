@@ -44,7 +44,7 @@ currentStock.forEach(item => {
             </div>
             <div data-item-id="${item.id}" class="item__actions">
                 <button class="item__decrease">-</button>
-                <input type="number" name="item__quantity" class="item__quantity">
+                <input type="number" name="item__quantity" class="item__quantity" value="0">
                 <button class="item__increase">+</button>	
             </div>
             <span class="item__cost">0 gold</span>
@@ -116,7 +116,7 @@ const quantityDecreaseButtons = document.querySelectorAll('.item__decrease');
 const updateItemCost = function(itemQuantity, itemId) {
 
     // Because itemId arrives as a string from the object
-    itemId = Number(itemId)
+    itemId = Number(itemId);
 
     let updatedPrice;
 
@@ -137,9 +137,27 @@ const updateTotalCost = function() {
 
         totalCost += Number(cost.innerText.slice(0, -5));
 
-    })
+    });
 
     document.querySelector('.total__value').innerText = `${totalCost} gold`;
+
+};
+
+const resetQuantities = function() {
+
+    document.querySelectorAll('.market .item__quantity').forEach(input => {
+
+        input.value = 0;
+
+        document.querySelectorAll('.market .item__cost').forEach(totalItemCost => {
+
+            totalItemCost.innerText = '0 gold';
+
+        });
+
+        updateTotalCost();
+
+    });
 
 };
 
@@ -195,3 +213,9 @@ quantityDecreaseButtons.forEach(button => {
     });
 
 })
+
+document.querySelector('.action__reset').addEventListener('click', () => {
+
+    resetQuantities();
+    
+});
