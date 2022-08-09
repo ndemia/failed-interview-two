@@ -189,7 +189,7 @@ quantityDecreaseButtons.forEach(button => {
 
         let totalItemCost = updateItemCost(itemQuantity, itemId);
 
-        pressedButton.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.innerText = `${totalItemCost} gold`;
+        pressedButton.parentElement.nextElementSibling.innerText = `${totalItemCost} gold`;
 
         updateTotalCost();
     });

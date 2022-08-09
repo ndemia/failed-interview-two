@@ -257,10 +257,9 @@ body {
 
         .action__buy, .action__cancel {
             color: hsl(36, 61%, 75%);
-            font-size: 1.2rem;
         }
 
-        .action__cancel {
+        .action__buy {
             margin-left: 1rem;
         }
     }
@@ -290,6 +289,7 @@ body {
     background: linear-gradient(0deg, hsl(10, 95%, 14%) 0%, hsl(10, 45%, 38%) 100%);
     color:hsl(36, 61%, 75%);
     font-weight: 700;
+    font-size: 1rem;
     text-transform: uppercase;
     border: 1px solid hsl(36, 61%, 75%);
     transition: all 200ms ease;
@@ -304,6 +304,15 @@ body {
 
     &:active {
         background: linear-gradient(0deg, hsl(10, 95%, 5%) 0%, hsl(10, 65%, 25%) 100%);
+    }
+
+    &--secondary {
+        background: none;
+    }
+
+    &--tertiary {
+        border: 0;
+        background: none;
     }
 }
 
