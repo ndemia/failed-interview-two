@@ -242,9 +242,9 @@ body {
     .products__total {
         display: flex;
         justify-content: space-between;
-        margin: 1.5rem 0 2rem 0;
-        border-top: 1px solid hsl(23, 48%, 56%);
+        margin: 1.5rem 0 3rem 0;
         padding-top: 0.5rem;
+        border-top: 1px solid hsl(23, 48%, 56%);
 
         .total__text, .total__value {
             font-weight: 700;
@@ -253,14 +253,14 @@ body {
 
     &__actions {
         display: flex;
-        justify-content: end;
+        justify-content: space-between;
 
         .action__buy, .action__cancel {
             color: hsl(36, 61%, 75%);
         }
 
         .action__buy {
-            margin-left: 1rem;
+            margin-left: 0.5rem;
         }
     }
 }
@@ -294,25 +294,46 @@ body {
     border: 1px solid hsl(36, 61%, 75%);
     transition: all 200ms ease;
 
-    &:hover, &:focus {
-        background: linear-gradient(0deg, hsl(10, 95%, 14%) 0%, hsl(10, 45%, 50%) 100%);
-    }
-
-    &:focus {
-        box-shadow: 0 0 3px 3px hsl(10, 95%, 14%);
-    }
-
-    &:active {
-        background: linear-gradient(0deg, hsl(10, 95%, 5%) 0%, hsl(10, 65%, 25%) 100%);
+    &--primary {
+        &:hover, &:focus {
+            background: linear-gradient(0deg, hsl(10, 95%, 14%) 0%, hsl(10, 45%, 50%) 100%);
+        }
+    
+        &:focus {
+            box-shadow: 0 0 3px 3px hsl(10, 95%, 14%);
+        }
+    
+        &:active {
+            background: linear-gradient(0deg, hsl(10, 95%, 5%) 0%, hsl(10, 65%, 25%) 100%);
+            box-shadow: 0 0 3px 3px hsl(10, 95%, 14%);
+        }
     }
 
     &--secondary {
         background: none;
+
+        &:hover, &:focus {
+            border-color:hsl(10, 45%, 50%);
+            color: hsl(10, 45%, 50%);
+        }
+
+        &:active {
+            box-shadow: 0 0 3px 3px hsl(10, 95%, 14%);
+        }
     }
 
     &--tertiary {
         border: 0;
         background: none;
+        padding: 0;
+
+        &:hover, &:focus {
+            text-decoration: underline;
+        }
+
+        &:active {
+            color: hsl(20, 45%, 29%);
+        }
     }
 }
 

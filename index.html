@@ -14,7 +14,7 @@
 		<span class="navbar__text">Balance: 
 			<span id="gold-balance" class="navbar__text--gold"></span>
 		</span>
-		<button data-modal-target="#market" id="buy" class="navbar__btn btn">Buy</button>
+		<button data-modal-target="#market" id="buy" class="navbar__btn btn btn--primary">Buy</button>
 	</nav>
 
 	<!-- Content -->
@@ -42,9 +42,13 @@
 				<span class="total__value">0 gold</span>
 			</section>
 			<section class="market__actions">
-				<button class="btn btn--tertiary action__reset" aria-label="Reset form">Reset</button>
-				<button class="btn btn--secondary action__cancel" data-dismiss="modal" data-close-button aria-label="Close">Cancel</button>
-				<button class="btn btn--primary action__buy">Buy</button>
+				<div class="secondary__actions">
+					<button class="btn btn--tertiary action__reset" aria-label="Reset form">Reset</button>
+				</div>
+				<div class="main__actions">
+					<button class="btn btn--secondary action__cancel" data-dismiss="modal" data-close-button aria-label="Close">Cancel</button>
+					<button class="btn btn--primary action__buy">Buy</button>
+				</div>
 			</section>
 		</div>
 	</div>
