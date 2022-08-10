@@ -85,7 +85,7 @@ openModalButtons.forEach(button => {
         // Detect, from the clicked button, which modal will be opened
         const modal = document.querySelector(button.dataset.modalTarget);
         openModal(modal);
-    })
+    });
 
 });
 
@@ -95,7 +95,7 @@ closeModalButtons.forEach(button => {
 
         const modal = button.closest('.modal');
         closeModal(modal);
-    })
+    });
 });
 
 // Close the modal by clicking the overlay
@@ -104,14 +104,15 @@ overlay.addEventListener('click', () => {
     const modals = document.querySelectorAll('.modal.active');
     modals.forEach(modal => {
         closeModal(modal);
-    })
-})
+    });
+});
 
 
 ///// Market operations
 // UI Variables
 const quantityIncreaseButtons = document.querySelectorAll('.item__increase');
 const quantityDecreaseButtons = document.querySelectorAll('.item__decrease');
+const itemQuantityInputs = document.querySelectorAll('.market .item__quantity');
 
 const updateItemCost = function(itemQuantity, itemId) {
 
@@ -145,7 +146,7 @@ const updateTotalCost = function() {
 
 const resetQuantities = function() {
 
-    document.querySelectorAll('.market .item__quantity').forEach(input => {
+    itemQuantityInputs.forEach(input => {
 
         input.value = 0;
 
@@ -160,6 +161,16 @@ const resetQuantities = function() {
     });
 
 };
+
+// Typing any quantity updates the costs
+itemQuantityInputs.forEach(input => {
+    input.addEventListener('change', (e) => {
+        let itemId = e.target.parentElement.dataset.itemId;
+        let itemQuantity = e.target.value;
+        let updatedPrice = updateItemCost(itemQuantity, itemId);
+        e.target.parentElement.nextElementSibling.innerText = `${updatedPrice} gold`;
+    });
+});
 
 quantityIncreaseButtons.forEach(button => {
 
@@ -184,7 +195,7 @@ quantityIncreaseButtons.forEach(button => {
 
     });
 
-})
+});
 
 quantityDecreaseButtons.forEach(button => {
 
@@ -212,7 +223,7 @@ quantityDecreaseButtons.forEach(button => {
         updateTotalCost();
     });
 
-})
+});
 
 document.querySelector('.action__reset').addEventListener('click', () => {
 
