@@ -169,6 +169,7 @@ itemQuantityInputs.forEach(input => {
         let itemQuantity = e.target.value;
         let updatedPrice = updateItemCost(itemQuantity, itemId);
         e.target.parentElement.nextElementSibling.innerText = `${updatedPrice} gold`;
+        updateTotalCost();
     });
 });
 
