@@ -36,3 +36,5 @@ A design guideline was provided, but because I didn't like it (it looked like a 
 * The logic of not being able to purchase a larger amount of items then the available stock or the user's credits allows for.
 * The logic of updating the available stock / user's credit when something was purchased.
 * We would also like to see some error handling when a call to the stubbed backend fails (e.g. we expect that the simulated call fail “randomly” (e.g. every 3rd call)).
+
+https://ndemia.github.io/failed-interview-two/
