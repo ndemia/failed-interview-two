@@ -114,6 +114,24 @@ const quantityIncreaseButtons = document.querySelectorAll('.item__increase');
 const quantityDecreaseButtons = document.querySelectorAll('.item__decrease');
 const itemQuantityInputs = document.querySelectorAll('.market .item__quantity');
 
+const showWarning = function(warningType) {
+
+    switch(warningType) {
+        case 'exceededBalance':
+            document.querySelector('.market__warnings').classList.remove('hidden');
+            break;
+        case 'notEnoughStock':
+            console.log('not enough stock');
+            break;
+        case 'failedProcess':
+            console.log('process failed');
+            break;
+        default:
+            console.log('default');
+    }
+
+}
+
 const updateItemCost = function(itemQuantity, itemId) {
 
     // Because itemId arrives as a string from the object
@@ -130,6 +148,27 @@ const updateItemCost = function(itemQuantity, itemId) {
     return updatedPrice;
 };
 
+const checkTotalCostDoesNotExceedBalance = function(totalCost) {
+
+    if (totalCost <= service.user.balance) {
+        if(document.querySelector('.market__warnings')) {
+
+            // If total cost comes down back to current balance, remove warning
+            document.querySelector('.market__warnings').classList.add('hidden');
+        }
+        return;
+    } else {
+        showWarning('exceededBalance');
+    }
+
+};
+
+const checkAvailableStock = function(itemQuantity, itemId) {
+    
+
+
+};
+
 const updateTotalCost = function() {
 
     let totalCost = 0;
@@ -141,6 +180,8 @@ const updateTotalCost = function() {
     });
 
     document.querySelector('.total__value').innerText = `${totalCost} gold`;
+
+    checkTotalCostDoesNotExceedBalance(totalCost);
 
 };
 
@@ -161,6 +202,8 @@ const resetQuantities = function() {
     });
 
 };
+
+
 
 // Typing any quantity updates the costs
 itemQuantityInputs.forEach(input => {
