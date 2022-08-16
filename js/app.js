@@ -44,7 +44,7 @@ currentStock.forEach(item => {
             </div>
             <div data-item-id="${item.id}" class="item__actions">
                 <button class="item__decrease">-</button>
-                <input type="number" name="item__quantity" class="item__quantity" value="0">
+                <input type="number" name="item__quantity" class="item__quantity" value="0" min="0" max="${item.quantity}">
                 <button class="item__increase">+</button>	
             </div>
             <span class="item__cost">0 gold</span>
@@ -114,14 +114,38 @@ const quantityIncreaseButtons = document.querySelectorAll('.item__increase');
 const quantityDecreaseButtons = document.querySelectorAll('.item__decrease');
 const itemQuantityInputs = document.querySelectorAll('.market .item__quantity');
 
-const showWarning = function(warningType) {
+const disableButtons = function () {
+
+    quantityIncreaseButtons.forEach(button => {
+        button.classList.add('btn--disabled');
+        button.disabled = true;
+    });
+
+    document.querySelector('.market .action__buy').classList.add('btn--disabled');
+    document.querySelector('.market .action__buy').disabled = true;
+
+};
+
+const enableButtons = function () {
+
+    quantityIncreaseButtons.forEach(button => {
+        button.classList.remove('btn--disabled');
+        button.disabled = false;
+    });
+    document.querySelector('.market .action__buy').classList.remove('btn--disabled');
+    document.querySelector('.market .action__buy').disabled = false;
+};
+
+const showWarning = function (warningType) {
 
     switch(warningType) {
         case 'exceededBalance':
+            document.querySelector('.warning__text').innerText = `The total cost exceeds your current gold balance.`;
             document.querySelector('.market__warnings').classList.remove('hidden');
             break;
         case 'notEnoughStock':
-            console.log('not enough stock');
+            document.querySelector('.warning__text').innerText = `You have reached the maximum stock quantity for this item.`;
+            document.querySelector('.market__warnings').classList.remove('hidden');
             break;
         case 'failedProcess':
             console.log('process failed');
@@ -132,7 +156,7 @@ const showWarning = function(warningType) {
 
 }
 
-const updateItemCost = function(itemQuantity, itemId) {
+const updateItemCost = function (itemQuantity, itemId) {
 
     // Because itemId arrives as a string from the object
     itemId = Number(itemId);
@@ -148,28 +172,51 @@ const updateItemCost = function(itemQuantity, itemId) {
     return updatedPrice;
 };
 
-const checkTotalCostDoesNotExceedBalance = function(totalCost) {
+const checkTotalCostDoesNotExceedBalance = function (totalCost) {
 
     if (totalCost <= service.user.balance) {
         if(document.querySelector('.market__warnings')) {
 
             // If total cost comes down back to current balance, remove warning
             document.querySelector('.market__warnings').classList.add('hidden');
+
+            enableButtons();
         }
         return;
-    } else {
+    } else {        
         showWarning('exceededBalance');
+        disableButtons();
     }
 
 };
 
-const checkAvailableStock = function(itemQuantity, itemId) {
-    
+const checkAvailableStock = function (itemQuantity, itemId) {
 
+    // Because itemId arrives as a string from the object
+    itemId = Number(itemId);
+    
+    // Get item's available stock
+    let availableStock = 0;
+
+    currentStock.forEach(item => {
+
+        if(item.id === itemId) {
+            availableStock = item.quantity;
+        }
+
+    });
+
+    if (itemQuantity <= availableStock) {
+        enableButtons();
+        return true;
+    } else {
+        disableButtons();
+        return false;
+    }
 
 };
 
-const updateTotalCost = function() {
+const updateTotalCost = function () {
 
     let totalCost = 0;
     
@@ -203,8 +250,6 @@ const resetQuantities = function() {
 
 };
 
-
-
 // Typing any quantity updates the costs
 itemQuantityInputs.forEach(input => {
     input.addEventListener('change', (e) => {
@@ -231,11 +276,17 @@ quantityIncreaseButtons.forEach(button => {
         // Save the newly updated item quantity
         let itemQuantity = pressedButton.previousElementSibling.value;
 
-        let totalItemCost = updateItemCost(itemQuantity, itemId);
+        if (checkAvailableStock(itemQuantity, itemId) === true) {
+            
+            let totalItemCost = updateItemCost(itemQuantity, itemId);
 
-        pressedButton.parentElement.nextElementSibling.innerText = `${totalItemCost} gold`;
+            pressedButton.parentElement.nextElementSibling.innerText = `${totalItemCost} gold`;
 
-        updateTotalCost();
+            updateTotalCost();
+
+        } else {
+            showWarning('notEnoughStock');
+        }
 
     });
 
@@ -260,11 +311,17 @@ quantityDecreaseButtons.forEach(button => {
         // Save the newly updated item quantity
         let itemQuantity = pressedButton.nextElementSibling.value;
 
-        let totalItemCost = updateItemCost(itemQuantity, itemId);
+        if (checkAvailableStock(itemQuantity, itemId)) {
+            let totalItemCost = updateItemCost(itemQuantity, itemId);
 
-        pressedButton.parentElement.nextElementSibling.innerText = `${totalItemCost} gold`;
+            pressedButton.parentElement.nextElementSibling.innerText = `${totalItemCost} gold`;
+    
+            updateTotalCost();
 
-        updateTotalCost();
+        } else {
+            showWarning('notEnoughStock');
+        }
+
     });
 
 });

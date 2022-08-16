@@ -10,6 +10,7 @@ As soon as I received this one, and read it, I realised that it was not a possib
 ## Part to be built ##
 - [x] Make “Buy” button in the top bar show the dialog which will allow user to buy available items. 
 - [x] User can see available items and their price, can type in an amount to buy (integer value), or increment/decrement it with buttons + and -. Total cost is calculated in real-time and reflects changes to the amount.
+- [X] If the total cost exceeds available money, message appears and buy button is disabled.
 - [ ] When user clicks "Buy", dialog is closed, item stocks are updated and user balance is updated. There is no need to store bought items.
 - [x] User can also close the dialog via cancel or close buttons.
 - [ ] Make sure constraints with regard to number of items available and user balance are not violated. Make sure feedback is available to users if they cannot accomplish the action (e.g. item is no longer available or a request to the backend fails). 
