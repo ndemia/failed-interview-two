@@ -1,5 +1,5 @@
 # Failed interview test, part 2
-As soon as I received this one, and read it, I realised that it was not a possibility with my current knowledge at that point in time. I didn't understand some of the requirements to make it work, so I ended the process. So here I am, a couple of years later, trying to make it work.
+As soon as I received this one, and read it, I realised that it was not a possibility with my current knowledge at that point in time. I didn't understand some of the requirements to make it work, so I ended the process. So here I am, a couple of years later, trying to make it work. The original test used jQuery but since I want to learn vanilla JS, I'll be converting everything to the latter.
 
 ## Pre-built part ##
 * There is a web application with a pre-authenticated user.
