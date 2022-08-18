@@ -1,24 +1,20 @@
-// $(function() {
-//     service.getUser()
-//         .then(function (user) {
-//             $("#user-name").text(user.login);
-//             $("#gold-balance").text(user.balance);
-//         })
-//         .then(service.list)
-//         .then(function(items) {
-//             var container = $("#stock");
-//             items.forEach(function (item) {
-//                 container.append(item.name + ": " + item.quantity + "<br/>");
-//             });
-//         });
-// });
-
-
 ///// Show name and gold balance
-document.getElementById('gold-balance').innerText = `${service.user.balance} gold`;
-document.getElementById('user-name').innerText = `${service.user.login}`;
+const showGoldBalance = function () {
 
-///// Show current stock
+    document.getElementById('gold-balance').innerText = `${service.user.balance} gold`;
+
+};
+
+const showUserName = function () {
+
+    document.getElementById('user-name').innerText = `${service.user.login}`;
+
+};
+
+document.addEventListener('DOMContentLoaded', showGoldBalance());
+document.addEventListener('DOMContentLoaded', showUserName());
+
+///// Show available stock
 // UI variables
 const container = document.getElementById('stock');
 const productsList = document.querySelector('.products__list');
@@ -30,7 +26,7 @@ currentStock.forEach(item => {
         <img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
         <div class="item__info">
             <p class="item__name">${item.name}</p>
-            <p class="item__quantity">Quantity: ${item.quantity}</p>
+            <p class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</p>
         </div>
     </li>`);
     
@@ -42,9 +38,9 @@ currentStock.forEach(item => {
                 <img src="images/${item.filename}.png" class="item__image">
                 <h4 class="item__name">${item.name}</h4>
             </div>
-            <div data-item-id="${item.id}" class="item__actions">
+            <div class="item__actions" data-item-id="${item.id}">
                 <button class="item__decrease">-</button>
-                <input type="number" name="item__quantity" class="item__quantity" value="0" min="0" max="${item.quantity}">
+                <input type="number" name="item__quantity" class="item__quantity" value="0" min="0" max="${item.quantity}" data-item-id="${item.id}">
                 <button class="item__increase">+</button>	
             </div>
             <span class="item__cost">0 gold</span>
@@ -52,6 +48,20 @@ currentStock.forEach(item => {
     </li>`);
 });
 
+const updateAvailableStock = function () {
+
+    const productsList = document.querySelectorAll('.dashboard [data-item-id]');
+
+    for (i = 0; i < productsList.length; i++) {
+
+        if (productsList[i].dataset.itemId == currentStock[i].id) {
+            productsList[i].innerText = `Quantity: ${currentStock[i].quantity}`;
+        } else {
+            return;
+        }
+
+    };
+};
 
 ///// Modal functionality
 // UI variables
@@ -325,9 +335,33 @@ quantityDecreaseButtons.forEach(button => {
     });
 
 });
-
-document.querySelector('.action__reset').addEventListener('click', () => {
-
-    resetQuantities();
+const buyItems = function () {
     
-});
+    // Update available stock
+    let finalItems = document.querySelectorAll('.market .item__quantity');
+    
+    for (i = 0; i < finalItems.length; i++) {
+
+        // Validate that the items are the same
+        if (currentStock[i].id == finalItems[i].dataset.itemId) {
+
+            // Substract the bought amount
+            currentStock[i].quantity -= finalItems[i].value;
+        } else {
+            return;
+        }
+    }
+
+    updateAvailableStock();
+
+    // Update gold balance
+    let finalGold = Number(document.querySelector('.market .total__value').innerText.slice(0, -5));
+    service.user.balance -= finalGold;
+    showGoldBalance();
+
+    closeModal(this.closest('.modal'));
+
+};
+
+document.querySelector('.market .action__buy').addEventListener('click', buyItems);
+document.querySelector('.action__reset').addEventListener('click', resetQuantities);
