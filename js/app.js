@@ -356,7 +356,9 @@ const buyItems = function () {
 
     // Update gold balance
     let finalGold = Number(document.querySelector('.market .total__value').innerText.slice(0, -5));
+
     service.user.balance -= finalGold;
+    
     showGoldBalance();
 
     closeModal(this.closest('.modal'));
