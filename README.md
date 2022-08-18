@@ -11,9 +11,10 @@ As soon as I received this one, and read it, I realised that it was not a possib
 - [x] Make “Buy” button in the top bar show the dialog which will allow user to buy available items. 
 - [x] User can see available items and their price, can type in an amount to buy (integer value), or increment/decrement it with buttons + and -. Total cost is calculated in real-time and reflects changes to the amount.
 - [X] If the total cost exceeds available money, message appears and buy button is disabled.
-- [ ] When user clicks "Buy", dialog is closed, item stocks are updated and user balance is updated. There is no need to store bought items.
+- [X] When user clicks "Buy", dialog is closed, item stocks are updated and user balance is updated. There is no need to store bought items.
 - [x] User can also close the dialog via cancel or close buttons.
-- [ ] Make sure constraints with regard to number of items available and user balance are not violated. Make sure feedback is available to users if they cannot accomplish the action (e.g. item is no longer available or a request to the backend fails). 
+- [X] Make sure constraints with regard to number of items available and user balance are not violated. Make sure feedback is available to users if they cannot accomplish the action (e.g. item is no longer available or a request to the backend fails). 
+- [ ] A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
 
 ## Design ##
 A design guideline was provided, but because I didn't like it (it looked like a Windows app), and this is my project, I decided to ditch that and make it more fun for me.
@@ -23,7 +24,7 @@ A design guideline was provided, but because I didn't like it (it looked like a 
 * ~~The requested design (and styling) for the "Buy" dialog is implemented (or as close as possible).~~
 * The domain logic described for the dialog is implemented (real-time updating, constraints/validation checks, updating of the user/stock on purchase, feedback on failure).
 * A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
-* You don’t need to have any database or backend (changes) though If you feel like giving it a try, you can. We do however expect you to write a service / proxy which returns promises to simulate requests to the backend (preferable including some random failures).
+* You don’t need to have any database or backend (changes) though if you feel like giving it a try, you can. We do however expect you to write a service / proxy which returns promises to simulate requests to the backend (preferable including some random failures).
 * Browser support: 
     • Chrome (latest) 
     • Firefox (latest) 
