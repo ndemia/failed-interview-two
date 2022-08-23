@@ -1,3 +1,18 @@
+// $(function() {
+//     service.getUser()
+//         .then(function (user) {
+//             $("#user-name").text(user.login);
+//             $("#gold-balance").text(user.balance);
+//         })
+//         .then(service.list)
+//         .then(function(items) {
+//             var container = $("#stock");
+//             items.forEach(function (item) {
+//                 container.append(item.name + ": " + item.quantity + "<br/>");
+//             });
+//         });
+// });
+
 ///// Show name and gold balance
 const showGoldBalance = function () {
 
@@ -85,6 +100,7 @@ const closeModal = function(modal) {
     } else {
         modal.classList.remove('active');
         overlay.classList.remove('active');
+        resetQuantities();
     }
 };
 
@@ -95,6 +111,7 @@ openModalButtons.forEach(button => {
         // Detect, from the clicked button, which modal will be opened
         const modal = document.querySelector(button.dataset.modalTarget);
         openModal(modal);
+        
     });
 
 });
@@ -158,7 +175,8 @@ const showWarning = function (warningType) {
             document.querySelector('.market__warnings').classList.remove('hidden');
             break;
         case 'failedProcess':
-            console.log('process failed');
+            document.querySelector('.warning__text').innerText = `There was a problem processing your purchase. Plase try again later.`;
+            document.querySelector('.market__warnings').classList.remove('hidden');
             break;
         default:
             console.log('default');
@@ -335,33 +353,40 @@ quantityDecreaseButtons.forEach(button => {
     });
 
 });
+
 const buyItems = function () {
     
-    // Update available stock
-    let finalItems = document.querySelectorAll('.market .item__quantity');
-    
-    for (i = 0; i < finalItems.length; i++) {
+    service.simulateRequest().then(() => {
 
-        // Validate that the items are the same
-        if (currentStock[i].id == finalItems[i].dataset.itemId) {
+        // Update available stock
+        let finalItems = document.querySelectorAll('.market .item__quantity');
+        
+        for (i = 0; i < finalItems.length; i++) {
 
-            // Substract the bought amount
-            currentStock[i].quantity -= finalItems[i].value;
-        } else {
-            return;
+            // Validate that the items are the same
+            if (currentStock[i].id == finalItems[i].dataset.itemId) {
+
+                // Substract the bought amount
+                currentStock[i].quantity -= finalItems[i].value;
+            } else {
+                return;
+            }
         }
-    }
 
-    updateAvailableStock();
+        updateAvailableStock();
 
-    // Update gold balance
-    let finalGold = Number(document.querySelector('.market .total__value').innerText.slice(0, -5));
+        // Update gold balance
+        let finalGold = Number(document.querySelector('.market .total__value').innerText.slice(0, -5));
 
-    service.user.balance -= finalGold;
-    
-    showGoldBalance();
+        service.user.balance -= finalGold;
+        
+        showGoldBalance();
 
-    closeModal(this.closest('.modal'));
+        closeModal(this.closest('.modal'));
+
+    }).catch(() => {
+        showWarning('failedProcess');
+    });
 
 };
 

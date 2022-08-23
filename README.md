@@ -14,7 +14,7 @@ As soon as I received this one, and read it, I realised that it was not a possib
 - [X] When user clicks "Buy", dialog is closed, item stocks are updated and user balance is updated. There is no need to store bought items.
 - [x] User can also close the dialog via cancel or close buttons.
 - [X] Make sure constraints with regard to number of items available and user balance are not violated. Make sure feedback is available to users if they cannot accomplish the action (e.g. item is no longer available or a request to the backend fails). 
-- [ ] A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
+- [X] A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
 
 ## Design ##
 A design guideline was provided, but because I didn't like it (it looked like a Windows app), and this is my project, I decided to ditch that and make it more fun for me.

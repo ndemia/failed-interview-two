@@ -36,7 +36,25 @@ class Service {
                 quantity : 5,
                 filename: "wooden_shield"
             }
-        ];
+        ]
+    }
+
+    // Simulate a fail once every three times, or almost three times.
+    simulateRequest() {
+
+        return new Promise((resolve, reject) => {
+
+            setTimeout(() => {
+                let rand = Math.floor(Math.random() * 10) + 1;
+            
+                if (rand % 2 === 0 || rand % 3 === 0) {
+                    resolve();
+                } else {
+                    reject();
+                };
+            }, 2000)
+
+        });
     }
 }
 
