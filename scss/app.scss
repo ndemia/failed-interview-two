@@ -82,6 +82,7 @@ body {
     margin-top: 2rem;
 
     .dashboard {
+        min-width: 300px;
 
         &__subtitle {
             font-weight: 400;
@@ -98,7 +99,7 @@ body {
             margin-bottom: 1rem;
             list-style-type: none;
             background-color: hsl(20, 30%, 33%);
-            border: 1px solid hsl(10, 95%, 14%);
+            border: 2px solid hsl(10, 95%, 14%);
             padding: 0.5rem;
             color:hsl(36, 61%, 75%);
         }
