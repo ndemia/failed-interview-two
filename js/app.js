@@ -42,6 +42,7 @@ currentStock.forEach(item => {
         <div class="item__info">
             <p class="item__name">${item.name}</p>
             <p class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</p>
+            <p class="item__price" data-item-id="${item.id}">Price: ${item.price} gold</p>
         </div>
     </li>`);
     
