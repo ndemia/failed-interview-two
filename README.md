@@ -1,11 +1,11 @@
 # Failed interview test, part 2
-As soon as I received this one, and read it, I realised that it was not a possibility with my current knowledge at that point in time. I didn't understand some of the requirements to make it work, so I ended the process. So here I am, a couple of years later, trying to make it work. The original test used jQuery but since I want to learn vanilla JS, I'll be converting everything to the latter.
+As soon as I received this test, and read it, I realised that it was not a possibility with my current knowledge at that point in time. I didn't understand some of the requirements to make it work, so I ended the process. So here I am, a couple of years later, trying to make it work. The original test used jQuery but since I'm learning vanilla JS, I'll be converting everything to the latter.
 
 ## Pre-built part ##
 * There is a web application with a pre-authenticated user.
 * Each user has an amount of gold coins, which is shown somewhere in the top bar.
 * There is a stock of items to offer, with a price in gold coins and an available amount. E.g.: 3 swords costing 35 each and 2 helmets costing 12 each and so on.
-* For the simplicity of the setup, pre-built storage is in-memory (i.e. some static collections) and the requests to the “back-end” are simulated (see service.js)
+* For the simplicity of the setup, pre-built storage is in-memory (i.e. some static collections) and the requests to the “back-end” are simulated (see service.js).
 
 ## Part to be built ##
 - [x] Make “Buy” button in the top bar show the dialog which will allow user to buy available items. 
@@ -17,7 +17,7 @@ As soon as I received this one, and read it, I realised that it was not a possib
 - [X] A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
 
 ## Design ##
-A design guideline was provided, but because I didn't like it (it looked like a Windows app), and this is my project, I decided to ditch that and make it more fun for me.
+A design guideline was provided, but because this is my project, I decided to ditch that and make it more fun.
 
 ## Implementation requirements ##
 * Existing features should continue to function.
