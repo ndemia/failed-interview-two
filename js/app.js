@@ -345,6 +345,7 @@ itemQuantityInputs.forEach(input => {
             updateTotalCost();
         } else {
             showWarning('notEnoughStock');
+            disableMarketActionsButtons();
         }
     });
 });
@@ -375,6 +376,7 @@ quantityIncreaseButtons.forEach(button => {
 
         } else {
             showWarning('notEnoughStock');
+            disableMarketActionsButtons();
         }
 
     });
@@ -409,6 +411,7 @@ quantityDecreaseButtons.forEach(button => {
 
         } else {
             showWarning('notEnoughStock');
+            disableMarketActionsButtons();
         }
 
     });
