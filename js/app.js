@@ -146,17 +146,43 @@ const quantityDecreaseButtons = document.querySelectorAll('.item__decrease');
 const marketActionsButtons = document.querySelectorAll('.market__actions .btn');
 const itemQuantityInputs = document.querySelectorAll('.market .item__quantity');
 
-const disableButtons = function () {
+const disableIncreaseButtons = function () {
 
     quantityIncreaseButtons.forEach(button => {
         button.classList.add('btn--disabled');
         button.disabled = true;
     });
 
+};
+
+const enableIncreaseButtons = function () {
+
+    quantityIncreaseButtons.forEach(button => {
+        button.classList.remove('btn--disabled');
+        button.disabled = false;
+    });
+
+};
+
+const disableDecreaseButtons = function () {
+
     quantityDecreaseButtons.forEach(button => {
         button.classList.add('btn--disabled');
         button.disabled = true;
     });
+
+};
+
+const enableDecreaseButtons = function () {
+
+    quantityDecreaseButtons.forEach(button => {
+        button.classList.remove('btn--disabled');
+        button.disabled = false;
+    });
+
+};
+
+const disableMarketActionsButtons = function () {
 
     marketActionsButtons.forEach(button => {
         button.classList.add('btn--disabled');
@@ -165,17 +191,7 @@ const disableButtons = function () {
 
 };
 
-const enableButtons = function () {
-
-    quantityIncreaseButtons.forEach(button => {
-        button.classList.remove('btn--disabled');
-        button.disabled = false;
-    });
-
-    quantityDecreaseButtons.forEach(button => {
-        button.classList.remove('btn--disabled');
-        button.disabled = false;
-    });
+const enableMarketActionsButtons = function () {
 
     marketActionsButtons.forEach(button => {
         button.classList.remove('btn--disabled');
@@ -241,12 +257,12 @@ const checkTotalCostDoesNotExceedBalance = function (totalCost) {
             // If total cost comes down back to current balance, remove warning
             document.querySelector('.market__warnings').classList.add('hidden');
 
-            enableButtons();
+            enableIncreaseButtons();
         }
         return;
     } else {        
         showWarning('exceededBalance');
-        disableButtons();
+        disableIncreaseButtons();
     }
 
 };
@@ -268,10 +284,10 @@ const checkAvailableStock = function (itemQuantity, itemId) {
     });
 
     if (itemQuantity <= availableStock) {
-        enableButtons();
+        enableIncreaseButtons();
         return true;
     } else {
-        disableButtons();
+        disableIncreaseButtons();
         return false;
     }
 
@@ -391,7 +407,11 @@ const buyItems = function () {
 
     showLoader();
 
-    disableButtons();
+    disableIncreaseButtons();
+
+    disableDecreaseButtons();
+
+    disableMarketActionsButtons();
 
     service.simulateRequest().then(() => {
 
@@ -421,13 +441,26 @@ const buyItems = function () {
 
         hideLoader();
 
+        enableIncreaseButtons();
+
+        enableDecreaseButtons();
+
+        enableMarketActionsButtons();
+
         closeModal(this.closest('.modal'));
 
     }).catch(() => {
 
         hideLoader();
-        showWarning('failedProcess');
+
+        enableIncreaseButtons();
+
+        enableDecreaseButtons();
+
+        enableMarketActionsButtons();
         
+        showWarning('failedProcess');
+
     });
     
 };
