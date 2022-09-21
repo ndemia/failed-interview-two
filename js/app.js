@@ -13,6 +13,7 @@
 //         });
 // });
 
+
 ///// Show name and gold balance
 const showGoldBalance = function () {
 
@@ -28,6 +29,7 @@ const showUserName = function () {
 
 document.addEventListener('DOMContentLoaded', showGoldBalance());
 document.addEventListener('DOMContentLoaded', showUserName());
+
 
 ///// Show available stock
 // UI variables
@@ -78,6 +80,7 @@ const updateAvailableStock = function () {
 
     };
 };
+
 
 ///// Modal functionality
 // UI variables
@@ -160,8 +163,21 @@ const enableButtons = function () {
         button.classList.remove('btn--disabled');
         button.disabled = false;
     });
+
     document.querySelector('.market .action__buy').classList.remove('btn--disabled');
     document.querySelector('.market .action__buy').disabled = false;
+};
+
+const showLoader = function () {
+
+    document.querySelector('.loader').classList.remove('hidden');
+
+};
+
+const hideLoader = function () {
+
+    document.querySelector('.loader').classList.add('hidden');
+
 };
 
 const showWarning = function (warningType) {
@@ -356,7 +372,11 @@ quantityDecreaseButtons.forEach(button => {
 });
 
 const buyItems = function () {
-    
+
+    showLoader();
+
+    disableButtons();
+
     service.simulateRequest().then(() => {
 
         // Update available stock

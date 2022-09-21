@@ -289,6 +289,7 @@ body {
     &__actions {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-top: 3rem;
 
         .action__buy, .action__cancel {
@@ -298,6 +299,15 @@ body {
         .action__buy {
             margin-left: 0.5rem;
         }
+    }
+
+    .primary__actions, .secondary__actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .secondary__actions {
+
     }
 }
 
@@ -398,7 +408,37 @@ body {
     }
 }
 
-// Remove input spinner from appearing in Firefox
+.loader {
+    margin-left: 1rem;
+    animation: 2s infinite cubic-bezier(.65,.05,.36,1) loading;
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        display: block;
+        fill: hsl(36, 61%, 75%);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.btn--disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(180deg)
+    }
+}
+
+// Remove input spinner arrows from appearing in Firefox
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
    -webkit-appearance: none;
@@ -406,14 +446,4 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 input[type="number"] {
    -moz-appearance: textfield;
-}
-
-.hidden {
-    display: none;
-}
-
-
-.btn--disabled {
-    pointer-events: none;
-    opacity: 0.5;
 }
