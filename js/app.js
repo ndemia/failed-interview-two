@@ -68,7 +68,7 @@ currentStock.forEach(item => {
 
 const updateAvailableStock = function () {
 
-    const productsList = document.querySelectorAll('.dashboard [data-item-id]');
+    const productsList = document.querySelectorAll('.dashboard .item__quantity');
 
     for (i = 0; i < productsList.length; i++) {
 
@@ -220,11 +220,11 @@ const showWarning = function (warningType) {
             document.querySelector('.market__warnings').classList.remove('hidden');
             break;
         case 'notEnoughStock':
-            document.querySelector('.warning__text').innerText = `You have reached the maximum stock quantity for this item.`;
+            document.querySelector('.warning__text').innerText = `You have exceeded the maximum quantity for this item.`;
             document.querySelector('.market__warnings').classList.remove('hidden');
             break;
         case 'failedProcess':
-            document.querySelector('.warning__text').innerText = `There was a problem processing your purchase. Plase try again later.`;
+            document.querySelector('.warning__text').innerText = `There was a problem processing your purchase. Please try again later.`;
             document.querySelector('.market__warnings').classList.remove('hidden');
             break;
         default:
@@ -415,7 +415,7 @@ const buyItems = function () {
 
     service.simulateRequest().then(() => {
 
-        // Update available stock
+        // Save each input in order to gather from them each item quantity
         let finalItems = document.querySelectorAll('.market .item__quantity');
         
         for (i = 0; i < finalItems.length; i++) {
@@ -423,8 +423,9 @@ const buyItems = function () {
             // Validate that the items are the same
             if (currentStock[i].id == finalItems[i].dataset.itemId) {
 
-                // Substract the bought amount
+                // Substract the bought amount from the current stock
                 currentStock[i].quantity -= finalItems[i].value;
+
             } else {
                 return;
             }
