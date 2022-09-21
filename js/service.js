@@ -60,6 +60,7 @@ class Service {
 
 const service = new Service();
 
+// Original test code
 // function simulateSuccessfulRequest(result) {
 //     var deferred = $.Deferred();
 

@@ -1,3 +1,4 @@
+// Original test code
 // $(function() {
 //     service.getUser()
 //         .then(function (user) {
@@ -88,7 +89,7 @@ const openModalButtons = document.querySelectorAll('[data-modal-target]');
 const closeModalButtons = document.querySelectorAll('[data-close-button]');
 const overlay = document.querySelector('.overlay');
 
-const openModal = function(modal) {
+const openModal = function (modal) {
 
     if (modal == null) {
         return;
@@ -98,7 +99,7 @@ const openModal = function(modal) {
     }
 };
 
-const closeModal = function(modal) {
+const closeModal = function (modal) {
     if (modal == null) {
         return;
     } else {
@@ -231,7 +232,7 @@ const showWarning = function (warningType) {
             console.log('default');
     }
 
-}
+};
 
 const updateItemCost = function (itemQuantity, itemId) {
 
@@ -241,7 +242,7 @@ const updateItemCost = function (itemQuantity, itemId) {
     let updatedPrice;
 
     currentStock.forEach(item => {
-        if(item.id === itemId) {
+        if (item.id === itemId) {
             updatedPrice = itemQuantity * item.price;
         }
     });
@@ -277,7 +278,7 @@ const checkAvailableStock = function (itemQuantity, itemId) {
 
     currentStock.forEach(item => {
 
-        if(item.id === itemId) {
+        if (item.id === itemId) {
             availableStock = item.quantity;
         }
 
@@ -327,14 +328,24 @@ const resetQuantities = function() {
 
 };
 
-// Typing any quantity updates the costs
+// Typing any quantity updates the costs, and checks for constraints
 itemQuantityInputs.forEach(input => {
+   
     input.addEventListener('change', (e) => {
-        let itemId = e.target.parentElement.dataset.itemId;
+
+        let itemId = e.target.dataset.itemId;
         let itemQuantity = e.target.value;
         let updatedPrice = updateItemCost(itemQuantity, itemId);
-        e.target.parentElement.nextElementSibling.innerText = `${updatedPrice} gold`;
-        updateTotalCost();
+
+        // If there's enough stock
+        if (checkAvailableStock(itemQuantity, itemId) === true) {
+            
+            // Update costs
+            e.target.parentElement.nextElementSibling.innerText = `${updatedPrice} gold`;
+            updateTotalCost();
+        } else {
+            showWarning('notEnoughStock');
+        }
     });
 });
 
@@ -353,6 +364,7 @@ quantityIncreaseButtons.forEach(button => {
         // Save the newly updated item quantity
         let itemQuantity = pressedButton.previousElementSibling.value;
 
+        // If there's enough stock
         if (checkAvailableStock(itemQuantity, itemId) === true) {
             
             let totalItemCost = updateItemCost(itemQuantity, itemId);
