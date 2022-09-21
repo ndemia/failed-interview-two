@@ -106,6 +106,7 @@ const closeModal = function (modal) {
         modal.classList.remove('active');
         overlay.classList.remove('active');
         resetQuantities();
+        enableMarketActionsButtons();
     }
 };
 
