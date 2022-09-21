@@ -143,6 +143,7 @@ overlay.addEventListener('click', () => {
 // UI Variables
 const quantityIncreaseButtons = document.querySelectorAll('.item__increase');
 const quantityDecreaseButtons = document.querySelectorAll('.item__decrease');
+const marketActionsButtons = document.querySelectorAll('.market__actions .btn');
 const itemQuantityInputs = document.querySelectorAll('.market .item__quantity');
 
 const disableButtons = function () {
@@ -152,8 +153,15 @@ const disableButtons = function () {
         button.disabled = true;
     });
 
-    document.querySelector('.market .action__buy').classList.add('btn--disabled');
-    document.querySelector('.market .action__buy').disabled = true;
+    quantityDecreaseButtons.forEach(button => {
+        button.classList.add('btn--disabled');
+        button.disabled = true;
+    });
+
+    marketActionsButtons.forEach(button => {
+        button.classList.add('btn--disabled');
+        button.disabled = true;
+    });
 
 };
 
@@ -164,8 +172,16 @@ const enableButtons = function () {
         button.disabled = false;
     });
 
-    document.querySelector('.market .action__buy').classList.remove('btn--disabled');
-    document.querySelector('.market .action__buy').disabled = false;
+    quantityDecreaseButtons.forEach(button => {
+        button.classList.remove('btn--disabled');
+        button.disabled = false;
+    });
+
+    marketActionsButtons.forEach(button => {
+        button.classList.remove('btn--disabled');
+        button.disabled = false;
+    });
+
 };
 
 const showLoader = function () {
