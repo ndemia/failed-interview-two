@@ -419,12 +419,17 @@ const buyItems = function () {
         
         showGoldBalance();
 
+        hideLoader();
+
         closeModal(this.closest('.modal'));
 
     }).catch(() => {
-        showWarning('failedProcess');
-    });
 
+        hideLoader();
+        showWarning('failedProcess');
+        
+    });
+    
 };
 
 document.querySelector('.market .action__buy').addEventListener('click', buyItems);
