@@ -1,3 +1,39 @@
+// Original test code
+// function simulateSuccessfulRequest(result) {
+//     var deferred = $.Deferred();
+
+//     setTimeout(
+//         function() {
+//             deferred.resolve(result);
+//         }, 
+//         Math.random() * 100
+//     );
+
+//     return deferred.promise();
+// }
+
+// function simulateFailureRequest() {
+//     var deferred = $.Deferred();
+
+//     setTimeout(
+//         function() {
+//             deferred.reject();
+//         }, 
+//         Math.random() * 100
+//     );
+
+//     return deferred.promise();
+// }
+
+// return {
+//     getUser: function() {
+//         return simulateSuccessfulRequest(user);
+//     },
+//     list: function() {
+//         return simulateSuccessfulRequest(items);
+//     }
+// };
+
 class Service {
     constructor() {
 
@@ -59,39 +95,3 @@ class Service {
 }
 
 const service = new Service();
-
-// Original test code
-// function simulateSuccessfulRequest(result) {
-//     var deferred = $.Deferred();
-
-//     setTimeout(
-//         function() {
-//             deferred.resolve(result);
-//         }, 
-//         Math.random() * 100
-//     );
-
-//     return deferred.promise();
-// }
-
-// function simulateFailureRequest() {
-//     var deferred = $.Deferred();
-
-//     setTimeout(
-//         function() {
-//             deferred.reject();
-//         }, 
-//         Math.random() * 100
-//     );
-
-//     return deferred.promise();
-// }
-
-// return {
-//     getUser: function() {
-//         return simulateSuccessfulRequest(user);
-//     },
-//     list: function() {
-//         return simulateSuccessfulRequest(items);
-//     }
-// };
