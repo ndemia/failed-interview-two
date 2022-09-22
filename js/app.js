@@ -403,12 +403,16 @@ quantityDecreaseButtons.forEach(button => {
         // Save the newly updated item quantity
         let itemQuantity = pressedButton.nextElementSibling.value;
 
-        if (checkAvailableStock(itemQuantity, itemId)) {
+        if (checkAvailableStock(itemQuantity, itemId) === true) {
+            
             let totalItemCost = updateItemCost(itemQuantity, itemId);
 
             pressedButton.parentElement.nextElementSibling.innerText = `${totalItemCost} gold`;
     
             updateTotalCost();
+
+            // Re-enable action buttons after decreasing the quantity because the stock limit was reached
+            enableMarketActionsButtons();
 
         } else {
             showWarning('notEnoughStock');
