@@ -14,7 +14,6 @@
 //         });
 // });
 
-
 ///// Show name and gold balance
 const showGoldBalance = function () {
 
@@ -82,63 +81,6 @@ const updateAvailableStock = function () {
     };
 };
 
-
-///// Modal functionality
-// UI variables
-const openModalButtons = document.querySelectorAll('[data-modal-target]');
-const closeModalButtons = document.querySelectorAll('[data-close-button]');
-const overlay = document.querySelector('.overlay');
-
-const openModal = function (modal) {
-
-    if (modal == null) {
-        return;
-    } else {
-        modal.classList.add('active');
-        overlay.classList.add('active');
-    }
-};
-
-const closeModal = function (modal) {
-    if (modal == null) {
-        return;
-    } else {
-        modal.classList.remove('active');
-        overlay.classList.remove('active');
-        resetQuantities();
-        enableMarketActionsButtons();
-    }
-};
-
-openModalButtons.forEach(button => {
-
-    button.addEventListener('click', () => {
-
-        // Detect, from the clicked button, which modal will be opened
-        const modal = document.querySelector(button.dataset.modalTarget);
-        openModal(modal);
-        
-    });
-
-});
-
-closeModalButtons.forEach(button => {
-
-    button.addEventListener('click', () => {
-
-        const modal = button.closest('.modal');
-        closeModal(modal);
-    });
-});
-
-// Close the modal by clicking the overlay
-overlay.addEventListener('click', () => {
-
-    const modals = document.querySelectorAll('.modal.active');
-    modals.forEach(modal => {
-        closeModal(modal);
-    });
-});
 
 
 ///// Market operations
