@@ -424,6 +424,8 @@ const buyItems = function () {
         
         showWarning('failedProcess');
 
+        document.querySelector('.warning__text').focus();
+
     });
     
 };
