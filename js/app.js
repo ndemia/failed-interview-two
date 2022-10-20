@@ -57,9 +57,9 @@ currentStock.forEach(item => {
                 <h4 class="item__name">${item.name}</h4>
             </div>
             <div class="item__actions" data-item-id="${item.id}">
-                <button class="item__decrease">-</button>
-                <input type="number" name="item__quantity" class="item__quantity" value="0" min="0" max="${item.quantity}" data-item-id="${item.id}">
-                <button class="item__increase">+</button>	
+                <button class="item__decrease" aria-label="Decrease item quantity">-</button>
+                <input type="number" name="item__quantity" class="item__quantity" value="0" min="0" max="${item.quantity}" data-item-id="${item.id}" aria-label="Item quantity">
+                <button class="item__increase" aria-label="Increase item quantity">+</button>	
             </div>
             <span class="item__cost">0 gold</span>
         </div>
