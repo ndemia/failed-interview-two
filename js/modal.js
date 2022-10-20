@@ -26,6 +26,7 @@ const openModal = function (modal) {
     } else {
         modal.classList.add('active');
         overlay.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
     }
 };
 
