@@ -83,17 +83,12 @@ class Service {
             setTimeout(() => {
                 let rand = Math.floor(Math.random() * 10) + 1;
             
-                // if (rand % 2 === 0 || rand % 3 === 0) {
-                //     resolve();
-                // } else {
-                //     reject();
-                // };
-
-                if (rand % 3 === 0) {
+                if (rand % 2 === 0 || rand % 3 === 0) {
                     resolve();
                 } else {
                     reject();
                 };
+
             }, 2000)
 
         });
