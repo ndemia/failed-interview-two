@@ -53,8 +53,8 @@ currentStock.forEach(item => {
     `<li class="products__item">
         <div class="item__container">
             <div class="item__info">
-                <img src="images/${item.filename}.png" class="item__image">
-                <h4 class="item__name">${item.name}</h4>
+                <img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}">
+                <p class="item__name">${item.name}</p>
             </div>
             <div class="item__actions" data-item-id="${item.id}">
                 <button class="item__decrease" aria-label="Decrease ${item.name} quantity">-</button>
