@@ -207,6 +207,7 @@ const checkTotalCostDoesNotExceedBalance = function (totalCost) {
     } else {        
         showWarning('exceededBalance');
         disableIncreaseButtons();
+        disableMarketActionsButtons();
     }
 
 };
