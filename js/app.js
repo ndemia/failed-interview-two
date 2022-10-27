@@ -42,7 +42,7 @@ currentStock.forEach(item => {
     `<li class="dashboard__item">
         <img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
         <div class="item__info">
-            <p class="item__name">${item.name}</p>
+            <h3 class="item__name">${item.name}</h3>
             <p class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</p>
             <p class="item__price" data-item-id="${item.id}">Price: ${item.price} gold</p>
         </div>
