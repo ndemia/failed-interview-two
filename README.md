@@ -1,4 +1,4 @@
-# Failed interview test, part 2
+# Marketplace (Failed interview test, part 2)
 ![picture](https://raw.githubusercontent.com/ndemia/demia.me/main/assets/images/interview02.png)
 
 As soon as I received this test, and read it, I realised that it was not a possibility with my current knowledge at that point in time. I didn't understand some of the requirements to make it work, so I ended the process. So here I am, a couple of years later, trying to make it work. The original test used jQuery but since I'm learning vanilla JS, I'll be converting everything to the latter.
