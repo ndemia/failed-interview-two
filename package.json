@@ -3,8 +3,8 @@
     "sass": "^1.54.0",
     "wicg-inert": "^3.1.2"
   },
-  "name": "failed-interview-two",
-  "description": "",
+  "name": "marketplace",
+  "description": "Marketplace prototype from a failed interview test.",
   "version": "1.0.0",
   "main": "index.js",
   "directories": {
@@ -16,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ndemia/failed-interview-two.git"
+    "url": "git+https://github.com/ndemia/marketplace.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ndemia/failed-interview-two/issues"
+    "url": "https://github.com/ndemia/marketplace/issues"
   },
-  "homepage": "https://github.com/ndemia/failed-interview-two#readme"
+  "homepage": "https://github.com/ndemia/marketplace#readme"
 }
