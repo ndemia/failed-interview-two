@@ -33,4 +33,4 @@ A design guideline was provided, but because this is my project, I decided to di
     • Edge (latest) 
     • Internet Explorer 11 (can't promise anything)
 
-https://ndemia.github.io/failed-interview-two/
+https://ndemia.github.io/marketplace/
