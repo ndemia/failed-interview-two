@@ -3,6 +3,9 @@
 
 As soon as I received this test, and read it, I realised that it was not a possibility with my current knowledge at that point in time. I didn't understand some of the requirements to make it work, so I ended the process. So here I am, a couple of years later, trying to make it work. The original test used jQuery but since I'm learning vanilla JS, I'll be converting everything to the latter.
 
+## Design ##
+A design guideline was provided, but because this is my version of that project, I decided to ditch that and make it fun.
+
 ## Pre-built part ##
 * There is a web application with a pre-authenticated user.
 * Each user has an amount of gold coins, which is shown somewhere in the top bar.
@@ -17,9 +20,6 @@ As soon as I received this test, and read it, I realised that it was not a possi
 - [x] User can also close the dialog via cancel or close buttons.
 - [X] Make sure constraints with regard to number of items available and user balance are not violated. Make sure feedback is available to users if they cannot accomplish the action (e.g. item is no longer available or a request to the backend fails). 
 - [X] A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
-
-## Design ##
-A design guideline was provided, but because this is my project, I decided to ditch that and make it more fun.
 
 ## Implementation requirements ##
 * Existing features should continue to function.
