@@ -1,0 +1,71 @@
+import { resetQuantities, enableMarketActionsButtons } from "./market.js";
+
+const openModalButtons = document.querySelectorAll('[data-modal-target]') as NodeListOf<HTMLButtonElement>;
+const closeModalButtons = document.querySelectorAll('[data-close-button]') as NodeListOf<HTMLButtonElement>;
+const overlay = document.querySelector('.overlay') as HTMLDivElement;
+let previousActiveElement: HTMLElement;
+
+export const openModal = (modal: HTMLDivElement): void => {
+	// Save a reference to the previous active element, to restore this once the modal is closed
+	previousActiveElement = document.activeElement as HTMLElement;
+	// Make the rest of the document inert so that it's not available with keyboard or screen reader.
+	let bodyElements = Array.from(document.body.children).filter(element => element.localName != 'script');
+	bodyElements.forEach((element) => {
+		if (element.getAttribute('role') !== 'dialog') {
+			(element as HTMLElement).inert = true;
+		}
+	});
+	// Move focus into the modal
+	modal.querySelector('button')!.focus();
+	// Open the modal
+	if (modal == null) {
+		return;
+	} else {
+		modal.classList.add('active');
+		overlay.classList.add('active');
+		modal.setAttribute('aria-hidden', 'false');
+	}
+};
+
+export const closeModal = (modal: HTMLDivElement): void => {
+	const childrenArray: Element[] = Array.from(document.body.children);
+	childrenArray.forEach((child) => {
+		if (child.getAttribute('role') !== 'dialog') {
+			(child as HTMLElement).inert = false;
+		}
+	});
+	// Close the modal
+	if (modal == null) {
+		return;
+	} else {
+		modal.classList.remove('active');
+		overlay.classList.remove('active');
+		resetQuantities();
+		enableMarketActionsButtons();
+	}
+	// Restore focus to the previous active element
+	previousActiveElement.focus();
+};
+
+openModalButtons.forEach(button => {
+	button.addEventListener('click', () => {
+		// Detect, from the clicked button, which modal will be opened
+		const modal = document.querySelector('#market') as HTMLDivElement;
+		openModal(modal);
+	});
+});
+
+closeModalButtons.forEach(button => {
+	button.addEventListener('click', () => {
+		const modal = button.closest('.modal') as HTMLDivElement;
+		closeModal(modal);
+	});
+});
+
+// Close the modal by clicking the overlay
+overlay.addEventListener('click', () => {
+	const modals = document.querySelectorAll('.modal.active') as NodeListOf<HTMLDivElement>;
+	modals.forEach(modal => {
+		closeModal(modal);
+	});
+});
