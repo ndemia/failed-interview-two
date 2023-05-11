@@ -1,86 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="favicon.ico" sizes="any">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-	<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon.png">
-    <link rel="stylesheet" type="text/css" href="css/app.css" />
-	<title>Marketplace</title>
-</head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" href="favicon.ico" sizes="any" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+		<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon.png" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<title>Marketplace</title>
+	</head>
 
-<body>
+	<body>
+		<!-- Top bar -->
+		<nav class="navbar">
+			<span class="navbar__text"
+				>Balance:
+				<span id="gold-balance" class="navbar__text--gold"></span>
+			</span>
+			<button data-modal-target="#market" id="buy" class="navbar__btn btn btn--primary">Buy</button>
+		</nav>
 
-	<!-- Top bar -->
-	<nav class="navbar">
-		<span class="navbar__text">Balance: 
-			<span id="gold-balance" class="navbar__text--gold"></span>
-		</span>
-		<button data-modal-target="#market" id="buy" class="navbar__btn btn btn--primary">Buy</button>
-	</nav>
-
-	<!-- Content -->
-	<main class="main">
-		<section class="dashboard">
-			<h1 class="dashboard__title">Hello, <span id="user-name"></span></h1>
-			<h2 class="dashboard__subtitle">This is the available stock:</h2>
-			<ul id="stock" class="dashboard__stock"></ul>
-		</section>
-	</main>
-
-	<!-- Modal / Marketplace -->
-	<div id="market" class="modal market" tabindex="-1" role="dialog"  aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<section class="market__header">
-				<h3 class="market__title">Order</h3>
-				<button class="market__close" data-dismiss="modal" data-close-button title="Close dialog">
-					<svg viewBox="0 0 24 24">
-						<path d="m2 2.1836 1.1504 4.3105 9.4941 9.4961 1.5547 1.5527-1.5098 1.5098 1.4492 1.4492 2.4199-2.4199 3.5723 3.5723 1.375-1.375-3.5723-3.5723 2.3887-2.3887-1.4492-1.4492-1.625 1.625-1.5547-1.5527-9.4941-9.4941zm13.886 9.4386 4.9634-4.9629 1.1504-4.3125-4.1986 1.2636-4.9639 4.9634zm-10.759 1.411-1.4492 1.4492 2.3887 2.3887-3.5723 3.5703 1.375 1.375 3.5723-3.5703 2.4199 2.4199 1.4492-1.4492-1.5098-1.5098 1.5527-1.5527-3.0469-3.0488-1.5527 1.5547z" />
-					</svg>								   
-				</button>
+		<!-- Dashboard -->
+		<main class="main">
+			<section class="dashboard">
+				<h1 class="dashboard__title">Hello, <span id="user-name"></span></h1>
+				<h2 class="dashboard__subtitle">This is the available stock:</h2>
+				<ul id="stock" class="dashboard__stock"></ul>
 			</section>
-			<section class="market__products">
-				<ul class="products__list">
-				</ul>
-			</section>
-			<section class="products__total">
-				<span class="total__text">Total</span>
-				<span class="total__value">0 gold</span>
-			</section>
-			<section class="market__warnings hidden" role="alert">
-				<div class="warning">
-                    <span class="warning__icon">
+		</main>
+
+		<!-- Modal / Marketplace -->
+		<div id="market" class="modal market" tabindex="-1" role="dialog" aria-hidden="true" aria-label="Marketplace">
+			<div class="modal-dialog modal-dialog-centered">
+				<section class="market__header">
+					<h3 class="market__title">Order</h3>
+					<button class="market__close" data-dismiss="modal" data-close-button title="Close dialog">
 						<svg viewBox="0 0 24 24">
-							<path d="m19.63 10.572 1.386-4.2c0.042-0.126 0.042-0.252-0.042-0.378s-0.21-0.168-0.336-0.168h-5.3338v-1.05c0-1.008-0.84-1.806-1.806-1.806h-8.2742v-1.05c0-0.252-0.168-0.42-0.42-0.42h-1.428c-0.252 0-0.42 0.168-0.42 0.42v20.16c0 0.252 0.168 0.42 0.42 0.42h1.428c0.252 0 0.42-0.168 0.42-0.42v-9.66h7.812v1.05c0 1.008 0.84 1.848 1.848 1.848h5.7542c0.126 0 0.252-0.084 0.336-0.168 0.084-0.126 0.084-0.252 0.042-0.378z" />
-						</svg>			
-					</span>
-                    <span class="warning__text"><span>
-                </div>
-			</section>
-			<section class="market__actions">
-				<div class="secondary__actions">
-					<button class="btn btn--tertiary action__reset" aria-label="Reset form">Reset</button>
-				</div>
-				<div class="primary__actions">
-					<button class="btn btn--secondary action__cancel" data-dismiss="modal" data-close-button aria-label="Cancel">Cancel</button>
-					<button class="btn btn--primary action__buy">Buy</button>
-					<span class="loader hidden" role="alert" title="Purchase in progress">
-						<svg class="loader__icon" viewBox="0 0 24 24">
-							<path d="m17.6 7.226v-3.33h1.602v-1.897h-14.37v1.897h1.602v3.309c0 1.307 0.6323 2.529 1.728 3.267l2.171 1.538-2.192 1.517c-1.075 0.7377-1.728 1.96-1.728 3.267v3.309h-1.602v1.897h14.37v-1.897h-1.602l-1.55e-4 -3.309c0-1.307-0.6323-2.529-1.728-3.267l-2.15-1.517 2.192-1.517c1.075-0.7377 1.707-1.96 1.707-3.267z"/>
+							<path
+								d="m2 2.1836 1.1504 4.3105 9.4941 9.4961 1.5547 1.5527-1.5098 1.5098 1.4492 1.4492 2.4199-2.4199 3.5723 3.5723 1.375-1.375-3.5723-3.5723 2.3887-2.3887-1.4492-1.4492-1.625 1.625-1.5547-1.5527-9.4941-9.4941zm13.886 9.4386 4.9634-4.9629 1.1504-4.3125-4.1986 1.2636-4.9639 4.9634zm-10.759 1.411-1.4492 1.4492 2.3887 2.3887-3.5723 3.5703 1.375 1.375 3.5723-3.5703 2.4199 2.4199 1.4492-1.4492-1.5098-1.5098 1.5527-1.5527-3.0469-3.0488-1.5527 1.5547z"
+							/>
 						</svg>
-					</span>
-				</div>
-			</section>
+					</button>
+				</section>
+				<section class="market__products">
+					<ul class="products__list"></ul>
+				</section>
+				<section class="products__total">
+					<span class="total__text">Total</span>
+					<span class="total__value">0 gold</span>
+				</section>
+				<section class="market__warnings hidden" role="alert">
+					<div class="warning">
+						<span class="warning__icon">
+							<svg viewBox="0 0 24 24">
+								<path
+									d="m19.63 10.572 1.386-4.2c0.042-0.126 0.042-0.252-0.042-0.378s-0.21-0.168-0.336-0.168h-5.3338v-1.05c0-1.008-0.84-1.806-1.806-1.806h-8.2742v-1.05c0-0.252-0.168-0.42-0.42-0.42h-1.428c-0.252 0-0.42 0.168-0.42 0.42v20.16c0 0.252 0.168 0.42 0.42 0.42h1.428c0.252 0 0.42-0.168 0.42-0.42v-9.66h7.812v1.05c0 1.008 0.84 1.848 1.848 1.848h5.7542c0.126 0 0.252-0.084 0.336-0.168 0.084-0.126 0.084-0.252 0.042-0.378z"
+								/>
+							</svg>
+						</span>
+						<span class="warning__text"></span>
+					</div>
+				</section>
+				<section class="market__actions">
+					<div class="secondary__actions">
+						<button class="btn btn--tertiary action__reset" aria-label="Reset form">Reset</button>
+					</div>
+					<div class="primary__actions">
+						<button class="btn btn--secondary action__cancel" data-dismiss="modal" data-close-button aria-label="Cancel">Cancel</button>
+						<button class="btn btn--primary action__buy">Buy</button>
+						<span class="loader hidden" role="alert" title="Purchase in progress">
+							<svg class="loader__icon" viewBox="0 0 24 24">
+								<path
+									d="m17.6 7.226v-3.33h1.602v-1.897h-14.37v1.897h1.602v3.309c0 1.307 0.6323 2.529 1.728 3.267l2.171 1.538-2.192 1.517c-1.075 0.7377-1.728 1.96-1.728 3.267v3.309h-1.602v1.897h14.37v-1.897h-1.602l-1.55e-4 -3.309c0-1.307-0.6323-2.529-1.728-3.267l-2.15-1.517 2.192-1.517c1.075-0.7377 1.707-1.96 1.707-3.267z"
+								/>
+							</svg>
+						</span>
+					</div>
+				</section>
+			</div>
 		</div>
-	</div>
 
-	<div focusable="false" class="overlay"></div>
+		<!-- Modal overlay -->
+		<div focusable="false" class="overlay"></div>
 
-	<script type="text/javascript" src="js/inert.min.js"></script>
-	<script type="text/javascript" src="js/service.js"></script>
-	<script type="text/javascript" src="js/modal.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-</body>
+		<!-- <script type="module" src="/js/service.js"></script>
+		<script type="module" src="/js/modal.js"></script>
+		<script type="module" src="/js/market.js"></script> -->
+		<script type="module" src="/js/app.js"></script>
+	</body>
 </html>

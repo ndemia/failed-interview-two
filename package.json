@@ -1,27 +1,28 @@
 {
-  "dependencies": {
-    "sass": "^1.55.0",
-    "wicg-inert": "^3.1.2"
-  },
-  "name": "marketplace",
-  "description": "Marketplace prototype from a failed interview test.",
-  "version": "1.0.0",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "sass:build": "sass --watch --update --style=compressed --no-source-map scss:css"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ndemia/marketplace.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ndemia/marketplace/issues"
-  },
-  "homepage": "https://github.com/ndemia/marketplace#readme"
+	"dependencies": {
+		"sass": "^1.55.0",
+		"wicg-inert": "^3.1.2"
+	},
+	"type": "module",
+	"name": "marketplace",
+	"description": "Marketplace prototype from a failed interview test.",
+	"version": "1.0.0",
+	"main": "index.js",
+	"directories": {
+		"doc": "docs"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"sass:build": "sass --watch --update --style=compressed --no-source-map scss:css"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ndemia/marketplace.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ndemia/marketplace/issues"
+	},
+	"homepage": "https://github.com/ndemia/marketplace#readme"
 }

@@ -1,82 +1,65 @@
-// Variables
+import { resetQuantities, enableMarketActionsButtons } from "./market.js";
 const openModalButtons = document.querySelectorAll('[data-modal-target]');
 const closeModalButtons = document.querySelectorAll('[data-close-button]');
 const overlay = document.querySelector('.overlay');
 let previousActiveElement;
-
-const openModal = function (modal) {
-
-    // Save a reference to the previous active element
-    // To restore this once the modal is closed
+export const openModal = (modal) => {
+    // Save a reference to the previous active element, to restore this once the modal is closed
     previousActiveElement = document.activeElement;
-
     // Make the rest of the document inert so that it's not available with keyboard or screen reader.
-    Array.from(document.body.children).forEach(child => {
-        if (child.getAttribute('role') !== 'dialog') {
-            child.inert = true;
+    let bodyElements = Array.from(document.body.children).filter(element => element.localName != 'script');
+    bodyElements.forEach((element) => {
+        if (element.getAttribute('role') !== 'dialog') {
+            element.inert = true;
         }
     });
-
     // Move focus into the modal
     modal.querySelector('button').focus();
-
     // Open the modal
     if (modal == null) {
         return;
-    } else {
+    }
+    else {
         modal.classList.add('active');
         overlay.classList.add('active');
         modal.setAttribute('aria-hidden', 'false');
     }
 };
-
-const closeModal = function (modal) {
-
-    // Uninert elements
-    Array.from(document.body.children).forEach(child => {
+export const closeModal = (modal) => {
+    const childrenArray = Array.from(document.body.children);
+    childrenArray.forEach((child) => {
         if (child.getAttribute('role') !== 'dialog') {
             child.inert = false;
         }
     });
-
     // Close the modal
     if (modal == null) {
         return;
-    } else {
+    }
+    else {
         modal.classList.remove('active');
         overlay.classList.remove('active');
         resetQuantities();
         enableMarketActionsButtons();
     }
-
     // Restore focus to the previous active element
     previousActiveElement.focus();
 };
-
 openModalButtons.forEach(button => {
-
     button.addEventListener('click', () => {
-
         // Detect, from the clicked button, which modal will be opened
-        const modal = document.querySelector(button.dataset.modalTarget);
+        const modal = document.querySelector('#market');
         openModal(modal);
-        
     });
-
 });
-
 closeModalButtons.forEach(button => {
-
     button.addEventListener('click', () => {
-
         const modal = button.closest('.modal');
         closeModal(modal);
     });
 });
-
 // Close the modal by clicking the overlay
 overlay.addEventListener('click', () => {
-
     const modals = document.querySelectorAll('.modal.active');
     modals.forEach(modal => {
         closeModal(modal);
