@@ -1,8 +1,12 @@
-# Marketplace (Failed interview test, part 2)
+# Marketplace (Failed interview test, volume 2)
 
 ![picture](https://raw.githubusercontent.com/ndemia/demia.me/main/assets/images/interview02.png)
 
 As soon as I received this test, and read it, I realised that it was not a possibility with my current knowledge at that point in time. I didn't understand some of the requirements to make it work, so I ended the process. So here I am, a couple of years later, trying to make it work. The original test used jQuery but since I'm learning vanilla JS, I'll be converting everything to the latter.
+
+## Design
+
+A design guideline was provided, but because this is my version of that project, I decided to ditch that and make it fun.
 
 ## Pre-built part
 
@@ -21,13 +25,8 @@ As soon as I received this test, and read it, I realised that it was not a possi
 - [x] Make sure constraints with regard to number of items available and user balance are not violated. Make sure feedback is available to users if they cannot accomplish the action (e.g. item is no longer available or a request to the backend fails).
 - [x] A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
 
-## Design
-
-A design guideline was provided, but because this is my project, I decided to ditch that and make it more fun.
-
 ## Implementation requirements
 
-- JQuery was required to complete this task, but I'm re-implementing it now in TypeScript.
 - Existing features should continue to function.
 - ~~The requested design (and styling) for the "Buy" dialog is implemented (or as close as possible).~~
 - The domain logic described for the dialog is implemented (real-time updating, constraints/validation checks, updating of the user/stock on purchase, feedback on failure).
@@ -37,6 +36,6 @@ A design guideline was provided, but because this is my project, I decided to di
   • Chrome (latest) 
   • Firefox (latest) 
   • Edge (latest) 
-  • ~~Internet Explorer 11~~
+  • Internet Explorer 11 (can't promise anything)
 
 https://ndemia.github.io/marketplace/
