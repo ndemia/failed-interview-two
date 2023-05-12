@@ -47,25 +47,23 @@ export const closeModal = (modal: HTMLDivElement): void => {
 	previousActiveElement.focus();
 };
 
-openModalButtons.forEach(button => {
-	button.addEventListener('click', () => {
-		// Detect, from the clicked button, which modal will be opened
-		const modal = document.querySelector('#market') as HTMLDivElement;
-		openModal(modal);
+document.addEventListener('DOMContentLoaded', () => {
+	openModalButtons.forEach(button => {
+		button.addEventListener('click', () => {
+			const modal = document.querySelector('.modal') as HTMLDivElement;
+			openModal(modal);
+		});
 	});
-});
-
-closeModalButtons.forEach(button => {
-	button.addEventListener('click', () => {
-		const modal = button.closest('.modal') as HTMLDivElement;
-		closeModal(modal);
+	closeModalButtons.forEach(button => {
+		button.addEventListener('click', () => {
+			const modal = document.querySelector('.modal') as HTMLDivElement;
+			closeModal(modal);
+		});
 	});
-});
-
-// Close the modal by clicking the overlay
-overlay.addEventListener('click', () => {
-	const modals = document.querySelectorAll('.modal.active') as NodeListOf<HTMLDivElement>;
-	modals.forEach(modal => {
-		closeModal(modal);
+	overlay.addEventListener('click', () => {
+		const modals = document.querySelectorAll('.modal.active') as NodeListOf<HTMLDivElement>;
+		modals.forEach(modal => {
+			closeModal(modal);
+		});
 	});
 });

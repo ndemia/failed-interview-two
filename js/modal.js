@@ -45,23 +45,23 @@ export const closeModal = (modal) => {
     // Restore focus to the previous active element
     previousActiveElement.focus();
 };
-openModalButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Detect, from the clicked button, which modal will be opened
-        const modal = document.querySelector('#market');
-        openModal(modal);
+document.addEventListener('DOMContentLoaded', () => {
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = document.querySelector('.modal');
+            openModal(modal);
+        });
     });
-});
-closeModalButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const modal = button.closest('.modal');
-        closeModal(modal);
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = document.querySelector('.modal');
+            closeModal(modal);
+        });
     });
-});
-// Close the modal by clicking the overlay
-overlay.addEventListener('click', () => {
-    const modals = document.querySelectorAll('.modal.active');
-    modals.forEach(modal => {
-        closeModal(modal);
+    overlay.addEventListener('click', () => {
+        const modals = document.querySelectorAll('.modal.active');
+        modals.forEach(modal => {
+            closeModal(modal);
+        });
     });
 });
