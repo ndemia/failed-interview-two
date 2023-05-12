@@ -9,6 +9,7 @@ export const openModal = (modal: HTMLDivElement): void => {
 	// Save a reference to the previous active element, to restore this once the modal is closed
 	previousActiveElement = document.activeElement as HTMLElement;
 	// Make the rest of the document inert so that it's not available with keyboard or screen reader.
+	// A filter is used because the array ends up collecting the script tags that are not necessary
 	let bodyElements = Array.from(document.body.children).filter(element => element.localName != 'script');
 	bodyElements.forEach((element) => {
 		if (element.getAttribute('role') !== 'dialog') {
@@ -28,10 +29,11 @@ export const openModal = (modal: HTMLDivElement): void => {
 };
 
 export const closeModal = (modal: HTMLDivElement): void => {
-	const childrenArray: Element[] = Array.from(document.body.children);
-	childrenArray.forEach((child) => {
-		if (child.getAttribute('role') !== 'dialog') {
-			(child as HTMLElement).inert = false;
+	// Remove the inert attribute from elements
+	const bodyElements = Array.from(document.body.children).filter(element => element.localName != 'script');
+	bodyElements.forEach((element) => {
+		if (element.getAttribute('role') !== 'dialog') {
+			(element as HTMLElement).inert = false;
 		}
 	});
 	// Close the modal
@@ -57,12 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	closeModalButtons.forEach(button => {
 		button.addEventListener('click', () => {
 			const modal = document.querySelector('.modal') as HTMLDivElement;
-			closeModal(modal);
-		});
-	});
-	overlay.addEventListener('click', () => {
-		const modals = document.querySelectorAll('.modal.active') as NodeListOf<HTMLDivElement>;
-		modals.forEach(modal => {
 			closeModal(modal);
 		});
 	});
