@@ -1,37 +1,37 @@
 // Original test code
 // function simulateSuccessfulRequest(result) {
-//     var deferred = $.Deferred();
+// 	var deferred = $.Deferred();
 
-//     setTimeout(
-//         function() {
-//             deferred.resolve(result);
-//         },
-//         Math.random() * 100
-//     );
+// 	setTimeout(
+// 		function () {
+// 			deferred.resolve(result);
+// 		},
+// 		Math.random() * 100
+// 	);
 
-//     return deferred.promise();
+// 	return deferred.promise();
 // }
 
 // function simulateFailureRequest() {
-//     var deferred = $.Deferred();
+// 	var deferred = $.Deferred();
 
-//     setTimeout(
-//         function() {
-//             deferred.reject();
-//         },
-//         Math.random() * 100
-//     );
+// 	setTimeout(
+// 		function () {
+// 			deferred.reject();
+// 		},
+// 		Math.random() * 100
+// 	);
 
-//     return deferred.promise();
+// 	return deferred.promise();
 // }
 
 // return {
-//     getUser: function() {
-//         return simulateSuccessfulRequest(user);
-//     },
-//     list: function() {
-//         return simulateSuccessfulRequest(items);
-//     }
+// 	getUser: function () {
+// 		return simulateSuccessfulRequest(user);
+// 	},
+// 	list: function () {
+// 		return simulateSuccessfulRequest(items);
+// 	}
 // };
 
 import { item } from './types';
@@ -80,7 +80,7 @@ export class Service {
 			}
 		]
 	}
-	// Simulate a fail once every three times, or almost three times.
+	// Simulate a fail once every three times for every request that comes through this function
 	simulateRequest() {
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {

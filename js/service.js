@@ -1,6 +1,6 @@
 // Original test code
 // function simulateSuccessfulRequest(result) {
-//     var deferred = $.Deferred();
+// 	var deferred = $.Deferred();
 export class Service {
     constructor() {
         this.user = {
@@ -39,7 +39,7 @@ export class Service {
             }
         ];
     }
-    // Simulate a fail once every three times, or almost three times.
+    // Simulate a fail once every three times for every request that comes through this function
     simulateRequest() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
