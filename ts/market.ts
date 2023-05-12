@@ -1,5 +1,5 @@
 import { service, currentStock, showGoldBalance } from "./app.js";
-import { openModal, closeModal } from "./modal.js";
+import { closeModal } from "./modal.js";
 
 const quantityIncreaseButtons = document.querySelectorAll('.item__increase') as NodeListOf<HTMLButtonElement>;
 const quantityDecreaseButtons = document.querySelectorAll('.item__decrease') as NodeListOf<HTMLButtonElement>;
