@@ -1,57 +1,56 @@
-// Original test code
-// function simulateSuccessfulRequest(result) {
-// 	var deferred = $.Deferred();
-export class Service {
-    constructor() {
-        this.user = {
+export const service = (() => {
+    const user = {
+        id: 1,
+        login: "user1",
+        balance: 120
+    };
+    const items = [
+        {
             id: 1,
-            login: "User1",
-            balance: 120
-        };
-        this.items = [
-            {
-                id: 1,
-                name: "Bronze sword",
-                price: 8,
-                quantity: 10,
-                filename: "bronze_sword"
-            },
-            {
-                id: 2,
-                name: "Longsword",
-                price: 31,
-                quantity: 1,
-                filename: "longsword"
-            },
-            {
-                id: 3,
-                name: "Battle axe",
-                price: 12,
-                quantity: 2,
-                filename: "battle_axe"
-            },
-            {
-                id: 4,
-                name: "Wooden shield",
-                price: 15,
-                quantity: 5,
-                filename: "wooden_shield"
-            }
-        ];
-    }
-    // Simulate a fail once every three times for every request that comes through this function
-    simulateRequest() {
+            name: "Bronze sword",
+            price: 8,
+            quantity: 10,
+            filename: "bronze_sword"
+        },
+        {
+            id: 2,
+            name: "Longsword",
+            price: 31,
+            quantity: 1,
+            filename: "longsword"
+        },
+        {
+            id: 3,
+            name: "Battle axe",
+            price: 12,
+            quantity: 2,
+            filename: "battle_axe"
+        },
+        {
+            id: 4,
+            name: "Wooden shield",
+            price: 15,
+            quantity: 5,
+            filename: "wooden_shield"
+        }
+    ];
+    function simulateRequest(request) {
+        let rand = Math.floor(Math.random() * 10) + 1;
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                let rand = Math.floor(Math.random() * 10) + 1;
-                if (rand % 2 === 0 || rand % 3 === 0) {
-                    resolve(Promise);
-                }
-                else {
-                    reject();
-                }
-                ;
-            }, 2000);
+            if (true) {
+                setTimeout(() => {
+                    resolve(request);
+                }, 1000);
+            }
+            else {
+                setTimeout(() => {
+                    reject('Se rompio');
+                }, 1000);
+            }
         });
     }
-}
+    return {
+        getUser: () => simulateRequest(user),
+        getItems: () => simulateRequest(items)
+    };
+})();

@@ -6,7 +6,7 @@ As soon as I received this test, and read it, I realised that it was not a possi
 
 ## Design
 
-A design guideline was provided, but because this is my version of that project, I decided to ditch that and make it fun.
+A design was provided, but I decided to ditch it and make a more fun one instead.
 
 ## Pre-built part
 
@@ -32,10 +32,5 @@ A design guideline was provided, but because this is my version of that project,
 - The domain logic described for the dialog is implemented (real-time updating, constraints/validation checks, updating of the user/stock on purchase, feedback on failure).
 - A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
 - You don’t need to have any database or backend (changes) though if you feel like giving it a try, you can. We do however expect you to write a service / proxy which returns promises to simulate requests to the backend (preferable including some random failures).
-- Browser support: 
-  • Chrome (latest) 
-  • Firefox (latest) 
-  • Edge (latest) 
-  • Internet Explorer 11 (can't promise anything)
 
 https://ndemia.github.io/marketplace/
