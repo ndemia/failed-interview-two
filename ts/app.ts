@@ -183,7 +183,8 @@ const updateTotalCost = (): void => {
 };
 
 const resetQuantities = (): void => {
-	const costs = document.querySelectorAll('.market .item__cost') as NodeListOf<HTMLInputElement>;
+	let costs = document.querySelectorAll('.market .item__cost') as NodeListOf<HTMLInputElement>;
+	let itemQuantityInputs = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
 	itemQuantityInputs.forEach(input => {
 		input.value = '0';
 		costs.forEach(cost => {
@@ -193,14 +194,14 @@ const resetQuantities = (): void => {
 	});
 };
 
-const updateAvailableStock = (): void => {
-	const productQuantities = document.querySelectorAll('.dashboard .item__quantity[data-item-id]') as NodeListOf<HTMLParagraphElement>;
-	for (let i = 0; i < productQuantities.length; i++) {
-		if (Number(productQuantities[i].dataset.itemId) === currentStock[i].id) {
-			productQuantities[i].innerText = `Quantity: ${currentStock[i].quantity}`;
-		}
-	};
-};
+// const updateAvailableStock = (): void => {
+// 	const productQuantities = document.querySelectorAll('.dashboard .item__quantity[data-item-id]') as NodeListOf<HTMLParagraphElement>;
+// 	for (let i = 0; i < productQuantities.length; i++) {
+// 		if (Number(productQuantities[i].dataset.itemId) === currentStock[i].id) {
+// 			productQuantities[i].innerText = `Quantity: ${currentStock[i].quantity}`;
+// 		}
+// 	};
+// };
 
 const buyItems = (): void => {
 	showLoader();
@@ -219,11 +220,11 @@ const buyItems = (): void => {
 				return;
 			}
 		}
-		updateAvailableStock();
+		//updateAvailableStock();
 		// Update gold balance
 		let finalGold: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
-		service.user.balance -= finalGold;
-		showGoldBalance();
+		//service.user.balance -= finalGold;
+		//showGoldBalance();
 		hideLoader();
 		enableIncreaseButtons();
 		enableDecreaseButtons();
@@ -287,7 +288,7 @@ const closeModal = (modal: HTMLDivElement): void => {
 	} else {
 		modal.classList.remove('active');
 		overlay.classList.remove('active');
-		// resetQuantities();
+		resetQuantities();
 		// enableMarketActionsButtons();
 	}
 	// Restore focus to the previous active element.
