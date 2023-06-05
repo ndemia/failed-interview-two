@@ -50,6 +50,7 @@ const showUserLogin = (login: string): void => {
 };
 
 const disableIncreaseButtons = (): void => {
+	let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
 	quantityIncreaseButtons.forEach(button => {
 		button.classList.add('btn--disabled');
 		button.disabled = true;
@@ -57,6 +58,7 @@ const disableIncreaseButtons = (): void => {
 };
 
 const enableIncreaseButtons = (): void => {
+	let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
 	quantityIncreaseButtons.forEach(button => {
 		button.classList.remove('btn--disabled');
 		button.disabled = false;
@@ -64,6 +66,7 @@ const enableIncreaseButtons = (): void => {
 };
 
 const disableDecreaseButtons = (): void => {
+	let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
 	quantityDecreaseButtons.forEach(button => {
 		button.classList.add('btn--disabled');
 		button.disabled = true;
@@ -71,6 +74,7 @@ const disableDecreaseButtons = (): void => {
 };
 
 const enableDecreaseButtons = (): void => {
+	let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
 	quantityDecreaseButtons.forEach(button => {
 		button.classList.remove('btn--disabled');
 		button.disabled = false;
@@ -78,6 +82,7 @@ const enableDecreaseButtons = (): void => {
 };
 
 const disableMarketActionsButtons = (): void => {
+	let marketActionsButtons = document.querySelectorAll('.market__actions .btn') as NodeListOf<HTMLButtonElement>;
 	marketActionsButtons.forEach(button => {
 		button.classList.add('btn--disabled');
 		button.disabled = true;
@@ -85,6 +90,7 @@ const disableMarketActionsButtons = (): void => {
 };
 
 const enableMarketActionsButtons = (): void => {
+	let marketActionsButtons = document.querySelectorAll('.market__actions .btn') as NodeListOf<HTMLButtonElement>;
 	marketActionsButtons.forEach(button => {
 		button.classList.remove('btn--disabled');
 		button.disabled = false;
@@ -299,7 +305,6 @@ const loadModalFunctionality = (stock: item[]): void => {
 	let itemQuantityInputs = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
 	let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
 	let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
-	let marketActionsButtons = document.querySelectorAll('.market__actions .btn') as NodeListOf<HTMLButtonElement>;
 	buyButton.addEventListener('click', buyItems);
 	resetButton.addEventListener('click', resetQuantities);
 
@@ -353,7 +358,8 @@ const loadModalFunctionality = (stock: item[]): void => {
 				updateTotalCost();
 			} else {
 				showWarning('notEnoughStock');
-				// disableMarketActionsButtons();
+				disableIncreaseButtons();
+				disableMarketActionsButtons();
 			}
 		});
 	});
@@ -376,10 +382,11 @@ const loadModalFunctionality = (stock: item[]): void => {
 				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLInputElement;
 				itemPrice.innerText = `${totalItemCost} gold`;
 				updateTotalCost();
-				// enableMarketActionsButtons();
+				enableIncreaseButtons();
+				enableMarketActionsButtons();
 			} else {
 				showWarning('notEnoughStock');
-				// disableMarketActionsButtons();
+				disableMarketActionsButtons();
 			}
 		});
 	});

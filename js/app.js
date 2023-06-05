@@ -42,36 +42,42 @@ const showUserLogin = (login) => {
     userName.innerText = `${login}`;
 };
 const disableIncreaseButtons = () => {
+    let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
     quantityIncreaseButtons.forEach(button => {
         button.classList.add('btn--disabled');
         button.disabled = true;
     });
 };
 const enableIncreaseButtons = () => {
+    let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
     quantityIncreaseButtons.forEach(button => {
         button.classList.remove('btn--disabled');
         button.disabled = false;
     });
 };
 const disableDecreaseButtons = () => {
+    let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease');
     quantityDecreaseButtons.forEach(button => {
         button.classList.add('btn--disabled');
         button.disabled = true;
     });
 };
 const enableDecreaseButtons = () => {
+    let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease');
     quantityDecreaseButtons.forEach(button => {
         button.classList.remove('btn--disabled');
         button.disabled = false;
     });
 };
 const disableMarketActionsButtons = () => {
+    let marketActionsButtons = document.querySelectorAll('.market__actions .btn');
     marketActionsButtons.forEach(button => {
         button.classList.add('btn--disabled');
         button.disabled = true;
     });
 };
 const enableMarketActionsButtons = () => {
+    let marketActionsButtons = document.querySelectorAll('.market__actions .btn');
     marketActionsButtons.forEach(button => {
         button.classList.remove('btn--disabled');
         button.disabled = false;
@@ -275,7 +281,6 @@ const loadModalFunctionality = (stock) => {
     let itemQuantityInputs = document.querySelectorAll('.market .item__quantity');
     let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
     let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease');
-    let marketActionsButtons = document.querySelectorAll('.market__actions .btn');
     buyButton.addEventListener('click', buyItems);
     resetButton.addEventListener('click', resetQuantities);
     openModalButtons.forEach(button => {
@@ -327,7 +332,8 @@ const loadModalFunctionality = (stock) => {
             }
             else {
                 showWarning('notEnoughStock');
-                // disableMarketActionsButtons();
+                disableIncreaseButtons();
+                disableMarketActionsButtons();
             }
         });
     });
@@ -350,11 +356,12 @@ const loadModalFunctionality = (stock) => {
                 let itemPrice = pressedButton.parentElement.nextElementSibling;
                 itemPrice.innerText = `${totalItemCost} gold`;
                 updateTotalCost();
-                // enableMarketActionsButtons();
+                enableIncreaseButtons();
+                enableMarketActionsButtons();
             }
             else {
                 showWarning('notEnoughStock');
-                // disableMarketActionsButtons();
+                disableMarketActionsButtons();
             }
         });
     });
