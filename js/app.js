@@ -112,6 +112,10 @@ const showWarning = (warningType) => {
             warningText.innerText = `There was a general error. Please try again later.`;
     }
 };
+const removeWarning = () => {
+    const warningContainer = document.querySelector('.market__warnings');
+    warningContainer.classList.add('hidden');
+};
 const updateItemCost = (quantity, id, currentStock) => {
     let itemID = Number(id);
     let updatedPrice = 0;
@@ -130,7 +134,7 @@ const checkTotalCostDoesNotExceedBalance = (totalCost) => {
             if (totalCost <= user.balance) {
                 if (warningContainer) {
                     // If total cost comes down back to current balance, remove warning
-                    warningContainer.classList.add('hidden');
+                    //removeWarning();
                     // enableIncreaseButtons();
                 }
             }
@@ -331,9 +335,9 @@ const loadModalFunctionality = (stock) => {
                 updateTotalCost();
             }
             else {
-                showWarning('notEnoughStock');
                 disableIncreaseButtons();
                 disableMarketActionsButtons();
+                showWarning('notEnoughStock');
             }
         });
     });
@@ -355,6 +359,7 @@ const loadModalFunctionality = (stock) => {
                 let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
                 let itemPrice = pressedButton.parentElement.nextElementSibling;
                 itemPrice.innerText = `${totalItemCost} gold`;
+                removeWarning();
                 updateTotalCost();
                 enableIncreaseButtons();
                 enableMarketActionsButtons();

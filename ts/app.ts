@@ -129,6 +129,11 @@ const showWarning = (warningType: string): void => {
 	}
 };
 
+const removeWarning = (): void => {
+	const warningContainer = document.querySelector('.market__warnings') as HTMLElement;
+	warningContainer.classList.add('hidden');
+}
+
 const updateItemCost = (quantity: number, id: string | number, currentStock: item[]): number => {
 	let itemID = Number(id);
 	let updatedPrice: number = 0;
@@ -148,7 +153,7 @@ const checkTotalCostDoesNotExceedBalance = (totalCost: number): void => {
 				if (totalCost <= user.balance) {
 					if (warningContainer) {
 						// If total cost comes down back to current balance, remove warning
-						warningContainer.classList.add('hidden');
+						//removeWarning();
 						// enableIncreaseButtons();
 					}
 				} else {
@@ -357,9 +362,9 @@ const loadModalFunctionality = (stock: item[]): void => {
 				itemPrice.innerText = `${totalItemCost} gold`;
 				updateTotalCost();
 			} else {
-				showWarning('notEnoughStock');
 				disableIncreaseButtons();
 				disableMarketActionsButtons();
+				showWarning('notEnoughStock');
 			}
 		});
 	});
@@ -381,6 +386,7 @@ const loadModalFunctionality = (stock: item[]): void => {
 				let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
 				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLInputElement;
 				itemPrice.innerText = `${totalItemCost} gold`;
+				removeWarning();
 				updateTotalCost();
 				enableIncreaseButtons();
 				enableMarketActionsButtons();
