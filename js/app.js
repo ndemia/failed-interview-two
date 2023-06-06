@@ -70,14 +70,14 @@ const enableDecreaseButtons = () => {
     });
 };
 const disableMarketActionsButtons = () => {
-    let marketActionsButtons = document.querySelectorAll('.market__actions .btn');
+    let marketActionsButtons = document.querySelectorAll('.js-market-action');
     marketActionsButtons.forEach(button => {
         button.classList.add('btn--disabled');
         button.disabled = true;
     });
 };
 const enableMarketActionsButtons = () => {
-    let marketActionsButtons = document.querySelectorAll('.market__actions .btn');
+    let marketActionsButtons = document.querySelectorAll('.js-market-action');
     marketActionsButtons.forEach(button => {
         button.classList.remove('btn--disabled');
         button.disabled = false;
@@ -269,14 +269,12 @@ const closeModal = (modal) => {
         }
     });
     // Close the modal.
-    if (modal == null) {
-        return;
-    }
-    else {
+    if (modal != null) {
+        enableMarketActionsButtons();
+        resetQuantities();
+        removeWarning();
         modal.classList.remove('active');
         overlay.classList.remove('active');
-        resetQuantities();
-        // enableMarketActionsButtons();
     }
     // Restore focus to the previous active element.
     previousActiveElement.focus();

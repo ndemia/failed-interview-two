@@ -82,7 +82,7 @@ const enableDecreaseButtons = (): void => {
 };
 
 const disableMarketActionsButtons = (): void => {
-	let marketActionsButtons = document.querySelectorAll('.market__actions .btn') as NodeListOf<HTMLButtonElement>;
+	let marketActionsButtons = document.querySelectorAll('.js-market-action') as NodeListOf<HTMLButtonElement>;
 	marketActionsButtons.forEach(button => {
 		button.classList.add('btn--disabled');
 		button.disabled = true;
@@ -90,7 +90,7 @@ const disableMarketActionsButtons = (): void => {
 };
 
 const enableMarketActionsButtons = (): void => {
-	let marketActionsButtons = document.querySelectorAll('.market__actions .btn') as NodeListOf<HTMLButtonElement>;
+	let marketActionsButtons = document.querySelectorAll('.js-market-action') as NodeListOf<HTMLButtonElement>;
 	marketActionsButtons.forEach(button => {
 		button.classList.remove('btn--disabled');
 		button.disabled = false;
@@ -294,13 +294,12 @@ const closeModal = (modal: HTMLDivElement): void => {
 		}
 	});
 	// Close the modal.
-	if (modal == null) {
-		return;
-	} else {
+	if (modal != null) {
+		enableMarketActionsButtons();
+		resetQuantities();
+		removeWarning();
 		modal.classList.remove('active');
 		overlay.classList.remove('active');
-		resetQuantities();
-		// enableMarketActionsButtons();
 	}
 	// Restore focus to the previous active element.
 	previousActiveElement.focus();
