@@ -194,15 +194,18 @@ const resetQuantities = (): void => {
 
 const updateAvailableStock = (): void => {
 	const productQuantities = document.querySelectorAll('.dashboard .item__quantity[data-item-id]') as NodeListOf<HTMLParagraphElement>;
-	service.getItems().then((items) => {
-		if ('filter' in items) {
-			for (let i = 0; i < productQuantities.length; i++) {
-				if (Number(productQuantities[i].dataset.itemId) === items[i].id) {
-					productQuantities[i].innerText = `Quantity: ${items[i].quantity}`;
+	service
+		.getItems()
+		.then((items) => {
+			if ('filter' in items) {
+				for (let i = 0; i < productQuantities.length; i++) {
+					if (Number(productQuantities[i].dataset.itemId) === items[i].id) {
+						productQuantities[i].innerText = `Quantity: ${items[i].quantity}`;
+					}
 				}
 			}
-		}
-	});
+		})
+		.catch((error) => console.log(error));
 };
 
 const buyItems = (): void => {

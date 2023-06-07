@@ -170,7 +170,9 @@ const resetQuantities = () => {
 };
 const updateAvailableStock = () => {
     const productQuantities = document.querySelectorAll('.dashboard .item__quantity[data-item-id]');
-    service.getItems().then((items) => {
+    service
+        .getItems()
+        .then((items) => {
         if ('filter' in items) {
             for (let i = 0; i < productQuantities.length; i++) {
                 if (Number(productQuantities[i].dataset.itemId) === items[i].id) {
@@ -178,7 +180,8 @@ const updateAvailableStock = () => {
                 }
             }
         }
-    });
+    })
+        .catch((error) => console.log(error));
 };
 const buyItems = () => {
     let finalItemQuantities = document.querySelectorAll('.market .item__quantity');
