@@ -15,11 +15,13 @@ const showCurrentStock = (stock: item[]): void => {
 		dashboardProductList.insertAdjacentHTML(
 			'beforeend',
 			`<li class="dashboard__item">
-				<img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
-				<div class="item__info">
-					<h3 class="item__name">${item.name}</h3>
-					<p class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</p>
-					<p class="item__price" data-item-id="${item.id}">Price: ${item.price} gold</p>
+				<div class="item__container item__container--texture">
+					<img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
+					<div class="item__info">
+						<h3 class="item__name">${item.name}</h3>
+						<p class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</p>
+						<p class="item__price" data-item-id="${item.id}">Price: ${item.price} gold</p>
+					</div>
 				</div>
 			</li>`
 		);
