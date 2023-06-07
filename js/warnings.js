@@ -19,3 +19,7 @@ export const showWarning = (warningType) => {
             warningText.innerText = `There was a general error. Please try again later.`;
     }
 };
+export const removeWarning = () => {
+    const warningContainer = document.querySelector('.market__warnings');
+    warningContainer.classList.add('hidden');
+};
