@@ -43,42 +43,42 @@ const showUserLogin = (login) => {
 };
 const disableIncreaseButtons = () => {
     let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
-    quantityIncreaseButtons.forEach(button => {
+    quantityIncreaseButtons.forEach((button) => {
         button.classList.add('btn--disabled');
         button.disabled = true;
     });
 };
 const enableIncreaseButtons = () => {
     let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
-    quantityIncreaseButtons.forEach(button => {
+    quantityIncreaseButtons.forEach((button) => {
         button.classList.remove('btn--disabled');
         button.disabled = false;
     });
 };
 const disableDecreaseButtons = () => {
     let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease');
-    quantityDecreaseButtons.forEach(button => {
+    quantityDecreaseButtons.forEach((button) => {
         button.classList.add('btn--disabled');
         button.disabled = true;
     });
 };
 const enableDecreaseButtons = () => {
     let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease');
-    quantityDecreaseButtons.forEach(button => {
+    quantityDecreaseButtons.forEach((button) => {
         button.classList.remove('btn--disabled');
         button.disabled = false;
     });
 };
 const disableMarketActionsButtons = () => {
     let marketActionsButtons = document.querySelectorAll('.js-market-action');
-    marketActionsButtons.forEach(button => {
+    marketActionsButtons.forEach((button) => {
         button.classList.add('btn--disabled');
         button.disabled = true;
     });
 };
 const enableMarketActionsButtons = () => {
     let marketActionsButtons = document.querySelectorAll('.js-market-action');
-    marketActionsButtons.forEach(button => {
+    marketActionsButtons.forEach((button) => {
         button.classList.remove('btn--disabled');
         button.disabled = false;
     });
@@ -127,29 +127,28 @@ const updateItemCost = (quantity, id, currentStock) => {
     return updatedPrice;
 };
 const checkTotalCostDoesNotExceedBalance = (totalCost) => {
-    let warningContainer = document.querySelector('.market__warnings');
-    service.getUser()
+    return service
+        .getUser()
         .then((user) => {
         if ('balance' in user) {
             if (totalCost <= user.balance) {
-                if (warningContainer) {
-                    // If total cost comes down back to current balance, remove warning
-                    //removeWarning();
-                    // enableIncreaseButtons();
-                }
+                return false;
             }
             else {
-                showWarning('exceededBalance');
-                // disableIncreaseButtons();
-                // disableMarketActionsButtons();
+                return true;
             }
         }
+        throw new Error('User balance is missing');
+    })
+        .catch((error) => {
+        console.log(error);
+        throw new Error('Failed to fetch user data');
     });
 };
 const checkAvailableStock = (itemQuantity, itemId, stock) => {
     itemId = Number(itemId);
     let availableStock = 0;
-    stock.forEach(item => {
+    stock.forEach((item) => {
         if (item.id === itemId) {
             availableStock = item.quantity;
         }
@@ -163,22 +162,27 @@ const checkAvailableStock = (itemQuantity, itemId, stock) => {
         return false;
     }
 };
-const updateTotalCost = () => {
+const updateTotalCost = async () => {
     const costs = document.querySelectorAll('.item__cost');
     const totalValue = document.querySelector('.total__value');
     let totalCost = 0;
-    costs.forEach(cost => {
+    costs.forEach((cost) => {
         totalCost += Number(cost.innerText.slice(0, -5));
     });
     totalValue.innerText = `${totalCost} gold`;
-    checkTotalCostDoesNotExceedBalance(totalCost);
+    const result = await checkTotalCostDoesNotExceedBalance(totalCost);
+    if (result === true) {
+        showWarning('exceededBalance');
+        disableIncreaseButtons();
+        disableMarketActionsButtons();
+    }
 };
 const resetQuantities = () => {
     let costs = document.querySelectorAll('.market .item__cost');
     let itemQuantityInputs = document.querySelectorAll('.market .item__quantity');
-    itemQuantityInputs.forEach(input => {
+    itemQuantityInputs.forEach((input) => {
         input.value = '0';
-        costs.forEach(cost => {
+        costs.forEach((cost) => {
             cost.innerText = '0 gold';
         });
         updateTotalCost();
@@ -197,7 +201,9 @@ const buyItems = () => {
     disableIncreaseButtons();
     disableDecreaseButtons();
     disableMarketActionsButtons();
-    service.simulateRequest().then(() => {
+    service
+        .simulateRequest()
+        .then(() => {
         // Save each input in order to gather from them each item quantity
         let finalItems = document.querySelectorAll('.market .item__quantity');
         for (let i = 0; i < finalItems.length; i++) {
@@ -220,7 +226,8 @@ const buyItems = () => {
         enableDecreaseButtons();
         enableMarketActionsButtons();
         closeModal(document.querySelector('.modal'));
-    }).catch(() => {
+    })
+        .catch(() => {
         hideLoader();
         enableIncreaseButtons();
         enableDecreaseButtons();
@@ -242,7 +249,7 @@ const openModal = (modal) => {
     previousActiveElement = document.activeElement;
     // Make the rest of the document inert so that it's not reachable with keyboard navigation.
     // Filter because the array ends up collecting script tags that are not necessary.
-    let bodyElements = Array.from(document.body.children).filter(element => element.localName != 'script');
+    let bodyElements = Array.from(document.body.children).filter((element) => element.localName != 'script');
     bodyElements.forEach((element) => {
         if (element.getAttribute('role') !== 'dialog') {
             element.inert = true;
@@ -262,7 +269,7 @@ const openModal = (modal) => {
 };
 const closeModal = (modal) => {
     // Remove the inert attribute from elements.
-    const bodyElements = Array.from(document.body.children).filter(element => element.localName != 'script');
+    const bodyElements = Array.from(document.body.children).filter((element) => element.localName != 'script');
     bodyElements.forEach((element) => {
         if (element.getAttribute('role') !== 'dialog') {
             element.inert = false;
@@ -270,11 +277,11 @@ const closeModal = (modal) => {
     });
     // Close the modal.
     if (modal != null) {
+        modal.classList.remove('active');
+        overlay.classList.remove('active');
         enableMarketActionsButtons();
         resetQuantities();
         removeWarning();
-        modal.classList.remove('active');
-        overlay.classList.remove('active');
     }
     // Restore focus to the previous active element.
     previousActiveElement.focus();
@@ -285,39 +292,38 @@ const loadModalFunctionality = (stock) => {
     let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease');
     buyButton.addEventListener('click', buyItems);
     resetButton.addEventListener('click', resetQuantities);
-    openModalButtons.forEach(button => {
+    openModalButtons.forEach((button) => {
         button.addEventListener('click', () => {
             const modal = document.querySelector('.modal');
             openModal(modal);
         });
     });
-    closeModalButtons.forEach(button => {
+    closeModalButtons.forEach((button) => {
         button.addEventListener('click', () => {
             const modal = document.querySelector('.modal');
             closeModal(modal);
         });
     });
     // Typing any quantity updates the costs, and checks for constraints
-    itemQuantityInputs.forEach(input => {
+    itemQuantityInputs.forEach((input) => {
         input.addEventListener('change', (e) => {
             let eventTarget = e.target;
             let itemId = Number(eventTarget.dataset.itemId);
             let itemQuantity = Number(eventTarget.value);
             let updatedPrice = updateItemCost(itemQuantity, itemId, stock);
-            // If there's enough stock
             if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
                 let itemPrice = eventTarget.parentElement.nextElementSibling;
-                // Update costs
                 itemPrice.innerText = `${updatedPrice} gold`;
                 updateTotalCost();
             }
             else {
                 showWarning('notEnoughStock');
-                // disableMarketActionsButtons();
+                disableIncreaseButtons();
+                disableMarketActionsButtons();
             }
         });
     });
-    quantityIncreaseButtons.forEach(button => {
+    quantityIncreaseButtons.forEach((button) => {
         button.addEventListener('click', (e) => {
             let pressedButton = e.target;
             let input = pressedButton.previousElementSibling;
@@ -371,7 +377,8 @@ const loadModalFunctionality = (stock) => {
 };
 ///// Go! /////
 document.addEventListener('DOMContentLoaded', () => {
-    service.getUser()
+    service
+        .getUser()
         .then((user) => {
         if ('balance' in user) {
             showGoldBalance(user.balance);

@@ -11,7 +11,8 @@ const modalProductList = document.querySelector('.products__list') as HTMLUListE
 const showCurrentStock = (stock: item[]): void => {
 	stock.forEach((item) => {
 		// Product list for the dashboard.
-		dashboardProductList.insertAdjacentHTML('beforeend',
+		dashboardProductList.insertAdjacentHTML(
+			'beforeend',
 			`<li class="dashboard__item">
 				<img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
 				<div class="item__info">
@@ -19,9 +20,11 @@ const showCurrentStock = (stock: item[]): void => {
 					<p class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</p>
 					<p class="item__price" data-item-id="${item.id}">Price: ${item.price} gold</p>
 				</div>
-			</li>`);
+			</li>`
+		);
 		// Product list for the modal.
-		modalProductList.insertAdjacentHTML('beforeend',
+		modalProductList.insertAdjacentHTML(
+			'beforeend',
 			`<li class="products__item">
 				<div class="item__container">
 					<div class="item__info">
@@ -35,9 +38,10 @@ const showCurrentStock = (stock: item[]): void => {
 					</div>
 					<span class="item__cost" role="status">0 gold</span>
 				</div>
-			</li>`);
+			</li>`
+		);
 	});
-}
+};
 
 const showGoldBalance = (goldAmount: number): void => {
 	const goldBalance = document.getElementById('gold-balance') as HTMLSpanElement;
@@ -51,7 +55,7 @@ const showUserLogin = (login: string): void => {
 
 const disableIncreaseButtons = (): void => {
 	let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
-	quantityIncreaseButtons.forEach(button => {
+	quantityIncreaseButtons.forEach((button) => {
 		button.classList.add('btn--disabled');
 		button.disabled = true;
 	});
@@ -59,7 +63,7 @@ const disableIncreaseButtons = (): void => {
 
 const enableIncreaseButtons = (): void => {
 	let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
-	quantityIncreaseButtons.forEach(button => {
+	quantityIncreaseButtons.forEach((button) => {
 		button.classList.remove('btn--disabled');
 		button.disabled = false;
 	});
@@ -67,7 +71,7 @@ const enableIncreaseButtons = (): void => {
 
 const disableDecreaseButtons = (): void => {
 	let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
-	quantityDecreaseButtons.forEach(button => {
+	quantityDecreaseButtons.forEach((button) => {
 		button.classList.add('btn--disabled');
 		button.disabled = true;
 	});
@@ -75,7 +79,7 @@ const disableDecreaseButtons = (): void => {
 
 const enableDecreaseButtons = (): void => {
 	let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
-	quantityDecreaseButtons.forEach(button => {
+	quantityDecreaseButtons.forEach((button) => {
 		button.classList.remove('btn--disabled');
 		button.disabled = false;
 	});
@@ -83,7 +87,7 @@ const enableDecreaseButtons = (): void => {
 
 const disableMarketActionsButtons = (): void => {
 	let marketActionsButtons = document.querySelectorAll('.js-market-action') as NodeListOf<HTMLButtonElement>;
-	marketActionsButtons.forEach(button => {
+	marketActionsButtons.forEach((button) => {
 		button.classList.add('btn--disabled');
 		button.disabled = true;
 	});
@@ -91,7 +95,7 @@ const disableMarketActionsButtons = (): void => {
 
 const enableMarketActionsButtons = (): void => {
 	let marketActionsButtons = document.querySelectorAll('.js-market-action') as NodeListOf<HTMLButtonElement>;
-	marketActionsButtons.forEach(button => {
+	marketActionsButtons.forEach((button) => {
 		button.classList.remove('btn--disabled');
 		button.disabled = false;
 	});
@@ -132,7 +136,7 @@ const showWarning = (warningType: string): void => {
 const removeWarning = (): void => {
 	const warningContainer = document.querySelector('.market__warnings') as HTMLElement;
 	warningContainer.classList.add('hidden');
-}
+};
 
 const updateItemCost = (quantity: number, id: string | number, currentStock: item[]): number => {
 	let itemID = Number(id);
@@ -145,30 +149,29 @@ const updateItemCost = (quantity: number, id: string | number, currentStock: ite
 	return updatedPrice;
 };
 
-const checkTotalCostDoesNotExceedBalance = (totalCost: number): void => {
-	let warningContainer = document.querySelector('.market__warnings') as HTMLElement;
-	service.getUser()
+const checkTotalCostDoesNotExceedBalance = (totalCost: number): Promise<boolean> => {
+	return service
+		.getUser()
 		.then((user) => {
 			if ('balance' in user) {
 				if (totalCost <= user.balance) {
-					if (warningContainer) {
-						// If total cost comes down back to current balance, remove warning
-						//removeWarning();
-						// enableIncreaseButtons();
-					}
+					return false;
 				} else {
-					showWarning('exceededBalance');
-					// disableIncreaseButtons();
-					// disableMarketActionsButtons();
+					return true;
 				}
 			}
+			throw new Error('User balance is missing');
 		})
+		.catch((error) => {
+			console.log(error);
+			throw new Error('Failed to fetch user data');
+		});
 };
 
 const checkAvailableStock = (itemQuantity: number, itemId: number | string, stock: item[]): boolean => {
 	itemId = Number(itemId);
 	let availableStock: number = 0;
-	stock.forEach(item => {
+	stock.forEach((item) => {
 		if (item.id === itemId) {
 			availableStock = item.quantity;
 		}
@@ -182,23 +185,28 @@ const checkAvailableStock = (itemQuantity: number, itemId: number | string, stoc
 	}
 };
 
-const updateTotalCost = (): void => {
+const updateTotalCost = async (): Promise<void> => {
 	const costs = document.querySelectorAll('.item__cost') as NodeListOf<HTMLSpanElement>;
 	const totalValue = document.querySelector('.total__value') as HTMLSpanElement;
 	let totalCost: number = 0;
-	costs.forEach(cost => {
+	costs.forEach((cost) => {
 		totalCost += Number(cost.innerText.slice(0, -5));
 	});
 	totalValue.innerText = `${totalCost} gold`;
-	checkTotalCostDoesNotExceedBalance(totalCost);
+	const result = await checkTotalCostDoesNotExceedBalance(totalCost);
+	if (result === true) {
+		showWarning('exceededBalance');
+		disableIncreaseButtons();
+		disableMarketActionsButtons();
+	}
 };
 
 const resetQuantities = (): void => {
 	let costs = document.querySelectorAll('.market .item__cost') as NodeListOf<HTMLInputElement>;
 	let itemQuantityInputs = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
-	itemQuantityInputs.forEach(input => {
+	itemQuantityInputs.forEach((input) => {
 		input.value = '0';
-		costs.forEach(cost => {
+		costs.forEach((cost) => {
 			cost.innerText = '0 gold';
 		});
 		updateTotalCost();
@@ -219,38 +227,39 @@ const buyItems = (): void => {
 	disableIncreaseButtons();
 	disableDecreaseButtons();
 	disableMarketActionsButtons();
-	service.simulateRequest().then(() => {
-		// Save each input in order to gather from them each item quantity
-		let finalItems = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
-		for (let i = 0; i < finalItems.length; i++) {
-			// Validate that the items are the same
-			if (Number(currentStock[i].id) === Number(finalItems[i].dataset.itemId)) {
-				// Substract the bought amount from the current stock
-				currentStock[i].quantity -= Number(finalItems[i].value);
-			} else {
-				return;
+	service
+		.simulateRequest()
+		.then(() => {
+			// Save each input in order to gather from them each item quantity
+			let finalItems = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
+			for (let i = 0; i < finalItems.length; i++) {
+				// Validate that the items are the same
+				if (Number(currentStock[i].id) === Number(finalItems[i].dataset.itemId)) {
+					// Substract the bought amount from the current stock
+					currentStock[i].quantity -= Number(finalItems[i].value);
+				} else {
+					return;
+				}
 			}
-		}
-		//updateAvailableStock();
-		// Update gold balance
-		let finalGold: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
-		//service.user.balance -= finalGold;
-		//showGoldBalance();
-		hideLoader();
-		enableIncreaseButtons();
-		enableDecreaseButtons();
-		enableMarketActionsButtons();
-		closeModal(document.querySelector('.modal') as HTMLDivElement);
-	}).catch(() => {
-		hideLoader();
-		enableIncreaseButtons();
-		enableDecreaseButtons();
-		enableMarketActionsButtons();
-		showWarning('failedProcess');
-	});
+			//updateAvailableStock();
+			// Update gold balance
+			let finalGold: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
+			//service.user.balance -= finalGold;
+			//showGoldBalance();
+			hideLoader();
+			enableIncreaseButtons();
+			enableDecreaseButtons();
+			enableMarketActionsButtons();
+			closeModal(document.querySelector('.modal') as HTMLDivElement);
+		})
+		.catch(() => {
+			hideLoader();
+			enableIncreaseButtons();
+			enableDecreaseButtons();
+			enableMarketActionsButtons();
+			showWarning('failedProcess');
+		});
 };
-
-
 
 ///// Modal /////
 // UI Variables //
@@ -267,7 +276,7 @@ const openModal = (modal: HTMLDivElement): void => {
 	previousActiveElement = document.activeElement as HTMLElement;
 	// Make the rest of the document inert so that it's not reachable with keyboard navigation.
 	// Filter because the array ends up collecting script tags that are not necessary.
-	let bodyElements = Array.from(document.body.children).filter(element => element.localName != 'script');
+	let bodyElements = Array.from(document.body.children).filter((element) => element.localName != 'script');
 	bodyElements.forEach((element) => {
 		if (element.getAttribute('role') !== 'dialog') {
 			(element as HTMLElement).inert = true;
@@ -287,7 +296,7 @@ const openModal = (modal: HTMLDivElement): void => {
 
 const closeModal = (modal: HTMLDivElement): void => {
 	// Remove the inert attribute from elements.
-	const bodyElements = Array.from(document.body.children).filter(element => element.localName != 'script');
+	const bodyElements = Array.from(document.body.children).filter((element) => element.localName != 'script');
 	bodyElements.forEach((element) => {
 		if (element.getAttribute('role') !== 'dialog') {
 			(element as HTMLElement).inert = false;
@@ -295,11 +304,11 @@ const closeModal = (modal: HTMLDivElement): void => {
 	});
 	// Close the modal.
 	if (modal != null) {
+		modal.classList.remove('active');
+		overlay.classList.remove('active');
 		enableMarketActionsButtons();
 		resetQuantities();
 		removeWarning();
-		modal.classList.remove('active');
-		overlay.classList.remove('active');
 	}
 	// Restore focus to the previous active element.
 	previousActiveElement.focus();
@@ -312,14 +321,14 @@ const loadModalFunctionality = (stock: item[]): void => {
 	buyButton.addEventListener('click', buyItems);
 	resetButton.addEventListener('click', resetQuantities);
 
-	openModalButtons.forEach(button => {
+	openModalButtons.forEach((button) => {
 		button.addEventListener('click', () => {
 			const modal = document.querySelector('.modal') as HTMLDivElement;
 			openModal(modal);
 		});
 	});
 
-	closeModalButtons.forEach(button => {
+	closeModalButtons.forEach((button) => {
 		button.addEventListener('click', () => {
 			const modal = document.querySelector('.modal') as HTMLDivElement;
 			closeModal(modal);
@@ -327,26 +336,25 @@ const loadModalFunctionality = (stock: item[]): void => {
 	});
 
 	// Typing any quantity updates the costs, and checks for constraints
-	itemQuantityInputs.forEach(input => {
+	itemQuantityInputs.forEach((input) => {
 		input.addEventListener('change', (e: Event) => {
 			let eventTarget = e.target as HTMLInputElement;
 			let itemId: number = Number(eventTarget.dataset.itemId);
 			let itemQuantity: number = Number(eventTarget.value);
 			let updatedPrice: number = updateItemCost(itemQuantity, itemId, stock);
-			// If there's enough stock
 			if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
 				let itemPrice = eventTarget.parentElement!.nextElementSibling as HTMLSpanElement;
-				// Update costs
 				itemPrice.innerText = `${updatedPrice} gold`;
 				updateTotalCost();
 			} else {
 				showWarning('notEnoughStock');
-				// disableMarketActionsButtons();
+				disableIncreaseButtons();
+				disableMarketActionsButtons();
 			}
 		});
 	});
 
-	quantityIncreaseButtons.forEach(button => {
+	quantityIncreaseButtons.forEach((button) => {
 		button.addEventListener('click', (e: Event) => {
 			let pressedButton = e.target as HTMLButtonElement;
 			let input = pressedButton.previousElementSibling as HTMLInputElement;
@@ -395,11 +403,12 @@ const loadModalFunctionality = (stock: item[]): void => {
 			}
 		});
 	});
-}
+};
 
 ///// Go! /////
 document.addEventListener('DOMContentLoaded', (): void => {
-	service.getUser()
+	service
+		.getUser()
 		.then((user) => {
 			if ('balance' in user) {
 				showGoldBalance(user.balance);
