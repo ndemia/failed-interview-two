@@ -1,5 +1,6 @@
 import { user, item } from './types';
 import { service } from './service.js';
+import { showWarning } from './warnings.js';
 import './inert.min.js';
 
 ///// Marketplace /////
@@ -111,28 +112,6 @@ const hideLoader = (): void => {
 	loader.classList.add('hidden');
 };
 
-const showWarning = (warningType: string): void => {
-	const warningContainer = document.querySelector('.market__warnings') as HTMLElement;
-	const warningText = document.querySelector('.warning__text') as HTMLSpanElement;
-	switch (warningType) {
-		case 'exceededBalance':
-			warningContainer.classList.remove('hidden');
-			warningText.innerText = `The total cost exceeds your current gold balance.`;
-			break;
-		case 'notEnoughStock':
-			warningContainer.classList.remove('hidden');
-			warningText.innerText = `You have exceeded the maximum quantity for this item.`;
-			break;
-		case 'failedProcess':
-			warningContainer.classList.remove('hidden');
-			warningText.innerText = `There was a problem processing your purchase. Please try again later.`;
-			break;
-		default:
-			warningContainer.classList.remove('hidden');
-			warningText.innerText = `There was a general error. Please try again later.`;
-	}
-};
-
 const removeWarning = (): void => {
 	const warningContainer = document.querySelector('.market__warnings') as HTMLElement;
 	warningContainer.classList.add('hidden');
@@ -213,44 +192,48 @@ const resetQuantities = (): void => {
 	});
 };
 
-// const updateAvailableStock = (): void => {
-// 	const productQuantities = document.querySelectorAll('.dashboard .item__quantity[data-item-id]') as NodeListOf<HTMLParagraphElement>;
-// 	for (let i = 0; i < productQuantities.length; i++) {
-// 		if (Number(productQuantities[i].dataset.itemId) === currentStock[i].id) {
-// 			productQuantities[i].innerText = `Quantity: ${currentStock[i].quantity}`;
-// 		}
-// 	};
-// };
+const updateAvailableStock = (): void => {
+	const productQuantities = document.querySelectorAll('.dashboard .item__quantity[data-item-id]') as NodeListOf<HTMLParagraphElement>;
+	service.getItems().then((items) => {
+		if ('filter' in items) {
+			for (let i = 0; i < productQuantities.length; i++) {
+				if (Number(productQuantities[i].dataset.itemId) === items[i].id) {
+					productQuantities[i].innerText = `Quantity: ${items[i].quantity}`;
+				}
+			}
+		}
+	});
+};
 
 const buyItems = (): void => {
+	let finalItemQuantities = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
 	showLoader();
 	disableIncreaseButtons();
 	disableDecreaseButtons();
 	disableMarketActionsButtons();
 	service
-		.simulateRequest()
-		.then(() => {
-			// Save each input in order to gather from them each item quantity
-			let finalItems = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
-			for (let i = 0; i < finalItems.length; i++) {
-				// Validate that the items are the same
-				if (Number(currentStock[i].id) === Number(finalItems[i].dataset.itemId)) {
-					// Substract the bought amount from the current stock
-					currentStock[i].quantity -= Number(finalItems[i].value);
-				} else {
-					return;
+		.getItems()
+		.then((items) => {
+			if ('filter' in items) {
+				for (let i = 0; i < finalItemQuantities.length; i++) {
+					if (Number(items[i].id) === Number(finalItemQuantities[i].dataset.itemId)) {
+						// Substract the bought amount from the current stock
+						items[i].quantity -= Number(finalItemQuantities[i].value);
+					} else {
+						return;
+					}
 				}
+				updateAvailableStock();
+				// Update gold balance
+				let finalGold: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
+				//service.user.balance -= finalGold;
+				//showGoldBalance();
+				hideLoader();
+				enableIncreaseButtons();
+				enableDecreaseButtons();
+				enableMarketActionsButtons();
+				closeModal(document.querySelector('.modal') as HTMLDivElement);
 			}
-			//updateAvailableStock();
-			// Update gold balance
-			let finalGold: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
-			//service.user.balance -= finalGold;
-			//showGoldBalance();
-			hideLoader();
-			enableIncreaseButtons();
-			enableDecreaseButtons();
-			enableMarketActionsButtons();
-			closeModal(document.querySelector('.modal') as HTMLDivElement);
 		})
 		.catch(() => {
 			hideLoader();
