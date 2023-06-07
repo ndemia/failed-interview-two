@@ -19,8 +19,10 @@ const showCurrentStock = (stock: item[]): void => {
 					<img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
 					<div class="item__info">
 						<h3 class="item__name">${item.name}</h3>
-						<p class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</p>
-						<p class="item__price" data-item-id="${item.id}">Price: ${item.price} gold</p>
+						<div class="item__info--container">
+							<span class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</span>
+							<span class="item__price" data-item-id="${item.id}">Price: ${item.price} gold</span>
+						</div>
 					</div>
 				</div>
 			</li>`
