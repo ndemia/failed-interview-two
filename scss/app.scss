@@ -315,12 +315,7 @@ body {
 		align-items: center;
 		margin-top: 3rem;
 
-		.action__buy,
-		.action__cancel {
-			color: hsl(36, 61%, 75%);
-		}
-
-		.action__buy {
+		.btn--primary {
 			margin-left: 0.5rem;
 		}
 	}
