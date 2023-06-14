@@ -32,9 +32,10 @@ const showCurrentStock = (stock: item[]): void => {
 			'beforeend',
 			`<li class="products__item">
 				<div class="item__container">
+				<img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}">
 					<div class="item__info">
-						<img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}">
-						<p class="item__name">${item.name}</p>
+						<h3 class="item__name">${item.name}</h3>
+						<span class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</span>
 					</div>
 					<div class="item__actions" data-item-id="${item.id}">
 						<button class="item__decrease js-market-decrease" aria-label="Decrease ${item.name} quantity">-</button>

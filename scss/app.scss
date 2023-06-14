@@ -232,8 +232,9 @@ body {
 
 	.item__info {
 		display: flex;
-		align-items: center;
+		flex-direction: column;
 		flex-grow: 1;
+		margin-left: 1rem;
 
 		.item__image {
 			border: 1px solid hsl(36, 61%, 75%);
@@ -248,10 +249,11 @@ body {
 			font-size: 1.25rem;
 			font-weight: 400;
 			line-height: 1.2;
+		}
 
-			@media (min-width: 480px) {
-				margin-left: 1rem;
-			}
+		.item__quantity {
+			font-size: 1rem;
+			color: hsl(36, 61%, 70%);
 		}
 	}
 
