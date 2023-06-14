@@ -39,8 +39,10 @@ const showCurrentStock = (stock) => {
     });
 };
 export const showGoldBalance = (goldAmount) => {
-    const goldBalance = document.getElementById('gold-balance');
-    goldBalance.innerText = `${goldAmount} gold`;
+    const goldBalance = document.querySelectorAll('.gold-balance');
+    goldBalance.forEach((balance) => {
+        balance.innerText = `${goldAmount} gold`;
+    });
 };
 export const showUserLogin = (login) => {
     const userName = document.getElementById('user-name');

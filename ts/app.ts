@@ -49,8 +49,10 @@ const showCurrentStock = (stock: item[]): void => {
 };
 
 export const showGoldBalance = (goldAmount: number): void => {
-	const goldBalance = document.getElementById('gold-balance') as HTMLSpanElement;
-	goldBalance.innerText = `${goldAmount} gold`;
+	const goldBalance = document.querySelectorAll('.gold-balance') as NodeListOf<HTMLSpanElement>;
+	goldBalance.forEach((balance) => {
+		balance.innerText = `${goldAmount} gold`;
+	});
 };
 
 export const showUserLogin = (login: string): void => {
