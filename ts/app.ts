@@ -249,7 +249,7 @@ export const buyItems = (): void => {
 		});
 };
 
-///// Go! /////
+///// Go /////
 document.addEventListener('DOMContentLoaded', (): void => {
 	service
 		.getUser()
@@ -266,5 +266,5 @@ document.addEventListener('DOMContentLoaded', (): void => {
 				loadModalFunctionality(items);
 			}
 		})
-		.catch((error) => console.log(error));
+		.catch((error) => showWarning(error));
 });

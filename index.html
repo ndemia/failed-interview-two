@@ -29,6 +29,18 @@
 				<h1 class="dashboard__title">Hello, <span id="user-name"></span></h1>
 				<h2 class="dashboard__subtitle">This is the available stock to buy:</h2>
 				<ul id="stock" class="dashboard__stock"></ul>
+				<div class="market__warnings hidden" role="alert">
+					<div class="warning">
+						<span class="warning__icon">
+							<svg viewBox="0 0 24 24">
+								<path
+									d="m19.63 10.572 1.386-4.2c0.042-0.126 0.042-0.252-0.042-0.378s-0.21-0.168-0.336-0.168h-5.3338v-1.05c0-1.008-0.84-1.806-1.806-1.806h-8.2742v-1.05c0-0.252-0.168-0.42-0.42-0.42h-1.428c-0.252 0-0.42 0.168-0.42 0.42v20.16c0 0.252 0.168 0.42 0.42 0.42h1.428c0.252 0 0.42-0.168 0.42-0.42v-9.66h7.812v1.05c0 1.008 0.84 1.848 1.848 1.848h5.7542c0.126 0 0.252-0.084 0.336-0.168 0.084-0.126 0.084-0.252 0.042-0.378z"
+								/>
+							</svg>
+						</span>
+						<span class="warning__text"></span>
+					</div>
+				</div>
 			</section>
 		</main>
 
@@ -53,7 +65,7 @@
 					<span class="total__text">Total</span>
 					<span class="total__value">0 gold</span>
 				</section>
-				<section class="market__warnings hidden" role="alert">
+				<div class="market__warnings hidden" role="alert">
 					<div class="warning">
 						<span class="warning__icon">
 							<svg viewBox="0 0 24 24">
@@ -64,7 +76,7 @@
 						</span>
 						<span class="warning__text"></span>
 					</div>
-				</section>
+				</div>
 				<section class="market__actions">
 					<div class="secondary__actions">
 						<button class="btn btn--tertiary js-market-action js-quantity-reset" aria-label="Reset form">Reset</button>

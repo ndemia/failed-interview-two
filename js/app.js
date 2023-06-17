@@ -225,7 +225,7 @@ export const buyItems = () => {
         showWarning('failedProcess');
     });
 };
-///// Go! /////
+///// Go /////
 document.addEventListener('DOMContentLoaded', () => {
     service
         .getUser()
@@ -242,5 +242,5 @@ document.addEventListener('DOMContentLoaded', () => {
             loadModalFunctionality(items);
         }
     })
-        .catch((error) => console.log(error));
+        .catch((error) => showWarning(error));
 });
