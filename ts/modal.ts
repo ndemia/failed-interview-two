@@ -1,17 +1,17 @@
-import { user, item } from './types';
+import { item } from './types';
 import { showWarning, removeWarning } from './warnings.js';
 import {
 	enableDecreaseButtons,
 	enableIncreaseButtons,
-	enableMarketActionsButtons,
-	disableMarketActionsButtons,
-	resetQuantities,
-	buyItems,
-	updateItemCost,
-	checkAvailableStock,
 	disableDecreaseButtons,
 	disableIncreaseButtons,
+	enableMarketActionsButtons,
+	disableMarketActionsButtons,
+	updateItemCost,
+	checkAvailableStock,
 	updateTotalCost,
+	buyItems,
+	resetQuantities,
 } from './app.js';
 
 // UI Variables //

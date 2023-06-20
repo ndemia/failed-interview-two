@@ -1,5 +1,5 @@
 import { showWarning, removeWarning } from './warnings.js';
-import { enableIncreaseButtons, enableMarketActionsButtons, disableMarketActionsButtons, resetQuantities, buyItems, updateItemCost, checkAvailableStock, disableIncreaseButtons, updateTotalCost, } from './app.js';
+import { enableIncreaseButtons, disableIncreaseButtons, enableMarketActionsButtons, disableMarketActionsButtons, updateItemCost, checkAvailableStock, updateTotalCost, buyItems, resetQuantities, } from './app.js';
 // UI Variables //
 const openModalButtons = document.querySelectorAll('[data-modal-open]');
 const closeModalButtons = document.querySelectorAll('[data-modal-close]');
