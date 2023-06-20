@@ -121,9 +121,9 @@ export const loadModalFunctionality = (stock: item[]): void => {
 				itemPrice.innerText = `${totalItemCost} gold`;
 				updateTotalCost();
 			} else {
+				showWarning('notEnoughStock');
 				disableIncreaseButtons();
 				disableMarketActionsButtons();
-				showWarning('notEnoughStock');
 			}
 		});
 	});
@@ -146,9 +146,9 @@ export const loadModalFunctionality = (stock: item[]): void => {
 				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLInputElement;
 				itemPrice.innerText = `${totalItemCost} gold`;
 				removeWarning();
-				updateTotalCost();
 				enableIncreaseButtons();
 				enableMarketActionsButtons();
+				updateTotalCost();
 			} else {
 				showWarning('notEnoughStock');
 				disableMarketActionsButtons();

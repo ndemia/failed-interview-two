@@ -31,6 +31,6 @@ export const showWarning = (warningType: string): void => {
 };
 
 export const removeWarning = (): void => {
-	const warningContainer = document.querySelector('.market__warning') as HTMLElement;
-	warningContainer.classList.add('hidden');
+	const marketWarningContainer = document.querySelector('.market__warning-container') as HTMLElement;
+	marketWarningContainer.classList.add('hidden');
 };

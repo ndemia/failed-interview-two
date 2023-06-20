@@ -41,7 +41,7 @@ export const service = (() => {
 	function simulateRequest(request: user | item[]): Promise<user | item[]> {
 		let randomNumber = Math.floor(Math.random() * 10) + 1;
 		return new Promise((resolve, reject) => {
-			if (randomNumber % 2 == 0 || randomNumber % 3 == 0) {
+			if (true) {
 				setTimeout(() => {
 					resolve(request);
 				}, 1000);

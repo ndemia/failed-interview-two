@@ -158,10 +158,8 @@ export const checkAvailableStock = (itemQuantity: number, itemId: number | strin
 		}
 	});
 	if (itemQuantity <= availableStock) {
-		// enableIncreaseButtons();
 		return true;
 	} else {
-		// disableIncreaseButtons();
 		return false;
 	}
 };

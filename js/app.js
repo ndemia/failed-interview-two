@@ -137,11 +137,9 @@ export const checkAvailableStock = (itemQuantity, itemId, stock) => {
         }
     });
     if (itemQuantity <= availableStock) {
-        // enableIncreaseButtons();
         return true;
     }
     else {
-        // disableIncreaseButtons();
         return false;
     }
 };

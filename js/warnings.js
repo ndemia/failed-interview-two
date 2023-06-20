@@ -29,6 +29,6 @@ export const showWarning = (warningType) => {
     }
 };
 export const removeWarning = () => {
-    const warningContainer = document.querySelector('.market__warning');
-    warningContainer.classList.add('hidden');
+    const marketWarningContainer = document.querySelector('.market__warning-container');
+    marketWarningContainer.classList.add('hidden');
 };
