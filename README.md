@@ -17,7 +17,7 @@ A design was provided, but I decided to ditch it and make a more fun one instead
 
 ## Part to be built
 
-- [x] Make “Buy” button in the top bar show the dialog which will allow user to buy available items.
+- [x] Make “Buy” button in the top bar show the dialog which will allow user to buy available items (to be displayed in a modal).
 - [x] User can see available items and their price, can type in an amount to buy (integer value), or increment/decrement it with buttons + and -. Total cost is calculated in real-time and reflects changes to the amount.
 - [x] If the total cost exceeds available money, message appears and buy button is disabled.
 - [x] When user clicks "Buy", dialog is closed, item stocks are updated and user balance is updated. There is no need to store bought items.
