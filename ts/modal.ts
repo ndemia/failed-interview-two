@@ -124,7 +124,7 @@ export const loadModalFunctionality = (stock: item[]): void => {
 				updateTotalCost();
 			} else {
 				showWarning('notEnoughStock', itemName);
-				disableIncreaseButtons(pressedButton);
+				disableIncreaseButtons();
 				disableMarketActionsButtons();
 			}
 		});

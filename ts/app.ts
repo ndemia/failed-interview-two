@@ -61,17 +61,12 @@ export const showUserLogin = (login: string): void => {
 	userName.innerText = `${login}`;
 };
 
-export const disableIncreaseButtons = (button?: HTMLButtonElement): void => {
-	if (button) {
+export const disableIncreaseButtons = (): void => {
+	let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
+	quantityIncreaseButtons.forEach((button) => {
 		button.classList.add('btn--disabled');
 		button.disabled = true;
-	} else {
-		let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
-		quantityIncreaseButtons.forEach((button) => {
-			button.classList.add('btn--disabled');
-			button.disabled = true;
-		});
-	}
+	});
 };
 
 export const enableIncreaseButtons = (): void => {

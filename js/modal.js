@@ -106,7 +106,7 @@ export const loadModalFunctionality = (stock) => {
             }
             else {
                 showWarning('notEnoughStock', itemName);
-                disableIncreaseButtons(pressedButton);
+                disableIncreaseButtons();
                 disableMarketActionsButtons();
             }
         });

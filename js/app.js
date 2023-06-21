@@ -49,18 +49,12 @@ export const showUserLogin = (login) => {
     const userName = document.getElementById('user-name');
     userName.innerText = `${login}`;
 };
-export const disableIncreaseButtons = (button) => {
-    if (button) {
+export const disableIncreaseButtons = () => {
+    let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
+    quantityIncreaseButtons.forEach((button) => {
         button.classList.add('btn--disabled');
         button.disabled = true;
-    }
-    else {
-        let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
-        quantityIncreaseButtons.forEach((button) => {
-            button.classList.add('btn--disabled');
-            button.disabled = true;
-        });
-    }
+    });
 };
 export const enableIncreaseButtons = () => {
     let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
