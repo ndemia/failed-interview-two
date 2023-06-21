@@ -44,6 +44,7 @@ export const closeModal = (modal) => {
         modal.classList.remove('active');
         overlay.classList.remove('active');
         enableMarketActionsButtons();
+        enableIncreaseButtons();
         resetQuantities();
         removeWarning();
     }
@@ -105,7 +106,7 @@ export const loadModalFunctionality = (stock) => {
             }
             else {
                 showWarning('notEnoughStock', itemName);
-                disableIncreaseButtons();
+                disableIncreaseButtons(pressedButton);
                 disableMarketActionsButtons();
             }
         });

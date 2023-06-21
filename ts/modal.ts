@@ -59,6 +59,7 @@ export const closeModal = (modal: HTMLDivElement): void => {
 		modal.classList.remove('active');
 		overlay.classList.remove('active');
 		enableMarketActionsButtons();
+		enableIncreaseButtons();
 		resetQuantities();
 		removeWarning();
 	}
@@ -123,7 +124,7 @@ export const loadModalFunctionality = (stock: item[]): void => {
 				updateTotalCost();
 			} else {
 				showWarning('notEnoughStock', itemName);
-				disableIncreaseButtons();
+				disableIncreaseButtons(pressedButton);
 				disableMarketActionsButtons();
 			}
 		});

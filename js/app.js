@@ -49,12 +49,18 @@ export const showUserLogin = (login) => {
     const userName = document.getElementById('user-name');
     userName.innerText = `${login}`;
 };
-export const disableIncreaseButtons = () => {
-    let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
-    quantityIncreaseButtons.forEach((button) => {
+export const disableIncreaseButtons = (button) => {
+    if (button) {
         button.classList.add('btn--disabled');
         button.disabled = true;
-    });
+    }
+    else {
+        let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
+        quantityIncreaseButtons.forEach((button) => {
+            button.classList.add('btn--disabled');
+            button.disabled = true;
+        });
+    }
 };
 export const enableIncreaseButtons = () => {
     let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
@@ -99,6 +105,7 @@ export const hideLoader = () => {
     const loader = document.querySelector('.loader');
     loader.classList.add('hidden');
 };
+// Updates the total cost per item
 export const updateItemCost = (quantity, id, currentStock) => {
     let itemID = Number(id);
     let updatedPrice = 0;
@@ -121,11 +128,10 @@ const checkTotalCostDoesNotExceedBalance = (totalCost) => {
                 return true;
             }
         }
-        throw new Error('User balance is missing');
+        throw new Error('User balance is missing.');
     })
-        .catch((error) => {
-        console.log(error);
-        throw new Error('Failed to fetch user data');
+        .catch(() => {
+        throw new Error('Failed to fetch user data.');
     });
 };
 export const checkAvailableStock = (itemQuantity, itemId, stock) => {
@@ -169,6 +175,7 @@ export const resetQuantities = () => {
         updateTotalCost();
     });
 };
+// Updates stock after purchase
 const updateAvailableStock = () => {
     const productQuantities = document.querySelectorAll('.dashboard .item__quantity[data-item-id]');
     service

@@ -1,7 +1,7 @@
 import { user, item } from './types';
 import { service } from './service.js';
-import { showWarning, removeWarning } from './warnings.js';
-import { openModal, closeModal, loadModalFunctionality } from './modal.js';
+import { showWarning } from './warnings.js';
+import { closeModal, loadModalFunctionality } from './modal.js';
 import './inert.min.js';
 
 // UI Variables //
@@ -61,12 +61,17 @@ export const showUserLogin = (login: string): void => {
 	userName.innerText = `${login}`;
 };
 
-export const disableIncreaseButtons = (): void => {
-	let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
-	quantityIncreaseButtons.forEach((button) => {
+export const disableIncreaseButtons = (button?: HTMLButtonElement): void => {
+	if (button) {
 		button.classList.add('btn--disabled');
 		button.disabled = true;
-	});
+	} else {
+		let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
+		quantityIncreaseButtons.forEach((button) => {
+			button.classList.add('btn--disabled');
+			button.disabled = true;
+		});
+	}
 };
 
 export const enableIncreaseButtons = (): void => {
@@ -119,6 +124,7 @@ export const hideLoader = (): void => {
 	loader.classList.add('hidden');
 };
 
+// Updates the total cost per item
 export const updateItemCost = (quantity: number, id: string | number, currentStock: item[]): number => {
 	let itemID = Number(id);
 	let updatedPrice: number = 0;
@@ -141,11 +147,10 @@ const checkTotalCostDoesNotExceedBalance = (totalCost: number): Promise<boolean>
 					return true;
 				}
 			}
-			throw new Error('User balance is missing');
+			throw new Error('User balance is missing.');
 		})
-		.catch((error) => {
-			console.log(error);
-			throw new Error('Failed to fetch user data');
+		.catch(() => {
+			throw new Error('Failed to fetch user data.');
 		});
 };
 
@@ -192,6 +197,7 @@ export const resetQuantities = (): void => {
 	});
 };
 
+// Updates stock after purchase
 const updateAvailableStock = (): void => {
 	const productQuantities = document.querySelectorAll('.dashboard .item__quantity[data-item-id]') as NodeListOf<HTMLParagraphElement>;
 	service
