@@ -95,6 +95,7 @@ export const loadModalFunctionality = (stock) => {
             inputValue++;
             input.value = inputValue.toString();
             let itemId = Number(pressedButton.parentElement.dataset.itemId);
+            let itemName = input.dataset.itemName;
             let itemQuantity = Number(inputValue);
             if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
                 let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
@@ -103,7 +104,7 @@ export const loadModalFunctionality = (stock) => {
                 updateTotalCost();
             }
             else {
-                showWarning('notEnoughStock');
+                showWarning('notEnoughStock', itemName);
                 disableIncreaseButtons();
                 disableMarketActionsButtons();
             }

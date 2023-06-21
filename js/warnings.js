@@ -1,4 +1,4 @@
-export const showWarning = (warningType) => {
+export const showWarning = (warningType, itemName) => {
     const dashboardWarningContainer = document.querySelector('.dashboard__warning-container');
     const dashboardWarning = document.querySelector('.dashboard__warning');
     const dashboardWarningText = document.querySelector('.dashboard__warning .warning__text');
@@ -12,7 +12,7 @@ export const showWarning = (warningType) => {
             break;
         case 'notEnoughStock':
             marketWarningContainer.classList.remove('hidden');
-            marketWarningText.innerText = `You have exceeded the maximum quantity for this item.`;
+            marketWarningText.innerText = `You have exceeded the maximum quantity for ${itemName}.`;
             break;
         case 'failedProcess':
             marketWarningContainer.classList.remove('hidden');
@@ -25,7 +25,7 @@ export const showWarning = (warningType) => {
             break;
         default:
             marketWarningContainer.classList.remove('hidden');
-            marketWarningText.innerText = `There was a general error. Try again later.`;
+            marketWarningText.innerText = `There was a general error. Try reloading the page to fix it.`;
     }
 };
 export const removeWarning = () => {

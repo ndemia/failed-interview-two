@@ -39,7 +39,7 @@ const showCurrentStock = (stock: item[]): void => {
 					</div>
 					<div class="item__actions" data-item-id="${item.id}">
 						<button class="item__decrease js-market-decrease" aria-label="Decrease ${item.name} quantity">-</button>
-						<input type="number" name="item__quantity" class="item__quantity" value="0" min="0" max="${item.quantity}" data-item-id="${item.id}" aria-label="${item.name} quantity" role="status">
+						<input type="number" name="item__quantity" class="item__quantity" value="0" min="0" max="${item.quantity}" data-item-id="${item.id}" data-item-name="${item.name}" aria-label="${item.name} quantity" role="status">
 						<button class="item__increase js-market-increase" aria-label="Increase ${item.name} quantity">+</button>	
 					</div>
 					<span class="item__cost" role="status">0 gold</span>
