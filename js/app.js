@@ -27,7 +27,10 @@ const showCurrentStock = (stock) => {
 				<img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}">
 					<div class="item__info">
 						<h3 class="item__name">${item.name}</h3>
-						<span class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</span>
+						<div class="item__details">
+							<span class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</span>
+							<span class="item__price" data-item-id="${item.id}">Price: ${item.price}</span>
+						</div>
 					</div>
 					<div class="item__actions" data-item-id="${item.id}">
 						<button class="item__decrease js-market-decrease" aria-label="Decrease ${item.name} quantity">-</button>
