@@ -92,17 +92,23 @@ export const loadModalFunctionality = (stock: item[]): void => {
 	itemQuantityInputs.forEach((input) => {
 		input.addEventListener('change', (e: Event) => {
 			let eventTarget = e.target as HTMLInputElement;
-			let itemId: number = Number(eventTarget.dataset.itemId);
 			let itemQuantity: number = Number(eventTarget.value);
+			let itemId: number = Number(eventTarget.dataset.itemId);
 			let updatedPrice: number = updateItemCost(itemQuantity, itemId, stock);
-			if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
-				let itemPrice = eventTarget.parentElement!.nextElementSibling as HTMLSpanElement;
-				itemPrice.innerText = `${updatedPrice} gold`;
-				updateTotalCost();
+			let itemPrice = eventTarget.parentElement!.nextElementSibling as HTMLSpanElement;
+			// Check to allow only positive numbers
+			if (itemQuantity >= 0) {
+				if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
+					itemPrice.innerText = `${updatedPrice} gold`;
+					updateTotalCost();
+				} else {
+					showWarning('notEnoughStock');
+					disableIncreaseButtons();
+					disableMarketActionsButtons();
+				}
 			} else {
-				showWarning('notEnoughStock');
-				disableIncreaseButtons();
-				disableMarketActionsButtons();
+				itemPrice.innerText = `0 gold`;
+				eventTarget.value = '0';
 			}
 		});
 	});
