@@ -189,7 +189,7 @@ const updateAvailableStock = () => {
         .catch((error) => console.log(error));
 };
 export const buyItems = () => {
-    let finalItemQuantities = document.querySelectorAll('.market .item__quantity');
+    let finalItemQuantities = document.querySelectorAll('input.item__quantity');
     showLoader();
     disableIncreaseButtons();
     disableDecreaseButtons();
@@ -199,7 +199,8 @@ export const buyItems = () => {
         .then((items) => {
         if ('filter' in items) {
             for (let i = 0; i < finalItemQuantities.length; i++) {
-                if (Number(items[i].id) === Number(finalItemQuantities[i].dataset.itemId)) {
+                // If items have the same ID
+                if (items[i].id === Number(finalItemQuantities[i].dataset.itemId)) {
                     // Substract the bought amount from the current stock
                     items[i].quantity -= Number(finalItemQuantities[i].value);
                 }

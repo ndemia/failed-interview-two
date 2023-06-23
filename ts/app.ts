@@ -213,7 +213,7 @@ const updateAvailableStock = (): void => {
 };
 
 export const buyItems = (): void => {
-	let finalItemQuantities = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
+	let finalItemQuantities = document.querySelectorAll('input.item__quantity') as NodeListOf<HTMLInputElement>;
 	showLoader();
 	disableIncreaseButtons();
 	disableDecreaseButtons();
@@ -223,7 +223,8 @@ export const buyItems = (): void => {
 		.then((items) => {
 			if ('filter' in items) {
 				for (let i = 0; i < finalItemQuantities.length; i++) {
-					if (Number(items[i].id) === Number(finalItemQuantities[i].dataset.itemId)) {
+					// If items have the same ID
+					if (items[i].id === Number(finalItemQuantities[i].dataset.itemId)) {
 						// Substract the bought amount from the current stock
 						items[i].quantity -= Number(finalItemQuantities[i].value);
 					} else {
