@@ -28,6 +28,13 @@
 			<section class="dashboard">
 				<h1 class="dashboard__title">Hello, <span id="user-name"></span></h1>
 				<h2 class="dashboard__subtitle">This is the available stock to buy:</h2>
+				<span class="loader__container loader__container--dashboard js-loader-dashboard hidden" role="alert" title="Loading available stock">
+					<svg class="loader loader__icon loader__icon--secondary" viewBox="0 0 24 24">
+						<path
+							d="m17.6 7.226v-3.33h1.602v-1.897h-14.37v1.897h1.602v3.309c0 1.307 0.6323 2.529 1.728 3.267l2.171 1.538-2.192 1.517c-1.075 0.7377-1.728 1.96-1.728 3.267v3.309h-1.602v1.897h14.37v-1.897h-1.602l-1.55e-4 -3.309c0-1.307-0.6323-2.529-1.728-3.267l-2.15-1.517 2.192-1.517c1.075-0.7377 1.707-1.96 1.707-3.267z"
+						/>
+					</svg>
+				</span>
 				<ul id="stock" class="dashboard__stock"></ul>
 				<div class="dashboard__warning-container hidden" role="alert">
 					<div class="dashboard__warning warning">
@@ -84,8 +91,8 @@
 					<div class="primary__actions">
 						<button class="btn btn--secondary js-modal-cancel js-market-action" data-modal-close aria-label="Cancel">Cancel</button>
 						<button class="btn btn--primary js-modal-buy js-market-action">Buy</button>
-						<span class="loader hidden" role="alert" title="Purchase in progress">
-							<svg class="loader__icon" viewBox="0 0 24 24">
+						<span class="loader__container loader__container--modal js-loader-modal hidden" role="alert" title="Purchase in progress">
+							<svg class="loader loader__icon" viewBox="0 0 24 24">
 								<path
 									d="m17.6 7.226v-3.33h1.602v-1.897h-14.37v1.897h1.602v3.309c0 1.307 0.6323 2.529 1.728 3.267l2.171 1.538-2.192 1.517c-1.075 0.7377-1.728 1.96-1.728 3.267v3.309h-1.602v1.897h14.37v-1.897h-1.602l-1.55e-4 -3.309c0-1.307-0.6323-2.529-1.728-3.267l-2.15-1.517 2.192-1.517c1.075-0.7377 1.707-1.96 1.707-3.267z"
 								/>

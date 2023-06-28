@@ -95,6 +95,7 @@ body {
 		&__subtitle {
 			font-weight: 400;
 			font-size: 1.5rem;
+			line-height: 1.2;
 		}
 
 		&__stock {
@@ -464,15 +465,32 @@ body {
 	}
 }
 
-.loader {
-	margin-left: 1rem;
-	animation: 2s infinite cubic-bezier(0.65, 0.05, 0.36, 1) loading;
+.loader__container {
+	&--dashboard {
+		height: 25vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 
-	&__icon {
-		width: 24px;
-		height: 24px;
-		display: block;
-		fill: hsl(36, 61%, 75%);
+	&--modal {
+		margin-left: 1rem;
+	}
+
+	.loader {
+		animation: 2s infinite cubic-bezier(0.65, 0.05, 0.36, 1) loading;
+
+		&__icon {
+			width: 24px;
+			height: 24px;
+			display: block;
+			fill: hsl(36, 61%, 75%);
+
+			&--secondary {
+				fill: hsl(10, 94%, 14%);
+			}
+		}
 	}
 }
 

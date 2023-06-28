@@ -40,7 +40,7 @@ export const service = (() => {
             if (true) {
                 setTimeout(() => {
                     resolve(request);
-                }, 1000);
+                }, 5000);
             }
             else {
                 setTimeout(() => {

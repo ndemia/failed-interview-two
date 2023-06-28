@@ -93,23 +93,34 @@ export const enableMarketActionsButtons = () => {
         button.disabled = false;
     });
 };
-export const showLoader = () => {
-    const loader = document.querySelector('.loader');
+export const showLoader = (location) => {
+    let loader;
+    switch (location) {
+        case 'dashboard':
+            loader = document.querySelector('.js-loader-dashboard');
+            break;
+        case 'modal':
+            loader = document.querySelector('.js-loader-modal');
+            break;
+        default:
+            loader = document.querySelector('.js-loader-modal');
+            break;
+    }
     loader.classList.remove('hidden');
 };
-export const hideLoader = () => {
-    const loader = document.querySelector('.loader');
+export const hideLoader = (location) => {
+    const loader = document.querySelector('.loader__container');
     loader.classList.add('hidden');
 };
-export const toggleInteractionsAndLoader = (state) => {
+export const toggleInteractionsAndLoader = (state, location) => {
     if (state === 'disable') {
-        showLoader();
+        showLoader(location);
         disableIncreaseButtons();
         disableDecreaseButtons();
         disableMarketActionsButtons();
     }
     else {
-        hideLoader();
+        hideLoader(location);
         enableIncreaseButtons();
         enableDecreaseButtons();
         enableMarketActionsButtons();
@@ -203,7 +214,7 @@ const updateAvailableStock = () => {
 };
 export const buyItems = () => {
     let finalItemQuantities = document.querySelectorAll('input.item__quantity');
-    toggleInteractionsAndLoader('disable');
+    toggleInteractionsAndLoader('disable', 'modal');
     service
         .getItems()
         .then((items) => {
@@ -223,17 +234,18 @@ export const buyItems = () => {
             let finalGold = Number(document.querySelector('.market .total__value').innerText.slice(0, -5));
             //service.user.balance -= finalGold;
             //showGoldBalance();
-            toggleInteractionsAndLoader('enable');
+            toggleInteractionsAndLoader('enable', 'modal');
             closeModal(document.querySelector('.modal'));
         }
     })
         .catch(() => {
-        toggleInteractionsAndLoader('enable');
+        toggleInteractionsAndLoader('enable', 'modal');
         showWarning('failedProcess');
     });
 };
 ///// Go /////
 document.addEventListener('DOMContentLoaded', () => {
+    showLoader('dashboard');
     service
         .getUser()
         .then((user) => {
@@ -245,6 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(service.getItems)
         .then((items) => {
         if ('filter' in items) {
+            hideLoader('dashboard');
             showCurrentStock(items);
             loadModalFunctionality(items);
         }
