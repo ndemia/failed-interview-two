@@ -263,5 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
             loadModalFunctionality(items);
         }
     })
-        .catch((error) => showMessage(error));
+        .catch((error) => {
+        hideLoader('dashboard');
+        showMessage(error);
+    });
 });

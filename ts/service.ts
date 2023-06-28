@@ -48,7 +48,7 @@ export const service = (() => {
 			} else {
 				setTimeout(() => {
 					reject('failedFetch');
-				}, 1000);
+				}, 3000);
 			}
 		});
 	}

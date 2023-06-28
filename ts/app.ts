@@ -287,5 +287,8 @@ document.addEventListener('DOMContentLoaded', (): void => {
 				loadModalFunctionality(items);
 			}
 		})
-		.catch((error) => showMessage(error));
+		.catch((error) => {
+			hideLoader('dashboard');
+			showMessage(error);
+		});
 });
