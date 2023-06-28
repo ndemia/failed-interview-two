@@ -1,11 +1,11 @@
-export const showWarning = (warningType, itemName) => {
+export const showMessage = (messageType, itemName) => {
     const dashboardWarningContainer = document.querySelector('.dashboard__warning-container');
     const dashboardWarning = document.querySelector('.dashboard__warning');
     const dashboardWarningText = document.querySelector('.dashboard__warning .warning__text');
     const marketWarningContainer = document.querySelector('.market__warning-container');
     const marketWarning = document.querySelector('.market__warning');
     const marketWarningText = document.querySelector('.market__warning .warning__text');
-    switch (warningType) {
+    switch (messageType) {
         case 'exceededBalance':
             marketWarningContainer.classList.remove('hidden');
             marketWarningText.innerText = `The total cost exceeds your current gold balance.`;
@@ -28,7 +28,7 @@ export const showWarning = (warningType, itemName) => {
             marketWarningText.innerText = `There was a general error. Try reloading the page to fix it.`;
     }
 };
-export const removeWarning = () => {
+export const removeMessage = () => {
     const marketWarningContainer = document.querySelector('.market__warning-container');
     marketWarningContainer.classList.add('hidden');
 };

@@ -1,5 +1,5 @@
 import { service } from './service.js';
-import { showWarning } from './warnings.js';
+import { showMessage } from './messages.js';
 import { closeModal, loadModalFunctionality } from './modal.js';
 // UI Variables //
 const dashboardProductList = document.getElementById('stock');
@@ -180,7 +180,7 @@ export const updateTotalCost = async () => {
     totalValue.innerText = `${totalCost} gold`;
     const result = await checkTotalCostDoesNotExceedBalance(totalCost);
     if (result === true) {
-        showWarning('exceededBalance');
+        showMessage('exceededBalance');
         disableIncreaseButtons();
         disableMarketActionsButtons();
     }
@@ -236,11 +236,12 @@ export const buyItems = () => {
             //showGoldBalance();
             toggleInteractionsAndLoader('enable', 'modal');
             closeModal(document.querySelector('.modal'));
+            showMessage('successfulPurchase');
         }
     })
         .catch(() => {
         toggleInteractionsAndLoader('enable', 'modal');
-        showWarning('failedProcess');
+        showMessage('failedProcess');
     });
 };
 ///// Go /////
@@ -262,5 +263,5 @@ document.addEventListener('DOMContentLoaded', () => {
             loadModalFunctionality(items);
         }
     })
-        .catch((error) => showWarning(error));
+        .catch((error) => showMessage(error));
 });
