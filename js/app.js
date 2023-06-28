@@ -1,7 +1,6 @@
 import { service } from './service.js';
 import { showWarning } from './warnings.js';
 import { closeModal, loadModalFunctionality } from './modal.js';
-import './inert.min.js';
 // UI Variables //
 const dashboardProductList = document.getElementById('stock');
 const modalProductList = document.querySelector('.products__list');

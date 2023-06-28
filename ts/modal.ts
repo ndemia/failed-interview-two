@@ -13,6 +13,7 @@ import {
 	buyItems,
 	resetQuantities,
 } from './app.js';
+import './inert.min.js';
 
 // UI Variables //
 const openModalButtons = document.querySelectorAll('[data-modal-open]') as NodeListOf<HTMLButtonElement>;
