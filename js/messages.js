@@ -1,10 +1,10 @@
 export const showMessage = (messageType, itemName) => {
-    const dashboardMessageContainer = document.querySelector('.dashboard__warning-container');
-    const dashboardMessage = document.querySelector('.dashboard__warning');
-    const dashboardMessageText = document.querySelector('.dashboard__warning .warning__text');
-    const marketMessageContainer = document.querySelector('.market__warning-container');
-    const marketMessage = document.querySelector('.market__warning');
-    const marketMessageText = document.querySelector('.market__warning .warning__text');
+    const dashboardMessageContainer = document.querySelector('.dashboard__message-container');
+    const dashboardMessage = document.querySelector('.dashboard__message');
+    const dashboardMessageText = document.querySelector('.dashboard__message .message__text');
+    const marketMessageContainer = document.querySelector('.market__message-container');
+    const marketMessage = document.querySelector('.market__message');
+    const marketMessageText = document.querySelector('.market__message .message__text');
     switch (messageType) {
         case 'exceededBalance':
             marketMessageContainer.classList.remove('hidden');
@@ -33,6 +33,6 @@ export const showMessage = (messageType, itemName) => {
     }
 };
 export const removeMessage = () => {
-    const marketWarningContainer = document.querySelector('.market__warning-container');
+    const marketWarningContainer = document.querySelector('.market__message-container');
     marketWarningContainer.classList.add('hidden');
 };

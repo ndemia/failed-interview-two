@@ -1,10 +1,10 @@
 export const showMessage = (messageType: string, itemName?: string): void => {
-	const dashboardMessageContainer = document.querySelector('.dashboard__warning-container') as HTMLElement;
-	const dashboardMessage = document.querySelector('.dashboard__warning') as HTMLElement;
-	const dashboardMessageText = document.querySelector('.dashboard__warning .warning__text') as HTMLElement;
-	const marketMessageContainer = document.querySelector('.market__warning-container') as HTMLElement;
-	const marketMessage = document.querySelector('.market__warning') as HTMLElement;
-	const marketMessageText = document.querySelector('.market__warning .warning__text') as HTMLSpanElement;
+	const dashboardMessageContainer = document.querySelector('.dashboard__message-container') as HTMLElement;
+	const dashboardMessage = document.querySelector('.dashboard__message') as HTMLElement;
+	const dashboardMessageText = document.querySelector('.dashboard__message .message__text') as HTMLElement;
+	const marketMessageContainer = document.querySelector('.market__message-container') as HTMLElement;
+	const marketMessage = document.querySelector('.market__message') as HTMLElement;
+	const marketMessageText = document.querySelector('.market__message .message__text') as HTMLSpanElement;
 
 	switch (messageType) {
 		case 'exceededBalance':
@@ -35,6 +35,6 @@ export const showMessage = (messageType: string, itemName?: string): void => {
 };
 
 export const removeMessage = (): void => {
-	const marketWarningContainer = document.querySelector('.market__warning-container') as HTMLElement;
+	const marketWarningContainer = document.querySelector('.market__message-container') as HTMLElement;
 	marketWarningContainer.classList.add('hidden');
 };
