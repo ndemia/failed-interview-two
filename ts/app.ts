@@ -121,6 +121,20 @@ export const hideLoader = (): void => {
 	loader.classList.add('hidden');
 };
 
+export const toggleInteractionsAndLoader = (state: 'enable' | 'disable'): void => {
+	if (state === 'disable') {
+		showLoader();
+		disableIncreaseButtons();
+		disableDecreaseButtons();
+		disableMarketActionsButtons();
+	} else {
+		hideLoader();
+		enableIncreaseButtons();
+		enableDecreaseButtons();
+		enableMarketActionsButtons();
+	}
+};
+
 // Updates the total cost per item
 export const updateItemCost = (quantity: number, id: string | number, currentStock: item[]): number => {
 	let itemID = Number(id);
@@ -213,10 +227,7 @@ const updateAvailableStock = (): void => {
 
 export const buyItems = (): void => {
 	let finalItemQuantities = document.querySelectorAll('input.item__quantity') as NodeListOf<HTMLInputElement>;
-	showLoader();
-	disableIncreaseButtons();
-	disableDecreaseButtons();
-	disableMarketActionsButtons();
+	toggleInteractionsAndLoader('disable');
 	service
 		.getItems()
 		.then((items) => {
@@ -235,18 +246,12 @@ export const buyItems = (): void => {
 				let finalGold: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
 				//service.user.balance -= finalGold;
 				//showGoldBalance();
-				hideLoader();
-				enableIncreaseButtons();
-				enableDecreaseButtons();
-				enableMarketActionsButtons();
+				toggleInteractionsAndLoader('enable');
 				closeModal(document.querySelector('.modal') as HTMLDivElement);
 			}
 		})
 		.catch(() => {
-			hideLoader();
-			enableIncreaseButtons();
-			enableDecreaseButtons();
-			enableMarketActionsButtons();
+			toggleInteractionsAndLoader('enable');
 			showWarning('failedProcess');
 		});
 };
