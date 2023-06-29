@@ -128,7 +128,18 @@ export const showLoader = (location: string): void => {
 };
 
 export const hideLoader = (location: string): void => {
-	const loader = document.querySelector('.loader__container') as HTMLSpanElement;
+	let loader;
+	switch (location) {
+		case 'dashboard':
+			loader = document.querySelector('.js-loader-dashboard') as HTMLSpanElement;
+			break;
+		case 'modal':
+			loader = document.querySelector('.js-loader-modal') as HTMLSpanElement;
+			break;
+		default:
+			loader = document.querySelector('.js-loader-modal') as HTMLSpanElement;
+			break;
+	}
 	loader.classList.add('hidden');
 };
 

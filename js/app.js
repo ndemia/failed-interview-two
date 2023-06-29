@@ -109,7 +109,18 @@ export const showLoader = (location) => {
     loader.classList.remove('hidden');
 };
 export const hideLoader = (location) => {
-    const loader = document.querySelector('.loader__container');
+    let loader;
+    switch (location) {
+        case 'dashboard':
+            loader = document.querySelector('.js-loader-dashboard');
+            break;
+        case 'modal':
+            loader = document.querySelector('.js-loader-modal');
+            break;
+        default:
+            loader = document.querySelector('.js-loader-modal');
+            break;
+    }
     loader.classList.add('hidden');
 };
 export const toggleInteractionsAndLoader = (state, location) => {
