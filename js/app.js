@@ -148,7 +148,7 @@ export const updateItemCost = (quantity, id, currentStock) => {
     });
     return updatedPrice;
 };
-const checkTotalCostDoesNotExceedBalance = (totalCost) => {
+const doesTotalCostExceedBalance = (totalCost) => {
     return service
         .getUser()
         .then((user) => {
@@ -189,7 +189,7 @@ export const updateTotalCost = async () => {
         totalCost += Number(cost.innerText.slice(0, -5));
     });
     totalValue.innerText = `${totalCost} gold`;
-    const result = await checkTotalCostDoesNotExceedBalance(totalCost);
+    const result = await doesTotalCostExceedBalance(totalCost);
     if (result === true) {
         showMessage('exceededBalance');
         disableIncreaseButtons();
