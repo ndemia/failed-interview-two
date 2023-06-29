@@ -1,6 +1,6 @@
 import { user, item } from './types';
 import { service } from './service.js';
-import { showMessage } from './messages.js';
+import { removeMessage, showMessage } from './messages.js';
 import { closeModal, loadModalFunctionality } from './modal.js';
 
 // UI Variables //
@@ -260,6 +260,9 @@ export const buyItems = (): void => {
 				toggleInteractionsAndLoader('enable', 'modal');
 				closeModal(document.querySelector('.modal') as HTMLDivElement);
 				showMessage('successfulPurchase');
+				setTimeout(() => {
+					removeMessage('dashboard');
+				}, 5000);
 			}
 		})
 		.catch(() => {

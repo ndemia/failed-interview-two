@@ -54,7 +54,19 @@ export const showMessage = (messageType: string, itemName?: string): void => {
 	}
 };
 
-export const removeMessage = (): void => {
-	const marketWarningContainer = document.querySelector('.market__message-container') as HTMLElement;
-	marketWarningContainer.classList.add('hidden');
+export const removeMessage = (location: string): void => {
+	switch (location) {
+		case 'dashboard':
+			const dashboardMessageContainer = document.querySelector('.js-dashboard-message') as HTMLElement;
+			dashboardMessageContainer.classList.add('hidden');
+			break;
+		case 'modal':
+			const marketMessageContainer = document.querySelector('.js-modal-message') as HTMLElement;
+			marketMessageContainer.classList.add('hidden');
+			break;
+		default:
+			const MessageContainer = document.querySelector('.js-modal-message') as HTMLElement;
+			MessageContainer.classList.add('hidden');
+			break;
+	}
 };

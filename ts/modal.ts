@@ -62,7 +62,7 @@ export const closeModal = (modal: HTMLDivElement): void => {
 		enableMarketActionsButtons();
 		enableIncreaseButtons();
 		resetQuantities();
-		removeMessage();
+		removeMessage('modal');
 	}
 	// Restore focus to the previous active element.
 	previousActiveElement.focus();
@@ -154,7 +154,7 @@ export const loadModalFunctionality = (stock: item[]): void => {
 				let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
 				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLInputElement;
 				itemPrice.innerText = `${totalItemCost} gold`;
-				removeMessage();
+				removeMessage('modal');
 				enableIncreaseButtons();
 				enableMarketActionsButtons();
 				updateTotalCost();

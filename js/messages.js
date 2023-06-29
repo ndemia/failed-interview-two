@@ -46,7 +46,19 @@ export const showMessage = (messageType, itemName) => {
             marketMessageText.innerText = `There was a general error. Try reloading the page to fix it.`;
     }
 };
-export const removeMessage = () => {
-    const marketWarningContainer = document.querySelector('.market__message-container');
-    marketWarningContainer.classList.add('hidden');
+export const removeMessage = (location) => {
+    switch (location) {
+        case 'dashboard':
+            const dashboardMessageContainer = document.querySelector('.js-dashboard-message');
+            dashboardMessageContainer.classList.add('hidden');
+            break;
+        case 'modal':
+            const marketMessageContainer = document.querySelector('.js-modal-message');
+            marketMessageContainer.classList.add('hidden');
+            break;
+        default:
+            const MessageContainer = document.querySelector('.js-modal-message');
+            MessageContainer.classList.add('hidden');
+            break;
+    }
 };
