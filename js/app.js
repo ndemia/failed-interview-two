@@ -221,7 +221,7 @@ const updateAvailableStock = () => {
             }
         }
     })
-        .catch((error) => console.log(error));
+        .catch(() => showMessage('failedFetch'));
 };
 export const buyItems = () => {
     let finalItemQuantities = document.querySelectorAll('input.item__quantity');

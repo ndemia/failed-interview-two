@@ -244,7 +244,7 @@ const updateAvailableStock = (): void => {
 				}
 			}
 		})
-		.catch((error) => console.log(error));
+		.catch(() => showMessage('failedFetch'));
 };
 
 export const buyItems = (): void => {
