@@ -41,6 +41,7 @@ export const showMessage = (messageType, itemName) => {
 					"
 					/>
 				</svg>`);
+            break;
         default:
             marketMessageContainer.classList.remove('hidden');
             marketMessageText.innerText = `There was a general error. Try reloading the page to fix it.`;
