@@ -249,6 +249,7 @@ const updateAvailableStock = (): void => {
 
 export const buyItems = (): void => {
 	let finalItemQuantities = document.querySelectorAll('input.item__quantity') as NodeListOf<HTMLInputElement>;
+	let finalGoldAmount: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
 	toggleInteractionsAndLoader('disable', 'modal');
 	service
 		.getItems()
@@ -264,16 +265,19 @@ export const buyItems = (): void => {
 					}
 				}
 				updateAvailableStock();
-				// Update gold balance
-				let finalGold: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
-				//service.user.balance -= finalGold;
-				//showGoldBalance();
 				toggleInteractionsAndLoader('enable', 'modal');
 				closeModal(document.querySelector('.modal') as HTMLDivElement);
 				showMessage('successfulPurchase');
 				setTimeout(() => {
 					removeMessage('dashboard');
 				}, 5000);
+			}
+		})
+		.then(service.getUser)
+		.then((user) => {
+			if ('balance' in user) {
+				user.balance -= finalGoldAmount;
+				showGoldBalance(user.balance);
 			}
 		})
 		.catch(() => {
