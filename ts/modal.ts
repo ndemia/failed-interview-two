@@ -10,7 +10,7 @@ import {
 	updateItemCost,
 	checkAvailableStock,
 	updateTotalCost,
-	buyItems,
+	buyItems2,
 	resetQuantities,
 } from './app.js';
 import './inert.min.js';
@@ -72,8 +72,8 @@ export const loadModalFunctionality = (stock: item[]): void => {
 	let itemQuantityInputs = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
 	let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
 	let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
-	buyButton.addEventListener('click', buyItems);
 	resetButton.addEventListener('click', resetQuantities);
+	buyButton.addEventListener('click', buyItems2);
 
 	openModalButtons.forEach((button) => {
 		button.addEventListener('click', () => {

@@ -223,44 +223,74 @@ const updateAvailableStock = () => {
     })
         .catch(() => showMessage('failedFetch'));
 };
-export const buyItems = () => {
+// export const buyItems = (): void => {
+// 	let finalItemQuantities = document.querySelectorAll('input.item__quantity') as NodeListOf<HTMLInputElement>;
+// 	let finalGoldAmount: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
+// 	toggleInteractionsAndLoader('disable', 'modal');
+// 	service
+// 		.getItems()
+// 		.then((items) => {
+// 			if ('filter' in items) {
+// 				for (let i = 0; i < finalItemQuantities.length; i++) {
+// 					// If items have the same ID
+// 					if (items[i].id === Number(finalItemQuantities[i].dataset.itemId)) {
+// 						// Substract the bought amount from the current stock
+// 						items[i].quantity -= Number(finalItemQuantities[i].value);
+// 					} else {
+// 						return;
+// 					}
+// 				}
+// 				updateAvailableStock();
+// 				toggleInteractionsAndLoader('enable', 'modal');
+// 				closeModal(document.querySelector('.modal') as HTMLDivElement);
+// 				showMessage('successfulPurchase');
+// 				setTimeout(() => {
+// 					removeMessage('dashboard');
+// 				}, 5000);
+// 			}
+// 		})
+// 		.then(service.getUser)
+// 		.then((user) => {
+// 			if ('balance' in user) {
+// 				user.balance -= finalGoldAmount;
+// 				showGoldBalance(user.balance);
+// 			}
+// 		})
+// 		.catch(() => {
+// 			toggleInteractionsAndLoader('enable', 'modal');
+// 			showMessage('failedProcess');
+// 		});
+// };
+export const buyItems2 = async () => {
+    toggleInteractionsAndLoader('disable', 'modal');
     let finalItemQuantities = document.querySelectorAll('input.item__quantity');
     let finalGoldAmount = Number(document.querySelector('.market .total__value').innerText.slice(0, -5));
-    toggleInteractionsAndLoader('disable', 'modal');
-    service
-        .getItems()
-        .then((items) => {
-        if ('filter' in items) {
-            for (let i = 0; i < finalItemQuantities.length; i++) {
-                // If items have the same ID
-                if (items[i].id === Number(finalItemQuantities[i].dataset.itemId)) {
-                    // Substract the bought amount from the current stock
-                    items[i].quantity -= Number(finalItemQuantities[i].value);
-                }
-                else {
-                    return;
-                }
+    try {
+        const items = (await service.getItems().then((items) => items));
+        const user = (await service.getUser().then((user) => user));
+        // Identify each element and compare they are the same
+        for (let i = 0; i < finalItemQuantities.length; i++) {
+            if (items[i].id === Number(finalItemQuantities[i].dataset.itemId)) {
+                // Subtract the bought amount from the current stock
+                items[i].quantity -= Number(finalItemQuantities[i].value);
             }
-            updateAvailableStock();
-            toggleInteractionsAndLoader('enable', 'modal');
-            closeModal(document.querySelector('.modal'));
-            showMessage('successfulPurchase');
-            setTimeout(() => {
-                removeMessage('dashboard');
-            }, 5000);
         }
-    })
-        .then(service.getUser)
-        .then((user) => {
-        if ('balance' in user) {
-            user.balance -= finalGoldAmount;
-            showGoldBalance(user.balance);
-        }
-    })
-        .catch(() => {
+        // Subtract the final cost from the user's balance
+        user.balance -= finalGoldAmount;
+        showGoldBalance(user.balance);
+        updateAvailableStock();
+        toggleInteractionsAndLoader('enable', 'modal');
+        closeModal(document.querySelector('.modal'));
+        showMessage('successfulPurchase');
+        // Remove the successful message from the dashboard
+        setTimeout(() => {
+            removeMessage('dashboard');
+        }, 5000);
+    }
+    catch (error) {
         toggleInteractionsAndLoader('enable', 'modal');
         showMessage('failedProcess');
-    });
+    }
 };
 ///// Go /////
 document.addEventListener('DOMContentLoaded', () => {
