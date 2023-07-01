@@ -148,23 +148,13 @@ export const updateItemCost = (quantity, id, stock) => {
     });
     return updatedPrice;
 };
-const doesTotalCostExceedBalance = (totalCost) => {
-    return service
-        .getUser()
-        .then((user) => {
-        if ('balance' in user) {
-            if (totalCost <= user.balance) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-        throw new Error('User balance is missing.');
-    })
-        .catch(() => {
-        throw new Error('Failed to fetch user data.');
-    });
+const doesTotalCostExceedBalance = (totalCost, userBalance) => {
+    if (totalCost <= userBalance) {
+        return false;
+    }
+    else {
+        return true;
+    }
 };
 export const isThereStockAvailable = (itemQuantity, itemId, stock) => {
     itemId = Number(itemId);
@@ -181,7 +171,7 @@ export const isThereStockAvailable = (itemQuantity, itemId, stock) => {
         return false;
     }
 };
-export const updateTotalCost = async () => {
+export const updateTotalCost = (userBalance) => {
     const costs = document.querySelectorAll('.item__cost');
     const totalValue = document.querySelector('.total__value');
     let totalCost = 0;
@@ -189,7 +179,7 @@ export const updateTotalCost = async () => {
         totalCost += Number(cost.innerText.slice(0, -5));
     });
     totalValue.innerText = `${totalCost} gold`;
-    const result = await doesTotalCostExceedBalance(totalCost);
+    const result = doesTotalCostExceedBalance(totalCost, userBalance);
     if (result === true) {
         showMessage('exceededBalance');
         disableIncreaseButtons();
@@ -295,37 +285,17 @@ export const buyItems2 = async () => {
 };
 ///// Go /////
 document.addEventListener('DOMContentLoaded', async () => {
-    showLoader('dashboard');
-    // service
-    // 	.getUser()
-    // 	.then((user) => {
-    // 		if ('balance' in user) {
-    // 			showGoldBalance(user.balance);
-    // 			showUserLogin(user.login);
-    // 		}
-    // 	})
-    // 	.then(service.getItems)
-    // 	.then((items) => {
-    // 		if ('filter' in items) {
-    // 			hideLoader('dashboard');
-    // 			showCurrentStock(items);
-    // 			// Pass the item stock so that it can be used inside the modal to calculate stock and prices
-    // 			loadModalFunctionality(items);
-    // 		}
-    // 	})
-    // 	.catch((error) => {
-    // 		hideLoader('dashboard');
-    // 		showMessage(error);
-    // 	});
     try {
+        showLoader('dashboard');
         const items = (await service.getItems().then((items) => items));
         const user = (await service.getUser().then((user) => user));
         showGoldBalance(user.balance);
         showUserLogin(user.login);
         hideLoader('dashboard');
+        // Show stock on the dashboard
         showCurrentStock(items);
-        // Pass the item stock so that it can be used inside the modal to calculate stock and prices
-        loadModalFunctionality(items);
+        // Pass the user and item stock so that it can be used inside the modal to calculate stock and prices
+        loadModalFunctionality(user, items);
     }
     catch (error) {
         hideLoader('dashboard');

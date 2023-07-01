@@ -1,4 +1,4 @@
-import { item } from './types';
+import { user, item } from './types';
 import { showMessage, removeMessage } from './messages.js';
 import {
 	enableDecreaseButtons,
@@ -68,7 +68,7 @@ export const closeModal = (modal: HTMLDivElement): void => {
 	previousActiveElement.focus();
 };
 
-export const loadModalFunctionality = (stock: item[]): void => {
+export const loadModalFunctionality = (user: user, stock: item[]): void => {
 	let itemQuantityInputs = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
 	let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
 	let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
@@ -101,7 +101,7 @@ export const loadModalFunctionality = (stock: item[]): void => {
 			if (itemQuantity >= 0) {
 				if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
 					itemPrice.innerText = `${updatedPrice} gold`;
-					updateTotalCost();
+					updateTotalCost(user.balance);
 				} else {
 					showMessage('notEnoughStock');
 					disableIncreaseButtons();
@@ -128,7 +128,7 @@ export const loadModalFunctionality = (stock: item[]): void => {
 				let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
 				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLSpanElement;
 				itemPrice.innerText = `${totalItemCost} gold`;
-				updateTotalCost();
+				updateTotalCost(user.balance);
 			} else {
 				showMessage('notEnoughStock', itemName);
 				disableIncreaseButtons();
@@ -157,7 +157,7 @@ export const loadModalFunctionality = (stock: item[]): void => {
 				removeMessage('modal');
 				enableIncreaseButtons();
 				enableMarketActionsButtons();
-				updateTotalCost();
+				updateTotalCost(user.balance);
 			} else {
 				showMessage('notEnoughStock');
 				disableMarketActionsButtons();

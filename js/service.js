@@ -40,7 +40,7 @@ export const service = (() => {
         return new Promise((resolve, reject) => {
             // 2 out of 10 times this promise will reject, showing errors in the app
             // if (randomNumber % 2 == 0 || randomNumber % 3 == 0) {
-            if (false) {
+            if (true) {
                 setTimeout(() => {
                     resolve(request);
                 }, 1000);

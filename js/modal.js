@@ -52,7 +52,7 @@ export const closeModal = (modal) => {
     // Restore focus to the previous active element.
     previousActiveElement.focus();
 };
-export const loadModalFunctionality = (stock) => {
+export const loadModalFunctionality = (user, stock) => {
     let itemQuantityInputs = document.querySelectorAll('.market .item__quantity');
     let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
     let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease');
@@ -82,7 +82,7 @@ export const loadModalFunctionality = (stock) => {
             if (itemQuantity >= 0) {
                 if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
                     itemPrice.innerText = `${updatedPrice} gold`;
-                    updateTotalCost();
+                    updateTotalCost(user.balance);
                 }
                 else {
                     showMessage('notEnoughStock');
@@ -110,7 +110,7 @@ export const loadModalFunctionality = (stock) => {
                 let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
                 let itemPrice = pressedButton.parentElement.nextElementSibling;
                 itemPrice.innerText = `${totalItemCost} gold`;
-                updateTotalCost();
+                updateTotalCost(user.balance);
             }
             else {
                 showMessage('notEnoughStock', itemName);
@@ -140,7 +140,7 @@ export const loadModalFunctionality = (stock) => {
                 removeMessage('modal');
                 enableIncreaseButtons();
                 enableMarketActionsButtons();
-                updateTotalCost();
+                updateTotalCost(user.balance);
             }
             else {
                 showMessage('notEnoughStock');
