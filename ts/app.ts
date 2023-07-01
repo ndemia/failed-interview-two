@@ -35,7 +35,7 @@ const showCurrentStock = (stock: item[]): void => {
 					<div class="item__info">
 						<h3 class="item__name">${item.name}</h3>
 						<div class="item__details">
-							<span class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</span>
+							<span class="item__quantity js-item-description-quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</span>
 							<span class="item__price" data-item-id="${item.id}">Price: ${item.price}</span>
 						</div>
 					</div>
@@ -230,14 +230,17 @@ export const resetQuantities = (): void => {
 	removeMessage('modal');
 };
 
-// Reflect stock changes on the dashboard after purchase.
+// Reflect stock changes on the dashboard and modal after purchase.
 const updateAvailableStock = (stock: item[]): void => {
 	const dashboardItemQuantities = document.querySelectorAll('.dashboard .js-item-quantity') as NodeListOf<HTMLSpanElement>;
+	const marketItemQuantities = document.querySelectorAll('.market .js-item-description-quantity') as NodeListOf<HTMLSpanElement>;
+
 	for (let i = 0; i < dashboardItemQuantities.length; i++) {
 		// Compare item's IDs.
 		if (Number(dashboardItemQuantities[i].dataset.itemId) === stock[i].id) {
-			// Update the item's quantities on the dashboard.
+			// Update the item's quantities on the dashboard and modal.
 			dashboardItemQuantities[i].innerText = `Quantity: ${stock[i].quantity}`;
+			marketItemQuantities[i].innerText = `Quantity: ${stock[i].quantity}`;
 		}
 	}
 };
