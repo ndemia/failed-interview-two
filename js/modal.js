@@ -1,5 +1,5 @@
 import { showMessage, removeMessage } from './messages.js';
-import { enableIncreaseButtons, disableIncreaseButtons, enableMarketActionsButtons, disableMarketActionsButtons, updateItemCost, isThereStockAvailable, updateTotalCost, buyItems2, resetQuantities, } from './app.js';
+import { enableIncreaseButtons, disableIncreaseButtons, enableMarketActionsButtons, disableMarketActionsButtons, updateItemCost, isThereStockAvailable, updateTotalCost, buyItems, resetQuantities, } from './app.js';
 import './inert.min.js';
 // UI Variables //
 const openModalButtons = document.querySelectorAll('[data-modal-open]');
@@ -57,7 +57,7 @@ export const loadModalFunctionality = (user, stock) => {
     let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
     let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease');
     resetButton.addEventListener('click', resetQuantities);
-    buyButton.addEventListener('click', buyItems2);
+    buyButton.addEventListener('click', buyItems);
     openModalButtons.forEach((button) => {
         button.addEventListener('click', () => {
             const modal = document.querySelector('.modal');

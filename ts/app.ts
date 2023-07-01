@@ -238,46 +238,7 @@ const updateAvailableStock = (): void => {
 		.catch(() => showMessage('failedFetch'));
 };
 
-// export const buyItems = (): void => {
-// 	let finalItemQuantities = document.querySelectorAll('input.item__quantity') as NodeListOf<HTMLInputElement>;
-// 	let finalGoldAmount: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
-// 	toggleInteractionsAndLoader('disable', 'modal');
-// 	service
-// 		.getItems()
-// 		.then((items) => {
-// 			if ('filter' in items) {
-// 				for (let i = 0; i < finalItemQuantities.length; i++) {
-// 					// If items have the same ID
-// 					if (items[i].id === Number(finalItemQuantities[i].dataset.itemId)) {
-// 						// Substract the bought amount from the current stock
-// 						items[i].quantity -= Number(finalItemQuantities[i].value);
-// 					} else {
-// 						return;
-// 					}
-// 				}
-// 				updateAvailableStock();
-// 				toggleInteractionsAndLoader('enable', 'modal');
-// 				closeModal(document.querySelector('.modal') as HTMLDivElement);
-// 				showMessage('successfulPurchase');
-// 				setTimeout(() => {
-// 					removeMessage('dashboard');
-// 				}, 5000);
-// 			}
-// 		})
-// 		.then(service.getUser)
-// 		.then((user) => {
-// 			if ('balance' in user) {
-// 				user.balance -= finalGoldAmount;
-// 				showGoldBalance(user.balance);
-// 			}
-// 		})
-// 		.catch(() => {
-// 			toggleInteractionsAndLoader('enable', 'modal');
-// 			showMessage('failedProcess');
-// 		});
-// };
-
-export const buyItems2 = async (): Promise<void> => {
+export const buyItems = async (): Promise<void> => {
 	toggleInteractionsAndLoader('disable', 'modal');
 	let finalItemQuantities = document.querySelectorAll('input.item__quantity') as NodeListOf<HTMLInputElement>;
 	let finalGoldAmount: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
