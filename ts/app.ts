@@ -219,15 +219,16 @@ export const updateTotalCost = async (): Promise<void> => {
 };
 
 export const resetQuantities = (): void => {
-	let costs = document.querySelectorAll('.market .item__cost') as NodeListOf<HTMLInputElement>;
-	let itemQuantityInputs = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
+	const itemQuantityInputs = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
+	const costs = document.querySelectorAll('.market .item__cost') as NodeListOf<HTMLInputElement>;
+	const totalValue = document.querySelector('.js-total-value') as HTMLSpanElement;
 	itemQuantityInputs.forEach((input) => {
 		input.value = '0';
-		costs.forEach((cost) => {
-			cost.innerText = '0 gold';
-		});
-		updateTotalCost();
 	});
+	costs.forEach((cost) => {
+		cost.innerText = '0 gold';
+	});
+	totalValue.innerText = '0 gold';
 };
 
 // Updates stock after purchase

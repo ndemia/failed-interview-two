@@ -197,15 +197,16 @@ export const updateTotalCost = async () => {
     }
 };
 export const resetQuantities = () => {
-    let costs = document.querySelectorAll('.market .item__cost');
-    let itemQuantityInputs = document.querySelectorAll('.market .item__quantity');
+    const itemQuantityInputs = document.querySelectorAll('.market .item__quantity');
+    const costs = document.querySelectorAll('.market .item__cost');
+    const totalValue = document.querySelector('.js-total-value');
     itemQuantityInputs.forEach((input) => {
         input.value = '0';
-        costs.forEach((cost) => {
-            cost.innerText = '0 gold';
-        });
-        updateTotalCost();
     });
+    costs.forEach((cost) => {
+        cost.innerText = '0 gold';
+    });
+    totalValue.innerText = '0 gold';
 };
 // Updates stock after purchase
 const updateAvailableStock = () => {
