@@ -19,7 +19,7 @@ const showCurrentStock = (stock: item[]): void => {
 					<div class="item__info">
 						<h3 class="item__name">${item.name}</h3>
 						<div class="item__info--container">
-							<span class="item__quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</span>
+							<span class="item__quantity js-item-quantity" data-item-id="${item.id}">Quantity: ${item.quantity}</span>
 							<span class="item__price" data-item-id="${item.id}">Price: ${item.price} gold</span>
 						</div>
 					</div>
@@ -41,10 +41,10 @@ const showCurrentStock = (stock: item[]): void => {
 					</div>
 					<div class="item__actions" data-item-id="${item.id}">
 						<button class="item__decrease js-market-decrease" aria-label="Decrease ${item.name} quantity">-</button>
-						<input type="number" name="item__quantity" class="item__quantity" value="0" min="0" max="${item.quantity}" data-item-id="${item.id}" data-item-name="${item.name}" aria-label="${item.name} quantity" role="status">
+						<input type="number" name="item__quantity" class="item__quantity js-item-quantity" value="0" min="0" max="${item.quantity}" data-item-id="${item.id}" data-item-name="${item.name}" aria-label="${item.name} quantity" role="status">
 						<button class="item__increase js-market-increase" aria-label="Increase ${item.name} quantity">+</button>	
 					</div>
-					<span class="item__cost" role="status">0 gold</span>
+					<span class="item__cost js-item-cost" role="status">0 gold</span>
 				</div>
 			</li>`
 		);
@@ -157,16 +157,35 @@ export const toggleInteractionsAndLoader = (state: 'enable' | 'disable', locatio
 	}
 };
 
-// Updates the total cost per item
-export const updateItemCost = (quantity: number, id: string | number, stock: item[]): number => {
-	let itemID = Number(id);
-	let updatedPrice: number = 0;
+export const isThereStockAvailable = (itemQuantity: number, id: number | string, stock: item[]): boolean => {
+	const itemId = Number(id);
+	let availableItemStock: number = 0;
+	// Match the item's ID and save its available stock.
 	stock.forEach((item) => {
-		if (item.id === itemID) {
-			updatedPrice = quantity * item.price;
+		if (item.id === itemId) {
+			availableItemStock = item.quantity;
 		}
 	});
-	return updatedPrice;
+	// Check stock availability.
+	if (itemQuantity <= availableItemStock) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+// Updates the total cost per item.
+export const updateTotalItemCost = (quantity: number, id: string | number, stock: item[]): number => {
+	const itemID = Number(id);
+	let updatedTotalItemCost: number = 0;
+	// Match the item's ID
+	// Get the cost of the item from the db and return it.
+	stock.forEach((item) => {
+		if (item.id === itemID) {
+			updatedTotalItemCost = quantity * item.price;
+		}
+	});
+	return updatedTotalItemCost;
 };
 
 const doesTotalCostExceedBalance = (totalCost: number, userBalance: number): boolean => {
@@ -177,30 +196,19 @@ const doesTotalCostExceedBalance = (totalCost: number, userBalance: number): boo
 	}
 };
 
-export const isThereStockAvailable = (itemQuantity: number, itemId: number | string, stock: item[]): boolean => {
-	itemId = Number(itemId);
-	let availableStock: number = 0;
-	stock.forEach((item) => {
-		if (item.id === itemId) {
-			availableStock = item.quantity;
-		}
-	});
-	if (itemQuantity <= availableStock) {
-		return true;
-	} else {
-		return false;
-	}
-};
-
 export const updateTotalCost = (userBalance: number): void => {
-	const costs = document.querySelectorAll('.item__cost') as NodeListOf<HTMLSpanElement>;
-	const totalValue = document.querySelector('.total__value') as HTMLSpanElement;
+	const itemCosts = document.querySelectorAll('.js-item-cost') as NodeListOf<HTMLSpanElement>;
+	const totalCostElement = document.querySelector('.js-total-value') as HTMLSpanElement;
 	let totalCost: number = 0;
-	costs.forEach((cost) => {
+	itemCosts.forEach((cost) => {
+		// Get and save each cost from each item.
 		totalCost += Number(cost.innerText.slice(0, -5));
 	});
-	totalValue.innerText = `${totalCost} gold`;
+	// Show total cost in the UI.
+	totalCostElement.innerText = `${totalCost} gold`;
+	// Check against user's balance.
 	const result = doesTotalCostExceedBalance(totalCost, userBalance);
+	// If it exceeds the user's balance, disable and show warning message.
 	if (result === true) {
 		showMessage('exceededBalance');
 		disableIncreaseButtons();
@@ -209,33 +217,28 @@ export const updateTotalCost = (userBalance: number): void => {
 };
 
 export const resetQuantities = (): void => {
-	const itemQuantityInputs = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
-	const costs = document.querySelectorAll('.market .item__cost') as NodeListOf<HTMLInputElement>;
-	const totalValue = document.querySelector('.js-total-value') as HTMLSpanElement;
+	const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity') as NodeListOf<HTMLInputElement>;
+	const itemCosts = document.querySelectorAll('.market .js-item-cost') as NodeListOf<HTMLInputElement>;
+	const totalCostElement = document.querySelector('.js-total-value') as HTMLSpanElement;
 	itemQuantityInputs.forEach((input) => {
 		input.value = '0';
 	});
-	costs.forEach((cost) => {
+	itemCosts.forEach((cost) => {
 		cost.innerText = '0 gold';
 	});
-	totalValue.innerText = '0 gold';
+	totalCostElement.innerText = '0 gold';
 };
 
-// Updates stock after purchase
-const updateAvailableStock = (): void => {
-	const productQuantities = document.querySelectorAll('.dashboard .item__quantity[data-item-id]') as NodeListOf<HTMLParagraphElement>;
-	service
-		.getItems()
-		.then((items) => {
-			if ('filter' in items) {
-				for (let i = 0; i < productQuantities.length; i++) {
-					if (Number(productQuantities[i].dataset.itemId) === items[i].id) {
-						productQuantities[i].innerText = `Quantity: ${items[i].quantity}`;
-					}
-				}
-			}
-		})
-		.catch(() => showMessage('failedFetch'));
+// Reflect stock changes on the dashboard after purchase.
+const updateAvailableStock = (stock: item[]): void => {
+	const dashboardItemQuantities = document.querySelectorAll('.dashboard .js-item-quantity') as NodeListOf<HTMLSpanElement>;
+	for (let i = 0; i < dashboardItemQuantities.length; i++) {
+		// Compare item's IDs.
+		if (Number(dashboardItemQuantities[i].dataset.itemId) === stock[i].id) {
+			// Update the item's quantities on the dashboard.
+			dashboardItemQuantities[i].innerText = `Quantity: ${stock[i].quantity}`;
+		}
+	}
 };
 
 export const buyItems = async (): Promise<void> => {
@@ -244,26 +247,29 @@ export const buyItems = async (): Promise<void> => {
 	let finalGoldAmount: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
 
 	try {
+		// Get information from the db.
 		const items = (await service.getItems().then((items) => items)) as item[];
 		const user = (await service.getUser().then((user) => user)) as user;
 
-		// Identify each element and compare they are the same
+		// Identify each item and compare IDs.
 		for (let i = 0; i < finalItemQuantities.length; i++) {
 			if (items[i].id === Number(finalItemQuantities[i].dataset.itemId)) {
-				// Subtract the bought amount from the current stock
+				// Subtract that item's quantity from the db.
 				items[i].quantity -= Number(finalItemQuantities[i].value);
 			}
 		}
+		// Update the stock after the purchase providing the updated stock (new quantities).
+		updateAvailableStock(items);
 
-		// Subtract the final cost from the user's balance
+		// Subtract the final cost from the user's balance, and show it on the UI.
 		user.balance -= finalGoldAmount;
 		showGoldBalance(user.balance);
 
-		updateAvailableStock();
+		// Re-enable interactions
 		toggleInteractionsAndLoader('enable', 'modal');
 		closeModal(document.querySelector('.modal') as HTMLDivElement);
 		showMessage('successfulPurchase');
-		// Remove the successful message from the dashboard
+		// Remove the successful message from the dashboard.
 		setTimeout(() => {
 			removeMessage('dashboard');
 		}, 5000);
@@ -277,15 +283,18 @@ export const buyItems = async (): Promise<void> => {
 document.addEventListener('DOMContentLoaded', async (): Promise<void> => {
 	try {
 		showLoader('dashboard');
+
+		// Get information from the db.
 		const items = (await service.getItems().then((items) => items)) as item[];
 		const user = (await service.getUser().then((user) => user)) as user;
 
 		showGoldBalance(user.balance);
 		showUserLogin(user.login);
+
 		hideLoader('dashboard');
-		// Show stock on the dashboard
+		// Show stock on the dashboard.
 		showCurrentStock(items);
-		// Pass the user and item stock so that it can be used inside the modal to calculate stock and prices
+		// Pass the user and item stock to the modal/marketpalce so that it can be used to calculate stock and prices later.
 		loadModalFunctionality(user, items);
 	} catch (error) {
 		hideLoader('dashboard');

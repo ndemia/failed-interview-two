@@ -1,13 +1,11 @@
 import { user, item } from './types';
 import { showMessage, removeMessage } from './messages.js';
 import {
-	enableDecreaseButtons,
 	enableIncreaseButtons,
-	disableDecreaseButtons,
 	disableIncreaseButtons,
 	enableMarketActionsButtons,
 	disableMarketActionsButtons,
-	updateItemCost,
+	updateTotalItemCost,
 	isThereStockAvailable,
 	updateTotalCost,
 	buyItems,
@@ -25,18 +23,17 @@ let previousActiveElement: HTMLElement;
 
 // Functions //
 export const openModal = (modal: HTMLDivElement): void => {
-	// Save a reference to the previous active element, to restore this once the modal is closed.
+	// Save a reference to the previous active element, to restore focus to it once the modal is closed.
 	previousActiveElement = document.activeElement as HTMLElement;
-	// Make the rest of the document inert so that it's not reachable with keyboard navigation.
-	// Filter because the array ends up collecting script tags that are not necessary.
+	// Filter because the array ends up collecting script tags from the HTML that are not necessary.
 	let bodyElements = Array.from(document.body.children).filter((element) => element.localName != 'script');
 	bodyElements.forEach((element) => {
+		// Make the rest of the document inert so that it's not reachable with keyboard navigation.
 		if (element.getAttribute('role') !== 'dialog') {
 			(element as HTMLElement).inert = true;
 		}
 	});
-	// Move focus into the modal.
-	modal.querySelector('button')!.focus();
+
 	// Open the modal.
 	if (modal == null) {
 		return;
@@ -44,18 +41,21 @@ export const openModal = (modal: HTMLDivElement): void => {
 		modal.classList.add('active');
 		overlay.classList.add('active');
 		modal.setAttribute('aria-hidden', 'false');
+		// Move focus into the modal.
+		modal.querySelector('button')!.focus();
 	}
 };
 
 export const closeModal = (modal: HTMLDivElement): void => {
-	// Remove the inert attribute from elements.
+	// Remove the inert attribute.
 	const bodyElements = Array.from(document.body.children).filter((element) => element.localName != 'script');
 	bodyElements.forEach((element) => {
 		if (element.getAttribute('role') !== 'dialog') {
 			(element as HTMLElement).inert = false;
 		}
 	});
-	// Close the modal.
+
+	// Close the modal and cleanup.
 	if (modal != null) {
 		modal.classList.remove('active');
 		overlay.classList.remove('active');
@@ -63,15 +63,15 @@ export const closeModal = (modal: HTMLDivElement): void => {
 		enableIncreaseButtons();
 		resetQuantities();
 		removeMessage('modal');
+		// Restore focus to the previous active element.
+		previousActiveElement.focus();
 	}
-	// Restore focus to the previous active element.
-	previousActiveElement.focus();
 };
 
 export const loadModalFunctionality = (user: user, stock: item[]): void => {
-	let itemQuantityInputs = document.querySelectorAll('.market .item__quantity') as NodeListOf<HTMLInputElement>;
-	let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
-	let quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
+	const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity') as NodeListOf<HTMLInputElement>;
+	const quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
+	const quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
 	resetButton.addEventListener('click', resetQuantities);
 	buyButton.addEventListener('click', buyItems);
 
@@ -89,16 +89,18 @@ export const loadModalFunctionality = (user: user, stock: item[]): void => {
 		});
 	});
 
-	// Typing any quantity updates the costs, and checks for constraints
+	// Typing any quantity updates the costs, also checks for constraints.
 	itemQuantityInputs.forEach((input) => {
 		input.addEventListener('change', (e: Event) => {
-			let eventTarget = e.target as HTMLInputElement;
-			let itemQuantity: number = Number(eventTarget.value);
-			let itemId: number = Number(eventTarget.dataset.itemId);
-			let updatedPrice: number = updateItemCost(itemQuantity, itemId, stock);
-			let itemPrice = eventTarget.parentElement!.nextElementSibling as HTMLSpanElement;
-			// Check to allow only positive numbers
+			const eventTarget = e.target as HTMLInputElement;
+			const itemQuantity: number = Number(eventTarget.value);
+			const itemId: number = Number(eventTarget.dataset.itemId);
+			const updatedPrice: number = updateTotalItemCost(itemQuantity, itemId, stock);
+			const itemPrice = eventTarget.parentElement!.nextElementSibling as HTMLSpanElement;
+
+			// Allow only positive numbers.
 			if (itemQuantity >= 0) {
+				// Check for stock.
 				if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
 					itemPrice.innerText = `${updatedPrice} gold`;
 					updateTotalCost(user.balance);
@@ -116,20 +118,28 @@ export const loadModalFunctionality = (user: user, stock: item[]): void => {
 
 	quantityIncreaseButtons.forEach((button) => {
 		button.addEventListener('click', (e: Event) => {
-			let pressedButton = e.target as HTMLButtonElement;
-			let input = pressedButton.previousElementSibling as HTMLInputElement;
-			let inputValue: number = Number(input.value);
+			const pressedButton = e.target as HTMLButtonElement;
+			const inputElement = pressedButton.previousElementSibling as HTMLInputElement;
+			let inputValue: number = Number(inputElement.value);
+			const itemId: number = Number(pressedButton.parentElement!.dataset.itemId);
+			const itemName: string = inputElement.dataset.itemName!;
+			const itemQuantity: number = Number(inputValue);
+
+			// Increase item quantity by one.
 			inputValue++;
-			input.value = inputValue.toString();
-			let itemId: number = Number(pressedButton.parentElement!.dataset.itemId);
-			let itemName: string = input.dataset.itemName!;
-			let itemQuantity: number = Number(inputValue);
+			// Show it on the UI.
+			inputElement.value = inputValue.toString();
+
+			// Check quantity against stock, available when creating the modal.
+			// Update the UI information accordingly.
 			if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
-				let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
-				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLSpanElement;
+				const totalItemCost = updateTotalItemCost(itemQuantity, itemId, stock);
+				const itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLSpanElement;
+				// Update total item's cost
 				itemPrice.innerText = `${totalItemCost} gold`;
 				updateTotalCost(user.balance);
 			} else {
+				// If no stock available, show warning message and disable interactions.
 				showMessage('notEnoughStock', itemName);
 				disableIncreaseButtons();
 				disableMarketActionsButtons();
@@ -141,20 +151,30 @@ export const loadModalFunctionality = (user: user, stock: item[]): void => {
 		button.addEventListener('click', (e: Event) => {
 			const pressedButton = e.target as HTMLButtonElement;
 			const input = pressedButton.nextElementSibling as HTMLInputElement;
-			let inputValue: number = Number(input.value);
 			const itemId: number = Number(pressedButton.parentElement!.dataset.itemId);
+			let inputValue: number = Number(input.value);
+
+			// If item quantity is less than 0, do nothing. Else, keep decreasing the item quantity.
 			if (inputValue <= 0) {
 				return;
 			} else {
 				inputValue--;
 				input.value = inputValue.toString();
 			}
-			let itemQuantity: number = Number(inputValue);
+
+			// Save updated item quantity
+			const itemQuantity: number = Number(inputValue);
+			// Check against the available stock.
 			if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
-				let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
-				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLSpanElement;
+				const totalItemCost = updateTotalItemCost(itemQuantity, itemId, stock);
+				const itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLSpanElement;
+
+				// Update total item's cost.
 				itemPrice.innerText = `${totalItemCost} gold`;
+
+				// Remove warning message that showed because of exceeding item quantity.
 				removeMessage('modal');
+				// Re-enable interactions.
 				enableIncreaseButtons();
 				enableMarketActionsButtons();
 				updateTotalCost(user.balance);
