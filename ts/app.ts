@@ -158,10 +158,10 @@ export const toggleInteractionsAndLoader = (state: 'enable' | 'disable', locatio
 };
 
 // Updates the total cost per item
-export const updateItemCost = (quantity: number, id: string | number, currentStock: item[]): number => {
+export const updateItemCost = (quantity: number, id: string | number, stock: item[]): number => {
 	let itemID = Number(id);
 	let updatedPrice: number = 0;
-	currentStock.forEach((item) => {
+	stock.forEach((item) => {
 		if (item.id === itemID) {
 			updatedPrice = quantity * item.price;
 		}
@@ -187,7 +187,7 @@ const doesTotalCostExceedBalance = (totalCost: number): Promise<boolean> => {
 		});
 };
 
-export const checkAvailableStock = (itemQuantity: number, itemId: number | string, stock: item[]): boolean => {
+export const isThereStockAvailable = (itemQuantity: number, itemId: number | string, stock: item[]): boolean => {
 	itemId = Number(itemId);
 	let availableStock: number = 0;
 	stock.forEach((item) => {
@@ -323,26 +323,42 @@ export const buyItems2 = async (): Promise<void> => {
 };
 
 ///// Go /////
-document.addEventListener('DOMContentLoaded', (): void => {
+document.addEventListener('DOMContentLoaded', async (): Promise<void> => {
 	showLoader('dashboard');
-	service
-		.getUser()
-		.then((user) => {
-			if ('balance' in user) {
-				showGoldBalance(user.balance);
-				showUserLogin(user.login);
-			}
-		})
-		.then(service.getItems)
-		.then((items) => {
-			if ('filter' in items) {
-				hideLoader('dashboard');
-				showCurrentStock(items);
-				loadModalFunctionality(items);
-			}
-		})
-		.catch((error) => {
-			hideLoader('dashboard');
-			showMessage(error);
-		});
+	// service
+	// 	.getUser()
+	// 	.then((user) => {
+	// 		if ('balance' in user) {
+	// 			showGoldBalance(user.balance);
+	// 			showUserLogin(user.login);
+	// 		}
+	// 	})
+	// 	.then(service.getItems)
+	// 	.then((items) => {
+	// 		if ('filter' in items) {
+	// 			hideLoader('dashboard');
+	// 			showCurrentStock(items);
+	// 			// Pass the item stock so that it can be used inside the modal to calculate stock and prices
+	// 			loadModalFunctionality(items);
+	// 		}
+	// 	})
+	// 	.catch((error) => {
+	// 		hideLoader('dashboard');
+	// 		showMessage(error);
+	// 	});
+	try {
+		const items = (await service.getItems().then((items) => items)) as item[];
+		const user = (await service.getUser().then((user) => user)) as user;
+
+		showGoldBalance(user.balance);
+		showUserLogin(user.login);
+
+		hideLoader('dashboard');
+		showCurrentStock(items);
+		// Pass the item stock so that it can be used inside the modal to calculate stock and prices
+		loadModalFunctionality(items);
+	} catch (error) {
+		hideLoader('dashboard');
+		showMessage(error as string);
+	}
 });

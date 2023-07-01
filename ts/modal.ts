@@ -8,7 +8,7 @@ import {
 	enableMarketActionsButtons,
 	disableMarketActionsButtons,
 	updateItemCost,
-	checkAvailableStock,
+	isThereStockAvailable,
 	updateTotalCost,
 	buyItems2,
 	resetQuantities,
@@ -99,7 +99,7 @@ export const loadModalFunctionality = (stock: item[]): void => {
 			let itemPrice = eventTarget.parentElement!.nextElementSibling as HTMLSpanElement;
 			// Check to allow only positive numbers
 			if (itemQuantity >= 0) {
-				if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
+				if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
 					itemPrice.innerText = `${updatedPrice} gold`;
 					updateTotalCost();
 				} else {
@@ -124,9 +124,9 @@ export const loadModalFunctionality = (stock: item[]): void => {
 			let itemId: number = Number(pressedButton.parentElement!.dataset.itemId);
 			let itemName: string = input.dataset.itemName!;
 			let itemQuantity: number = Number(inputValue);
-			if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
+			if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
 				let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
-				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLInputElement;
+				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLSpanElement;
 				itemPrice.innerText = `${totalItemCost} gold`;
 				updateTotalCost();
 			} else {
@@ -150,9 +150,9 @@ export const loadModalFunctionality = (stock: item[]): void => {
 				input.value = inputValue.toString();
 			}
 			let itemQuantity: number = Number(inputValue);
-			if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
+			if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
 				let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
-				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLInputElement;
+				let itemPrice = pressedButton.parentElement!.nextElementSibling as HTMLSpanElement;
 				itemPrice.innerText = `${totalItemCost} gold`;
 				removeMessage('modal');
 				enableIncreaseButtons();

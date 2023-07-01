@@ -1,5 +1,5 @@
 import { showMessage, removeMessage } from './messages.js';
-import { enableIncreaseButtons, disableIncreaseButtons, enableMarketActionsButtons, disableMarketActionsButtons, updateItemCost, checkAvailableStock, updateTotalCost, buyItems2, resetQuantities, } from './app.js';
+import { enableIncreaseButtons, disableIncreaseButtons, enableMarketActionsButtons, disableMarketActionsButtons, updateItemCost, isThereStockAvailable, updateTotalCost, buyItems2, resetQuantities, } from './app.js';
 import './inert.min.js';
 // UI Variables //
 const openModalButtons = document.querySelectorAll('[data-modal-open]');
@@ -80,7 +80,7 @@ export const loadModalFunctionality = (stock) => {
             let itemPrice = eventTarget.parentElement.nextElementSibling;
             // Check to allow only positive numbers
             if (itemQuantity >= 0) {
-                if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
+                if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
                     itemPrice.innerText = `${updatedPrice} gold`;
                     updateTotalCost();
                 }
@@ -106,7 +106,7 @@ export const loadModalFunctionality = (stock) => {
             let itemId = Number(pressedButton.parentElement.dataset.itemId);
             let itemName = input.dataset.itemName;
             let itemQuantity = Number(inputValue);
-            if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
+            if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
                 let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
                 let itemPrice = pressedButton.parentElement.nextElementSibling;
                 itemPrice.innerText = `${totalItemCost} gold`;
@@ -133,7 +133,7 @@ export const loadModalFunctionality = (stock) => {
                 input.value = inputValue.toString();
             }
             let itemQuantity = Number(inputValue);
-            if (checkAvailableStock(itemQuantity, itemId, stock) === true) {
+            if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
                 let totalItemCost = updateItemCost(itemQuantity, itemId, stock);
                 let itemPrice = pressedButton.parentElement.nextElementSibling;
                 itemPrice.innerText = `${totalItemCost} gold`;
