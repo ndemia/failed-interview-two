@@ -36,18 +36,18 @@ export const service = (() => {
     ];
     function simulateRequest(request) {
         let randomNumber = Math.floor(Math.random() * 10) + 1;
+        console.log(randomNumber);
         return new Promise((resolve, reject) => {
-            // 2 out of 10 times this promise will reject, showing errors in the app
-            // if (randomNumber % 2 == 0 || randomNumber % 3 == 0) {
-            if (true) {
+            // 2 out of 10 times this promise will reject.
+            if (randomNumber % 2 == 0 || randomNumber % 3 == 0) {
                 setTimeout(() => {
                     resolve(request);
-                }, 1000);
+                }, 2000);
             }
             else {
                 setTimeout(() => {
                     reject('failedFetch');
-                }, 3000);
+                }, 2000);
             }
         });
     }

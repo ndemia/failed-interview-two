@@ -227,6 +227,7 @@ export const resetQuantities = (): void => {
 		cost.innerText = '0 gold';
 	});
 	totalCostElement.innerText = '0 gold';
+	removeMessage('modal');
 };
 
 // Reflect stock changes on the dashboard after purchase.
