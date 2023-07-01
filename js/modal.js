@@ -104,11 +104,12 @@ export const loadModalFunctionality = (user, stock) => {
             let inputValue = Number(inputElement.value);
             const itemId = Number(pressedButton.parentElement.dataset.itemId);
             const itemName = inputElement.dataset.itemName;
-            const itemQuantity = Number(inputValue);
             // Increase item quantity by one.
             inputValue++;
             // Show it on the UI.
             inputElement.value = inputValue.toString();
+            // Save updated item quantity
+            const itemQuantity = Number(inputValue);
             // Check quantity against stock, available when creating the modal.
             // Update the UI information accordingly.
             if (isThereStockAvailable(itemQuantity, itemId, stock) === true) {
