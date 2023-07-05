@@ -4,13 +4,14 @@ import { closeModal, loadModalFunctionality } from './modal.js';
 // UI Variables //
 const dashboardProductList = document.getElementById('stock');
 const modalProductList = document.querySelector('.products__list');
+const coins = new Audio('./assets/sounds/coins.mp3');
 // Functions //
 const showCurrentStock = (stock) => {
     stock.forEach((item) => {
         // Product list for the dashboard.
         dashboardProductList.insertAdjacentHTML('beforeend', `<li class="dashboard__item">
 				<div class="item__container item__container--texture">
-					<img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
+					<img src="assets/images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
 					<div class="item__info">
 						<h3 class="item__name">${item.name}</h3>
 						<div class="item__info--container">
@@ -23,7 +24,7 @@ const showCurrentStock = (stock) => {
         // Product list for the modal.
         modalProductList.insertAdjacentHTML('beforeend', `<li class="products__item">
 				<div class="item__container">
-				<img src="images/${item.filename}.png" class="item__image" alt="A ${item.name}">
+				<img src="assets/images/${item.filename}.png" class="item__image" alt="A ${item.name}">
 					<div class="item__info">
 						<h3 class="item__name">${item.name}</h3>
 						<div class="item__details">
@@ -244,6 +245,7 @@ export const buyItems = async () => {
         toggleInteractionsAndLoader('enable', 'modal');
         closeModal(document.querySelector('.modal'));
         showMessage('successfulPurchase');
+        coins.play();
         // Remove the successful message from the dashboard.
         setTimeout(() => {
             removeMessage('dashboard');

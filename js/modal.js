@@ -7,6 +7,8 @@ const closeModalButtons = document.querySelectorAll('[data-modal-close]');
 const buyButton = document.querySelector('.js-modal-buy');
 const resetButton = document.querySelector('.js-quantity-reset');
 const overlay = document.querySelector('.overlay');
+const drawerOpen = new Audio('./assets/sounds/drawer_open.mp3');
+const drawerClose = new Audio('./assets/sounds/drawer_close.mp3');
 let previousActiveElement;
 // Functions //
 export const openModal = (modal) => {
@@ -25,6 +27,7 @@ export const openModal = (modal) => {
         return;
     }
     else {
+        drawerOpen.play();
         modal.classList.add('active');
         overlay.classList.add('active');
         modal.setAttribute('aria-hidden', 'false');
@@ -42,6 +45,7 @@ export const closeModal = (modal) => {
     });
     // Close the modal and cleanup.
     if (modal != null) {
+        drawerClose.play();
         modal.classList.remove('active');
         overlay.classList.remove('active');
         enableMarketActionsButtons();
