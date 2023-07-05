@@ -409,44 +409,51 @@ body {
 	font-weight: 700;
 	font-size: 1rem;
 	text-transform: uppercase;
-	border: 1px solid hsl(36, 61%, 65%);
+	letter-spacing: 1px;
 	border-radius: 3px;
 	transition: all 200ms ease;
 
 	&--primary {
+		box-shadow: 0 0 3px 1px hsl(10, 95%, 14%);
+
 		&:hover,
 		&:focus {
-			background: hsl(40, 80%, 65%);
+			background-color: hsl(40, 80%, 65%);
+			box-shadow: 0 0 4px 2px hsl(10, 95%, 14%);
 		}
 
 		&:focus {
-			box-shadow: 0 0 3px 6px hsl(10, 95%, 14%);
+			box-shadow: 0 0 0 8px hsl(10, 95%, 14%);
 		}
 
 		&:active {
-			background: hsl(40, 80%, 10%);
-			box-shadow: none;
+			background-color: hsl(40, 80%, 10%);
 			color: hsl(40, 80%, 65%);
+			box-shadow: none;
 		}
 	}
 
 	&--secondary {
-		color: hsl(36, 61%, 65%);
+		color: hsl(36, 61%, 75%);
+		border: 1px solid hsl(36, 61%, 75%);
 		background: none;
 
 		&:hover,
 		&:focus {
-			border-color: hsl(10, 45%, 50%);
-			color: hsl(10, 45%, 50%);
+			border-color: hsl(40, 80%, 65%);
+			color: hsl(40, 80%, 65%);
 		}
 
 		&:active {
-			box-shadow: 0 0 3px 3px hsl(10, 95%, 14%);
+			background-color: hsl(40, 80%, 10%);
+			color: hsl(40, 80%, 65%);
+			box-shadow: none;
+			border-color: transparent;
 		}
 	}
 
 	&--tertiary {
-		color: hsl(36, 61%, 65%);
+		color: hsl(36, 61%, 75%);
 		border: 0;
 		background: none;
 		padding: 0;
@@ -457,7 +464,7 @@ body {
 		}
 
 		&:active {
-			color: hsl(20, 45%, 29%);
+			color: hsl(40, 80%, 10%);
 		}
 	}
 }
