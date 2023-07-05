@@ -247,6 +247,8 @@ const updateAvailableStock = (stock: item[]): void => {
 };
 
 export const buyItems = async (): Promise<void> => {
+	// Remove message warning in case it's present after a failed purchase
+	removeMessage('modal');
 	toggleInteractionsAndLoader('disable', 'modal');
 	let finalItemQuantities = document.querySelectorAll('input.item__quantity') as NodeListOf<HTMLInputElement>;
 	let finalGoldAmount: number = Number((document.querySelector('.market .total__value') as HTMLInputElement).innerText.slice(0, -5));
