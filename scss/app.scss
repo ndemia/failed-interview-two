@@ -467,6 +467,10 @@ body {
 			color: hsl(40, 80%, 10%);
 		}
 	}
+
+	&--sound {
+		border: 1px solid hsl(10, 95%, 14%);
+	}
 }
 
 .message {
@@ -524,6 +528,25 @@ body {
 				fill: hsl(10, 94%, 14%);
 			}
 		}
+	}
+}
+
+.sound {
+	position: absolute;
+	bottom: 1rem;
+	left: 1rem;
+
+	&__control {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		font-size: 1rem;
+	}
+
+	&__icon {
+		height: 24px;
+		width: 24px;
+		margin-right: 0.5rem;
 	}
 }
 

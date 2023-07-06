@@ -15,8 +15,8 @@
 		<!-- Nav bar -->
 		<nav class="navbar">
 			<div class="navbar__container--texture">
-				<span class="navbar__text"
-					>Balance:
+				<span class="navbar__text">
+					Balance:
 					<span id="gold-balance" class="navbar__text--gold gold-balance"></span>
 				</span>
 				<button data-modal-open="#market" id="buy" class="navbar__btn btn btn--primary js-modal-open">Buy</button>
@@ -26,7 +26,10 @@
 		<!-- Dashboard -->
 		<main class="main">
 			<section class="dashboard">
-				<h1 class="dashboard__title">Hello, <span id="user-name"></span></h1>
+				<h1 class="dashboard__title">
+					Hello,
+					<span id="user-name"></span>
+				</h1>
 				<h2 class="dashboard__subtitle">This is the available stock to buy:</h2>
 				<span class="loader__container loader__container--dashboard js-loader-dashboard hidden" role="alert" title="Loading available stock">
 					<svg class="loader loader__icon loader__icon--secondary" viewBox="0 0 24 24">
@@ -58,7 +61,10 @@
 						</svg>
 					</button>
 				</section>
-				<div class="market__gold-balance">Balance: <span class="gold-balance"></span></div>
+				<div class="market__gold-balance">
+					Balance:
+					<span class="gold-balance"></span>
+				</div>
 				<div class="market__products">
 					<ul class="products__list"></ul>
 				</div>
@@ -95,6 +101,10 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div class="sound">
+			<button class="sound__control sound--off js-button-sound btn btn--sound">Sounds are off</button>
 		</div>
 
 		<!-- Modal overlay -->

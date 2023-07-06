@@ -11,6 +11,7 @@ import {
 	buyItems,
 	resetQuantities,
 } from './app.js';
+import * as sound from './sounds.js';
 import './inert.min.js';
 
 // UI Variables //
@@ -19,8 +20,6 @@ const closeModalButtons = document.querySelectorAll('[data-modal-close]') as Nod
 const buyButton = document.querySelector('.js-modal-buy') as HTMLButtonElement;
 const resetButton = document.querySelector('.js-quantity-reset') as HTMLButtonElement;
 const overlay = document.querySelector('.overlay') as HTMLDivElement;
-const drawerOpen = new Audio('./assets/sounds/drawer_open.mp3');
-const drawerClose = new Audio('./assets/sounds/drawer_close.mp3');
 let previousActiveElement: HTMLElement;
 
 // Functions //
@@ -40,7 +39,7 @@ export const openModal = (modal: HTMLDivElement): void => {
 	if (modal == null) {
 		return;
 	} else {
-		drawerOpen.play();
+		sound.drawerOpen.play();
 		modal.classList.add('active');
 		overlay.classList.add('active');
 		modal.setAttribute('aria-hidden', 'false');
@@ -60,7 +59,7 @@ export const closeModal = (modal: HTMLDivElement): void => {
 
 	// Close the modal and cleanup.
 	if (modal != null) {
-		drawerClose.play();
+		sound.drawerClose.play();
 		modal.classList.remove('active');
 		overlay.classList.remove('active');
 		enableMarketActionsButtons();
@@ -76,7 +75,10 @@ export const loadModalFunctionality = (user: user, stock: item[]): void => {
 	const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity') as NodeListOf<HTMLInputElement>;
 	const quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
 	const quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
-	resetButton.addEventListener('click', resetQuantities);
+	resetButton.addEventListener('click', () => {
+		sound.resetQuantities.play();
+		resetQuantities();
+	});
 	buyButton.addEventListener('click', buyItems);
 
 	openModalButtons.forEach((button) => {
@@ -132,6 +134,7 @@ export const loadModalFunctionality = (user: user, stock: item[]): void => {
 			inputValue++;
 			// Show it on the UI.
 			inputElement.value = inputValue.toString();
+			sound.increase.play();
 
 			// Save updated item quantity
 			const itemQuantity: number = Number(inputValue);
@@ -165,6 +168,7 @@ export const loadModalFunctionality = (user: user, stock: item[]): void => {
 			} else {
 				inputValue--;
 				input.value = inputValue.toString();
+				sound.decrease.play();
 			}
 
 			// Save updated item quantity

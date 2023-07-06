@@ -1,5 +1,6 @@
 import { showMessage, removeMessage } from './messages.js';
 import { enableIncreaseButtons, disableIncreaseButtons, enableMarketActionsButtons, disableMarketActionsButtons, updateTotalItemCost, isThereStockAvailable, updateTotalCost, buyItems, resetQuantities, } from './app.js';
+import * as sound from './sounds.js';
 import './inert.min.js';
 // UI Variables //
 const openModalButtons = document.querySelectorAll('[data-modal-open]');
@@ -7,8 +8,6 @@ const closeModalButtons = document.querySelectorAll('[data-modal-close]');
 const buyButton = document.querySelector('.js-modal-buy');
 const resetButton = document.querySelector('.js-quantity-reset');
 const overlay = document.querySelector('.overlay');
-const drawerOpen = new Audio('./assets/sounds/drawer_open.mp3');
-const drawerClose = new Audio('./assets/sounds/drawer_close.mp3');
 let previousActiveElement;
 // Functions //
 export const openModal = (modal) => {
@@ -27,7 +26,7 @@ export const openModal = (modal) => {
         return;
     }
     else {
-        drawerOpen.play();
+        sound.drawerOpen.play();
         modal.classList.add('active');
         overlay.classList.add('active');
         modal.setAttribute('aria-hidden', 'false');
@@ -45,7 +44,7 @@ export const closeModal = (modal) => {
     });
     // Close the modal and cleanup.
     if (modal != null) {
-        drawerClose.play();
+        sound.drawerClose.play();
         modal.classList.remove('active');
         overlay.classList.remove('active');
         enableMarketActionsButtons();
@@ -60,7 +59,10 @@ export const loadModalFunctionality = (user, stock) => {
     const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity');
     const quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
     const quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease');
-    resetButton.addEventListener('click', resetQuantities);
+    resetButton.addEventListener('click', () => {
+        sound.resetQuantities.play();
+        resetQuantities();
+    });
     buyButton.addEventListener('click', buyItems);
     openModalButtons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -112,6 +114,7 @@ export const loadModalFunctionality = (user, stock) => {
             inputValue++;
             // Show it on the UI.
             inputElement.value = inputValue.toString();
+            sound.increase.play();
             // Save updated item quantity
             const itemQuantity = Number(inputValue);
             // Check quantity against stock, available when creating the modal.
@@ -144,6 +147,7 @@ export const loadModalFunctionality = (user, stock) => {
             else {
                 inputValue--;
                 input.value = inputValue.toString();
+                sound.decrease.play();
             }
             // Save updated item quantity
             const itemQuantity = Number(inputValue);
