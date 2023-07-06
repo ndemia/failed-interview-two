@@ -36,7 +36,6 @@ export const service = (() => {
     ];
     function simulateRequest(request) {
         let randomNumber = Math.floor(Math.random() * 10) + 1;
-        console.log(randomNumber);
         return new Promise((resolve, reject) => {
             // 2 out of 10 times this request will reject (with numbers 1 and 7).
             if (randomNumber % 2 == 0 || randomNumber % 3 == 0 || randomNumber % 5 == 0) {
