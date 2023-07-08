@@ -209,14 +209,9 @@ body {
 			transition: all 100ms ease;
 		}
 
-		&:hover {
-			svg {
-				fill: hsl(20, 45%, 29%);
-			}
-		}
-
+		&:hover,
 		&:focus {
-			box-shadow: 0 0 3px 3px hsl(10, 95%, 14%);
+			box-shadow: 0 0 0 4px hsl(40, 80%, 55%);
 		}
 	}
 
@@ -313,6 +308,7 @@ body {
 			&:hover,
 			&:focus {
 				background-color: hsl(10, 45%, 38%);
+				box-shadow: 0 0 0 4px hsl(40, 80%, 55%);
 			}
 
 			&:active {
@@ -331,6 +327,11 @@ body {
 			background-color: hsl(10, 95%, 5%);
 			border-top: 1px solid hsl(10, 45%, 38%);
 			border-bottom: 1px solid hsl(10, 45%, 38%);
+
+			&:focus,
+			&:active {
+				box-shadow: 0 0 0 4px hsl(40, 80%, 55%);
+			}
 		}
 	}
 
@@ -406,11 +407,7 @@ body {
 		&:hover,
 		&:focus {
 			background-color: hsl(40, 80%, 65%);
-			box-shadow: 0 0 4px 2px hsl(10, 95%, 14%);
-		}
-
-		&:focus {
-			box-shadow: 0 0 0 8px hsl(10, 95%, 14%);
+			box-shadow: 0 0 0 4px hsl(40, 80%, 55%);
 		}
 
 		&:active {
@@ -429,6 +426,7 @@ body {
 		&:focus {
 			border-color: hsl(40, 80%, 65%);
 			color: hsl(40, 80%, 65%);
+			box-shadow: 0 0 0 4px hsl(40, 80%, 55%);
 		}
 
 		&:active {
@@ -448,6 +446,7 @@ body {
 		&:hover,
 		&:focus {
 			text-decoration: underline;
+			box-shadow: 0 0 0 4px hsl(40, 80%, 55%);
 		}
 
 		&:active {
@@ -532,7 +531,7 @@ body {
 
 		&:hover,
 		&:focus {
-			box-shadow: 0 0 4px 2px hsl(10, 95%, 14%);
+			box-shadow: 0 0 0 4px hsl(10, 95%, 14%);
 		}
 	}
 
