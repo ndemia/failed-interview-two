@@ -164,6 +164,7 @@ body {
 }
 
 .market {
+	visibility: hidden;
 	width: 85%;
 	min-width: 320px;
 	max-width: 640px;
@@ -187,6 +188,7 @@ body {
 
 	&.active {
 		transform: translate(-50%, -50%) scale(1);
+		visibility: visible;
 	}
 
 	&__header {
@@ -525,18 +527,35 @@ body {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		font-size: 1rem;
+		text-transform: none;
+		font-weight: 400;
+
+		&:hover,
+		&:focus {
+			box-shadow: 0 0 4px 2px hsl(10, 95%, 14%);
+		}
 	}
 
 	&__icon {
 		height: 24px;
 		width: 24px;
 		margin-right: 0.5rem;
+		fill: hsl(10, 94%, 14%);
 	}
 }
 
 .hidden {
 	display: none;
+}
+
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
 }
 
 .btn--disabled {

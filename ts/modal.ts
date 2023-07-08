@@ -8,8 +8,8 @@ import {
 	updateTotalItemCost,
 	isThereStockAvailable,
 	updateTotalCost,
-	buyItems,
 	resetQuantities,
+	buyItems,
 } from './app.js';
 import * as sound from './sounds.js';
 import './inert.min.js';
@@ -17,6 +17,7 @@ import './inert.min.js';
 // UI Variables //
 const openModalButtons = document.querySelectorAll('[data-modal-open]') as NodeListOf<HTMLButtonElement>;
 const closeModalButtons = document.querySelectorAll('[data-modal-close]') as NodeListOf<HTMLButtonElement>;
+
 const buyButton = document.querySelector('.js-modal-buy') as HTMLButtonElement;
 const resetButton = document.querySelector('.js-quantity-reset') as HTMLButtonElement;
 const overlay = document.querySelector('.overlay') as HTMLDivElement;
@@ -24,10 +25,14 @@ let previousActiveElement: HTMLElement;
 
 // Functions //
 export const openModal = (modal: HTMLDivElement): void => {
+	const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity') as NodeListOf<HTMLInputElement>;
+	const itemCosts = document.querySelectorAll('.market .js-item-cost') as NodeListOf<HTMLSpanElement>;
 	// Save a reference to the previous active element, to restore focus to it once the modal is closed.
 	previousActiveElement = document.activeElement as HTMLElement;
-	// Filter because the array ends up collecting script tags from the HTML that are not necessary.
+
+	// Make inert.
 	let bodyElements = Array.from(document.body.children).filter((element) => element.localName != 'script');
+	// Filter because the array ends up collecting script tags from the HTML that are not necessary.
 	bodyElements.forEach((element) => {
 		// Make the rest of the document inert so that it's not reachable with keyboard navigation.
 		if (element.getAttribute('role') !== 'dialog') {
@@ -36,9 +41,13 @@ export const openModal = (modal: HTMLDivElement): void => {
 	});
 
 	// Open the modal.
-	if (modal == null) {
-		return;
-	} else {
+	if (modal != null) {
+		itemCosts.forEach((cost) => {
+			cost.removeAttribute('aria-live');
+		});
+		itemQuantityInputs.forEach((input) => {
+			input.removeAttribute('aria-live');
+		});
 		sound.drawerOpen.play();
 		modal.classList.add('active');
 		overlay.classList.add('active');
@@ -49,6 +58,9 @@ export const openModal = (modal: HTMLDivElement): void => {
 };
 
 export const closeModal = (modal: HTMLDivElement): void => {
+	const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity') as NodeListOf<HTMLInputElement>;
+	const itemCosts = document.querySelectorAll('.market .js-item-cost') as NodeListOf<HTMLSpanElement>;
+
 	// Remove the inert attribute.
 	const bodyElements = Array.from(document.body.children).filter((element) => element.localName != 'script');
 	bodyElements.forEach((element) => {
@@ -57,8 +69,16 @@ export const closeModal = (modal: HTMLDivElement): void => {
 		}
 	});
 
-	// Close the modal and cleanup.
+	// Close the modal.
 	if (modal != null) {
+		// Add aria-live=off so that the screen reader doesn't read all the values when they return to 0.
+		// At the moment of this happening, these values are not relevant.
+		itemCosts.forEach((cost) => {
+			cost.setAttribute('aria-live', 'off');
+		});
+		itemQuantityInputs.forEach((input) => {
+			input.setAttribute('aria-live', 'off');
+		});
 		sound.drawerClose.play();
 		modal.classList.remove('active');
 		overlay.classList.remove('active');

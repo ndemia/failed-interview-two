@@ -13,12 +13,12 @@
 
 	<body>
 		<!-- Nav bar -->
-		<nav class="navbar">
+		<nav class="navbar" role="navigation">
 			<div class="navbar__container--texture">
-				<span class="navbar__text">
+				<p class="navbar__text">
 					Balance:
 					<span id="gold-balance" class="navbar__text--gold gold-balance"></span>
-				</span>
+				</p>
 				<button data-modal-open="#market" id="buy" class="navbar__btn btn btn--primary js-modal-open">Buy</button>
 			</div>
 		</nav>
@@ -38,7 +38,7 @@
 						/>
 					</svg>
 				</span>
-				<div class="dashboard__message-container js-dashboard-message hidden" role="alert">
+				<div class="dashboard__message-container js-dashboard-message hidden" role="status">
 					<div class="dashboard__message message message--secondary">
 						<span class="message__icon"></span>
 						<span class="message__text"></span>
@@ -50,9 +50,9 @@
 
 		<!-- Modal / Marketplace -->
 		<div id="market" class="modal market" tabindex="-1" role="dialog" aria-hidden="true" aria-label="Marketplace">
-			<div class="modal-dialog modal-dialog-centered">
+			<div class="market__container">
 				<section class="market__header">
-					<h3 class="market__title">Order</h3>
+					<h3 class="market__title">Market</h3>
 					<button class="market__close" data-modal-close title="Close dialog">
 						<svg viewBox="0 0 24 24">
 							<path
@@ -69,8 +69,8 @@
 					<ul class="products__list"></ul>
 				</div>
 				<div class="products__total">
-					<span class="total__text">Total</span>
-					<span class="total__value js-total-value">0 gold</span>
+					<span class="total__text" id="total-value">Total</span>
+					<span class="total__value js-total-value" aria-label="totalvalue">0 gold</span>
 				</div>
 				<div class="market__message-container js-modal-message hidden" role="alert">
 					<div class="market__message message">
@@ -84,9 +84,9 @@
 						<span class="message__text"></span>
 					</div>
 				</div>
-				<div class="market__actions">
+				<div class="market__actions" role="region">
 					<div class="secondary__actions">
-						<button class="btn btn--tertiary js-market-action js-quantity-reset" aria-label="Reset form">Reset</button>
+						<button class="btn btn--tertiary js-market-action js-quantity-reset" aria-label="Clear all item quantities">Clear all</button>
 					</div>
 					<div class="primary__actions">
 						<button class="btn btn--secondary js-modal-cancel js-market-action" data-modal-close aria-label="Cancel">Cancel</button>

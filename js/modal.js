@@ -1,5 +1,5 @@
 import { showMessage, removeMessage } from './messages.js';
-import { enableIncreaseButtons, disableIncreaseButtons, enableMarketActionsButtons, disableMarketActionsButtons, updateTotalItemCost, isThereStockAvailable, updateTotalCost, buyItems, resetQuantities, } from './app.js';
+import { enableIncreaseButtons, disableIncreaseButtons, enableMarketActionsButtons, disableMarketActionsButtons, updateTotalItemCost, isThereStockAvailable, updateTotalCost, resetQuantities, buyItems, } from './app.js';
 import * as sound from './sounds.js';
 import './inert.min.js';
 // UI Variables //
@@ -11,10 +11,13 @@ const overlay = document.querySelector('.overlay');
 let previousActiveElement;
 // Functions //
 export const openModal = (modal) => {
+    const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity');
+    const itemCosts = document.querySelectorAll('.market .js-item-cost');
     // Save a reference to the previous active element, to restore focus to it once the modal is closed.
     previousActiveElement = document.activeElement;
-    // Filter because the array ends up collecting script tags from the HTML that are not necessary.
+    // Make inert.
     let bodyElements = Array.from(document.body.children).filter((element) => element.localName != 'script');
+    // Filter because the array ends up collecting script tags from the HTML that are not necessary.
     bodyElements.forEach((element) => {
         // Make the rest of the document inert so that it's not reachable with keyboard navigation.
         if (element.getAttribute('role') !== 'dialog') {
@@ -22,10 +25,13 @@ export const openModal = (modal) => {
         }
     });
     // Open the modal.
-    if (modal == null) {
-        return;
-    }
-    else {
+    if (modal != null) {
+        itemCosts.forEach((cost) => {
+            cost.removeAttribute('aria-live');
+        });
+        itemQuantityInputs.forEach((input) => {
+            input.removeAttribute('aria-live');
+        });
         sound.drawerOpen.play();
         modal.classList.add('active');
         overlay.classList.add('active');
@@ -35,6 +41,8 @@ export const openModal = (modal) => {
     }
 };
 export const closeModal = (modal) => {
+    const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity');
+    const itemCosts = document.querySelectorAll('.market .js-item-cost');
     // Remove the inert attribute.
     const bodyElements = Array.from(document.body.children).filter((element) => element.localName != 'script');
     bodyElements.forEach((element) => {
@@ -42,8 +50,16 @@ export const closeModal = (modal) => {
             element.inert = false;
         }
     });
-    // Close the modal and cleanup.
+    // Close the modal.
     if (modal != null) {
+        // Add aria-live=off so that the screen reader doesn't read all the values when they return to 0.
+        // At the moment of this happening, these values are not relevant.
+        itemCosts.forEach((cost) => {
+            cost.setAttribute('aria-live', 'off');
+        });
+        itemQuantityInputs.forEach((input) => {
+            input.setAttribute('aria-live', 'off');
+        });
         sound.drawerClose.play();
         modal.classList.remove('active');
         overlay.classList.remove('active');

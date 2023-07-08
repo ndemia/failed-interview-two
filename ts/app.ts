@@ -17,7 +17,7 @@ const showCurrentStock = (stock: item[]): void => {
 			'beforeend',
 			`<li class="dashboard__item">
 				<div class="item__container item__container--texture">
-					<img src="assets/images/${item.filename}.png" class="item__image" alt="A ${item.name}"/>
+					<img src="assets/images/${item.filename}.png" class="item__image" alt=""/>
 					<div class="item__info">
 						<h3 class="item__name">${item.name}</h3>
 						<div class="item__info--container">
@@ -33,7 +33,7 @@ const showCurrentStock = (stock: item[]): void => {
 			'beforeend',
 			`<li class="products__item">
 				<div class="item__container">
-				<img src="assets/images/${item.filename}.png" class="item__image" alt="A ${item.name}">
+				<img src="assets/images/${item.filename}.png" class="item__image" alt="">
 					<div class="item__info">
 						<h3 class="item__name">${item.name}</h3>
 						<div class="item__details">
@@ -41,9 +41,9 @@ const showCurrentStock = (stock: item[]): void => {
 							<span class="item__price" data-item-id="${item.id}">Price: ${item.price}</span>
 						</div>
 					</div>
-					<div class="item__actions" data-item-id="${item.id}">
+					<div class="item__actions" data-item-id="${item.id}" role="status">
 						<button class="item__decrease js-market-decrease" aria-label="Decrease ${item.name} quantity">-</button>
-						<input type="number" name="item__quantity" class="item__quantity js-item-quantity" value="0" min="0" max="${item.quantity}" data-item-id="${item.id}" data-item-name="${item.name}" aria-label="${item.name} quantity" role="status">
+						<input type="number" name="item__quantity" class="item__quantity js-item-quantity" value="0" min="0" max="${item.quantity}" data-item-id="${item.id}" data-item-name="${item.name}" aria-label="${item.name} quantity" />
 						<button class="item__increase js-market-increase" aria-label="Increase ${item.name} quantity">+</button>	
 					</div>
 					<span class="item__cost js-item-cost" role="status">0 gold</span>
@@ -224,13 +224,14 @@ export const updateTotalCost = (userBalance: number): void => {
 
 export const resetQuantities = (): void => {
 	const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity') as NodeListOf<HTMLInputElement>;
-	const itemCosts = document.querySelectorAll('.market .js-item-cost') as NodeListOf<HTMLInputElement>;
+	const itemCosts = document.querySelectorAll('.market .js-item-cost') as NodeListOf<HTMLSpanElement>;
 	const totalCostElement = document.querySelector('.js-total-value') as HTMLSpanElement;
-	itemQuantityInputs.forEach((input) => {
-		input.value = '0';
-	});
+
 	itemCosts.forEach((cost) => {
 		cost.innerText = '0 gold';
+	});
+	itemQuantityInputs.forEach((input) => {
+		input.value = '0';
 	});
 	totalCostElement.innerText = '0 gold';
 	removeMessage('modal');
@@ -327,7 +328,7 @@ document.addEventListener('DOMContentLoaded', async (): Promise<void> => {
 	}
 });
 
-soundControl.addEventListener('pointerdown', () => {
+soundControl.addEventListener('click', () => {
 	// Toggle sounds on or off
 	if (localStorage.getItem('sounds') === 'off') {
 		localStorage.setItem('sounds', 'on');
