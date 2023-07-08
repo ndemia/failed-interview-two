@@ -10,6 +10,12 @@ const resetButton = document.querySelector('.js-quantity-reset');
 const overlay = document.querySelector('.overlay');
 let previousActiveElement;
 // Functions //
+const checkCloseModal = (e) => {
+    const modal = document.querySelector('.modal');
+    if (e.code === 'Escape') {
+        closeModal(modal);
+    }
+};
 export const openModal = (modal) => {
     const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity');
     const itemCosts = document.querySelectorAll('.market .js-item-cost');
@@ -26,6 +32,7 @@ export const openModal = (modal) => {
     });
     // Open the modal.
     if (modal != null) {
+        // Remove the aria-live="off" attribute in the case the modal is being reopened.
         itemCosts.forEach((cost) => {
             cost.removeAttribute('aria-live');
         });
@@ -38,6 +45,7 @@ export const openModal = (modal) => {
         modal.setAttribute('aria-hidden', 'false');
         // Move focus into the modal.
         modal.querySelector('button').focus();
+        document.addEventListener('keydown', checkCloseModal);
     }
 };
 export const closeModal = (modal) => {
@@ -71,15 +79,15 @@ export const closeModal = (modal) => {
         previousActiveElement.focus();
     }
 };
-export const loadModalFunctionality = (user, stock) => {
+export const loadMarketFunctionality = (user, stock) => {
     const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity');
     const quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');
     const quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease');
+    buyButton.addEventListener('click', buyItems);
     resetButton.addEventListener('click', () => {
         sound.resetQuantities.play();
         resetQuantities();
     });
-    buyButton.addEventListener('click', buyItems);
     openModalButtons.forEach((button) => {
         button.addEventListener('click', () => {
             const modal = document.querySelector('.modal');

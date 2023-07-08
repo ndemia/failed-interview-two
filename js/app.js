@@ -1,6 +1,6 @@
 import { service } from './service.js';
 import { removeMessage, showMessage } from './messages.js';
-import { closeModal, loadModalFunctionality } from './modal.js';
+import { closeModal, loadMarketFunctionality } from './modal.js';
 import * as sound from './sounds.js';
 // UI Variables //
 const dashboardProductList = document.getElementById('stock');
@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Show stock on the dashboard.
         showCurrentStock(items);
         // Pass the user and item stock to the modal/marketpalce so that it can be used to calculate stock and prices later.
-        loadModalFunctionality(user, items);
+        loadMarketFunctionality(user, items);
     }
     catch (error) {
         hideLoader('dashboard');

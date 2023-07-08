@@ -24,6 +24,13 @@ const overlay = document.querySelector('.overlay') as HTMLDivElement;
 let previousActiveElement: HTMLElement;
 
 // Functions //
+const checkCloseModal = (e: KeyboardEvent) => {
+	const modal = document.querySelector('.modal') as HTMLDivElement;
+	if (e.code === 'Escape') {
+		closeModal(modal);
+	}
+};
+
 export const openModal = (modal: HTMLDivElement): void => {
 	const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity') as NodeListOf<HTMLInputElement>;
 	const itemCosts = document.querySelectorAll('.market .js-item-cost') as NodeListOf<HTMLSpanElement>;
@@ -42,6 +49,7 @@ export const openModal = (modal: HTMLDivElement): void => {
 
 	// Open the modal.
 	if (modal != null) {
+		// Remove the aria-live="off" attribute in the case the modal is being reopened.
 		itemCosts.forEach((cost) => {
 			cost.removeAttribute('aria-live');
 		});
@@ -54,6 +62,7 @@ export const openModal = (modal: HTMLDivElement): void => {
 		modal.setAttribute('aria-hidden', 'false');
 		// Move focus into the modal.
 		modal.querySelector('button')!.focus();
+		document.addEventListener('keydown', checkCloseModal);
 	}
 };
 
@@ -91,15 +100,16 @@ export const closeModal = (modal: HTMLDivElement): void => {
 	}
 };
 
-export const loadModalFunctionality = (user: user, stock: item[]): void => {
+export const loadMarketFunctionality = (user: user, stock: item[]): void => {
 	const itemQuantityInputs = document.querySelectorAll('.market .js-item-quantity') as NodeListOf<HTMLInputElement>;
 	const quantityIncreaseButtons = document.querySelectorAll('.js-market-increase') as NodeListOf<HTMLButtonElement>;
 	const quantityDecreaseButtons = document.querySelectorAll('.js-market-decrease') as NodeListOf<HTMLButtonElement>;
+
+	buyButton.addEventListener('click', buyItems);
 	resetButton.addEventListener('click', () => {
 		sound.resetQuantities.play();
 		resetQuantities();
 	});
-	buyButton.addEventListener('click', buyItems);
 
 	openModalButtons.forEach((button) => {
 		button.addEventListener('click', () => {
