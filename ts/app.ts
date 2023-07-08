@@ -5,7 +5,7 @@ import { closeModal, loadMarketFunctionality } from './modal.js';
 import * as sound from './sounds.js';
 
 // UI Variables //
-const dashboardProductList = document.getElementById('stock') as HTMLUListElement;
+const dashboardProductList = document.querySelector('.dashboard__stock') as HTMLUListElement;
 const modalProductList = document.querySelector('.products__list') as HTMLUListElement;
 const soundControl = document.querySelector('.sound__control') as HTMLButtonElement;
 
@@ -65,8 +65,14 @@ export const showGoldBalance = (goldAmount: number): void => {
 };
 
 export const showUserLogin = (login: string): void => {
-	const userName = document.getElementById('user-name') as HTMLSpanElement;
-	userName.innerText = `${login}`;
+	const dashboard = document.querySelector('.dashboard') as HTMLSpanElement;
+	// dashboard.innerText = `${login}`;
+	dashboard.insertAdjacentHTML(
+		'afterbegin',
+		`<h1 class="dashboard__title">Hello,
+			<span id="user-name">${login}</span>
+		</h1>`
+	);
 };
 
 export const disableIncreaseButtons = (): void => {

@@ -3,7 +3,7 @@ import { removeMessage, showMessage } from './messages.js';
 import { closeModal, loadMarketFunctionality } from './modal.js';
 import * as sound from './sounds.js';
 // UI Variables //
-const dashboardProductList = document.getElementById('stock');
+const dashboardProductList = document.querySelector('.dashboard__stock');
 const modalProductList = document.querySelector('.products__list');
 const soundControl = document.querySelector('.sound__control');
 // Functions //
@@ -53,8 +53,11 @@ export const showGoldBalance = (goldAmount) => {
     });
 };
 export const showUserLogin = (login) => {
-    const userName = document.getElementById('user-name');
-    userName.innerText = `${login}`;
+    const dashboard = document.querySelector('.dashboard');
+    // dashboard.innerText = `${login}`;
+    dashboard.insertAdjacentHTML('afterbegin', `<h1 class="dashboard__title">Hello,
+			<span id="user-name">${login}</span>
+		</h1>`);
 };
 export const disableIncreaseButtons = () => {
     let quantityIncreaseButtons = document.querySelectorAll('.js-market-increase');

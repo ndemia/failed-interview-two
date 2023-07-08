@@ -17,7 +17,6 @@ import './inert.min.js';
 // UI Variables //
 const openModalButtons = document.querySelectorAll('[data-modal-open]') as NodeListOf<HTMLButtonElement>;
 const closeModalButtons = document.querySelectorAll('[data-modal-close]') as NodeListOf<HTMLButtonElement>;
-
 const buyButton = document.querySelector('.js-modal-buy') as HTMLButtonElement;
 const resetButton = document.querySelector('.js-quantity-reset') as HTMLButtonElement;
 const overlay = document.querySelector('.overlay') as HTMLDivElement;
