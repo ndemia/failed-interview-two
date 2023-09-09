@@ -1,22 +1,23 @@
-# Marketplace (Failed interview test, volume 2)
+# Marketplace (Interview test, volume 2)
 
-![picture](https://raw.githubusercontent.com/ndemia/demia.me/main/assets/images/interview02.png)
+![picture](https://demia.me/assets/images/marketplace_x2.png)
 
-As soon as I received this test, and read it, I realised that it was not a possibility with my current knowledge at that point in time. I didn't understand some of the requirements to make it work, so I ended the process. So here I am, a couple of years later, trying to make it work. The original test used jQuery but since I'm learning vanilla JS, I'll be converting everything to the latter.
+## Context
+Second installment in my interview test series. As soon as I received this test, and read it, I realised that it was not a possibility with my current knowledge at that point in time. Until now, this assignment has been the most difficult one. It's great to say that I've been able to correct a lot of previous mistakes that I've made in the first iteration of this project.
 
 ## Design
+A design was provided, but I decided to ditch it and make a more fun one instead :)
 
-A design was provided, but I decided to ditch it and make a more fun one instead.
+## Tech Stack
+HTML, CSS (SASS), TypeScript.
 
 ## Pre-built part
-
 - There is a web application with a pre-authenticated user.
 - Each user has an amount of gold coins, which is shown somewhere in the top bar.
 - There is a stock of items to offer, with a price in gold coins and an available amount. E.g.: 3 swords costing 35 each and 2 helmets costing 12 each and so on.
 - For the simplicity of the setup, pre-built storage is in-memory (i.e. some static collections) and the requests to the “back-end” are simulated (see service.js).
 
 ## Part to be built
-
 - [x] Make “Buy” button in the top bar show the dialog which will allow user to buy available items (to be displayed in a modal).
 - [x] User can see available items and their price, can type in an amount to buy (integer value), or increment/decrement it with buttons + and -. Total cost is calculated in real-time and reflects changes to the amount.
 - [x] If the total cost exceeds available money, message appears and buy button is disabled.
@@ -26,11 +27,22 @@ A design was provided, but I decided to ditch it and make a more fun one instead
 - [x] A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
 
 ## Implementation requirements
-
 - Existing features should continue to function.
 - ~~The requested design (and styling) for the "Buy" dialog is implemented (or as close as possible).~~
+- The original test used jQuery but since I'm learning ~~vanilla JavaScript~~ TypeScript, I'll be converting everything to the latter.
 - The domain logic described for the dialog is implemented (real-time updating, constraints/validation checks, updating of the user/stock on purchase, feedback on failure).
 - A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
 - You don’t need to have any database or backend (changes) though if you feel like giving it a try, you can. We do however expect you to write a service / proxy which returns promises to simulate requests to the backend (preferable including some random failures).
+
+## Problems
+The first time I did this project I didn't comprehend that the "database" worked as an API, and replaced it with a Class. It worked, but it was not the original intention. For this new iteration, I corrected this mistake, and reverted to the original code. It didn't come without its challenges.
+
+The API handled requests for each information individually, which makes sense: you request the user, or you request the stock. Each request has a 1 in 3 chances to fail (by design). A lot of the checks during the purchasing process depend on this calls to validate the available item quantity. As well as the item's price, specially when calculating total prices. With so many checks, calls, and potential failures, the challenge was to keep calls to a minimun. Which I managed to achieve! Once that was done successfully, I just passed that information around between the functions or elements that would need it. 
+
+## Accessibility
+I learned about the inert attribute (and its polyfill), and how to use it to 'disable' parts of the website so that they are not keyboard accessible. In this particular case, disabling the 'back' of the website while the modal is open. I also got familiar with 'aria-live' and 'role' attributes so that screen readers can announce changes in the UI. For example, prices updating, alerts and error messages. And finally, I got more comfortable with aria-label, aria-hidden, and improving keyboard navigation.
+
+## Learnings
+TypeScript allowed me to better understand JavaScript. I has also helped me write better, more structered code. I got more comfortable with promises and asynchronous JavaScript, as well as with handling errors, and managing the flow of information, among other things. 
 
 https://ndemia.github.io/marketplace/
