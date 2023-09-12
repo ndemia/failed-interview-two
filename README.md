@@ -3,13 +3,10 @@
 ![picture](https://demia.me/assets/images/marketplace_x2.png)
 
 ## Context
-Second installment in my interview test series. Until now, this assignment has been the most difficult one. It's great to say that I've been able to correct a lot of previous mistakes that I've made in the first iteration of this project.
+Until now, this assignment has been the most difficult one. It's great to say that I've been able to correct a lot of previous mistakes that I've made in the first iteration of this project.
 
 ## Design
 A design was provided, but I decided to ditch it and make a more fun one instead :)
-
-## Tech Stack
-HTML, CSS (SASS), TypeScript.
 
 ## Pre-built part
 - There is a web application with a pre-authenticated user.
@@ -33,6 +30,12 @@ HTML, CSS (SASS), TypeScript.
 - The domain logic described for the dialog is implemented (real-time updating, constraints/validation checks, updating of the user/stock on purchase, feedback on failure).
 - A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
 - You don’t need to have any database or backend (changes) though if you feel like giving it a try, you can. We do however expect you to write a service / proxy which returns promises to simulate requests to the backend (preferable including some random failures).
+
+## Tech Stack
+HTML, CSS (SASS), TypeScript.
+
+## Process
+HTML, CSS (SASS), TypeScript.
 
 ## Problems
 The first time I did this project I didn't comprehend that the database worked as an API, and replaced it with a Class. It worked, but it was not the original intention. For this new iteration, I corrected this mistake, and reverted to the original code to keep that core functionality. 
