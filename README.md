@@ -8,6 +8,9 @@ Until now, this assignment has been the most difficult one. It's great to say th
 ## Design
 A design was provided, but I decided to ditch it and make a more fun one instead :)
 
+## Tech Stack
+HTML, CSS (SASS), TypeScript.
+
 ## Pre-built part
 - There is a web application with a pre-authenticated user.
 - Each user has an amount of gold coins, which is shown somewhere in the top bar.
@@ -30,12 +33,6 @@ A design was provided, but I decided to ditch it and make a more fun one instead
 - The domain logic described for the dialog is implemented (real-time updating, constraints/validation checks, updating of the user/stock on purchase, feedback on failure).
 - A “random” failure request is implemented for the “Buy” request (e.g. once every 3 requests) and the failure is handled.
 - You don’t need to have any database or backend (changes) though if you feel like giving it a try, you can. We do however expect you to write a service / proxy which returns promises to simulate requests to the backend (preferable including some random failures).
-
-## Tech Stack
-HTML, CSS (SASS), TypeScript.
-
-## Process
-HTML, CSS (SASS), TypeScript.
 
 ## Problems
 The first time I did this project I didn't comprehend that the database worked as an API, and replaced it with a Class. It worked, but it was not the original intention. For this new iteration, I corrected this mistake, and reverted to the original code to keep that core functionality. 
